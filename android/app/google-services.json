@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "525662344033",
+    "firebase_url": "https://momscare-8daff-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "momscare-8daff",
+    "storage_bucket": "momscare-8daff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525662344033:android:d6b1754a29fb6622a7eb20",
+        "android_client_info": {
+          "package_name": "com.example.moms_care"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525662344033-f2brmd8o774f49s6al2l96f0vloa236a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBY8-og-w2Hb--56AKUlmJ5dTrEUEbjVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525662344033-f2brmd8o774f49s6al2l96f0vloa236a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
