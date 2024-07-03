@@ -5,7 +5,7 @@ import 'package:moms_care/features/daily_news/data/repository/article_repository
 import 'package:moms_care/features/daily_news/domain/repository/article_repository.dart';
 import 'package:moms_care/features/daily_news/domain/usecases/get_article.dart';
 import 'package:moms_care/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
-import 'config/lang/locale_controller.dart';
+import 'config/local/locale_controller.dart';
 import 'core/helpers/cache_helper.dart';
 import 'features/daily_news/data/data_sources/local/app_database.dart';
 import 'features/daily_news/domain/usecases/get_saved_article.dart';

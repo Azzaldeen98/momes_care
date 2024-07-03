@@ -97,8 +97,29 @@ dependencies:
   firebase_auth: ^5.1.1
   #firebase database
   firebase_database: ^11.0.2
+  responsive_builder: ^0.7.1
+  lottie: ^3.1.2
+  flutter_svg: ^2.0.10+1
+  image_picker: ^1.1.2
+  flutter_local_notifications: ^17.2.1
+  awesome_dialog: ^3.2.1
+  flutter_iconly: ^1.0.2
+  #A carousel slider widget
+  carousel_slider: ^4.2.1
+#  image_cropper: ^7.1.0
+  fluttertoast: ^8.2.6
+  google_maps_flutter: ^2.2.8
+  geocoding: ^3.0.0
+  dartz: ^0.10.1
+  geolocator: ^12.0.0
+  internet_connection_checker: ^1.0.0+1
+  flutter_keyboard_visibility: ^6.0.0
+  flutter_staggered_animations: ^1.1.1
+  http: ^1.2.1
 
-  #firebase core
+
+
+
   #firebase_core:
 
 

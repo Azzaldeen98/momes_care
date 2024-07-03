@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:moms_care/injection_container.dart';
 
-import 'config/lang/data_locale_translation.dart';
-import 'config/lang/locale_controller.dart';
+import 'config/local/data_locale_translation.dart';
+import 'config/local/locale_controller.dart';
 import 'config/routes/routes.dart';
 import 'config/routes/routes_name.dart';
 import 'config/theme/app_themes.dart';
