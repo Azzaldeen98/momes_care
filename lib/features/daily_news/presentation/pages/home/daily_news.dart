@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/local/locale_controller.dart';
 import 'package:moms_care/config/routes/routes_name.dart';
 import 'package:moms_care/core/helpers/cache_helper.dart';
 import 'package:moms_care/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';

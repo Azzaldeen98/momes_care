@@ -14,7 +14,7 @@ class Helper {
   static ButtonNavigationWidget? buttonNavigation;
   static FirebaseMessageGoogleMapImp? firebaseMessage;
   static Auth?  auth;
-  static bool isStore = false;
+  static bool isAdmin = false;
   static void init() {
     notification = CacheHelper.getBool(ORDER_CACHED) ?? false;
   }

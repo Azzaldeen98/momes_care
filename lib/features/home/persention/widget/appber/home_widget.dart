@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../config/local/locale_controller.dart';
+import '../../../../../core/local/locale_controller.dart';
 import '../../../../../core/utils/theme/color_app.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

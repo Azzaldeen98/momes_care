@@ -5,12 +5,14 @@ class SignUpEntity extends Equatable{
   final String ? firstName;
   final String ? lastName;
   final String ? password;
+  final String ? role;
 
   const SignUpEntity({
     this.email,
     this.firstName,
     this.lastName,
     this.password,
+    this.role,
   });
 
   @override
@@ -20,6 +22,7 @@ class SignUpEntity extends Equatable{
       firstName,
       lastName,
       password,
+      role,
 
     ];
   }

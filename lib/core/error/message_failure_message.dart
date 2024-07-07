@@ -3,14 +3,49 @@ import '../utils/function/choose_name_langauge.dart';
 import '../constants/failure.dart';
 import 'faiture.dart';
 
+
 String mapFailureToMessage(Failure failure) {
+  switch (failure.runtimeType) {
+    case ServerFailure:
+      return  SERVER_FAILURE_MESSAGE_AR;
+
+
+    case EmptyCacheFailure:
+      return EMPTY_CACHE_FAILURE_MESSAGE_AR;
+
+    case OfflineFailure:
+      return OFFLINE_FAILURE_MESSAGE_AR;
+
+    case InvalidEmailOrPasswordFailure:
+      return INVALID_EMAIL_OR_PASSWORD_AR;
+
+    case OTPNotValiedFailure:
+      return OTP_NOT_VALIED_AR;
+
+    case OldPasswordFailure:
+      return OLD_PASSWORD_AR;
+
+    case CustomerExistisFailure:
+      return CUSTOMER_EXISTIS_AR;
+
+    case AccountNotActiveFailure:
+      return ACCOUNT_NOT_ACTIVE_AR;
+
+    case CustomerNotFoundFailure:
+      return CUSTOMER_NOT_FOUND_AR;
+
+    default:
+      return UNEXPECTED_FAILURE_MESSAGE_AR;
+  }
+}
+String mapFailureToMessage2(Failure failure) {
   switch (failure.runtimeType) {
     case ServerFailure:
       return chooseLableLanguage(
           arabicLable: SERVER_FAILURE_MESSAGE_AR,
           englishLable: SERVER_FAILURE_MESSAGE_EN);
 
-    case EmtyCacheFailure:
+    case EmptyCacheFailure:
       return chooseLableLanguage(
           arabicLable: EMPTY_CACHE_FAILURE_MESSAGE_AR,
           englishLable: EMPTY_CACHE_FAILURE_MESSAGE_EN);

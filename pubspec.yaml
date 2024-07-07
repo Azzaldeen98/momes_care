@@ -21,6 +21,9 @@ version: 1.0.0+1
 environment:
   sdk: '>=3.3.3 <4.0.0'
 
+
+
+
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -30,6 +33,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+#  user_repository:
+#    path: 'packages/user_repository'
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -89,14 +95,7 @@ dependencies:
   #Url Launcher
   url_launcher: ^6.3.0
 
-  #firebase storage
-  firebase_storage: ^12.1.0
-  #firebase messaging
-  firebase_messaging: ^15.0.2
-  #firebase auth
-  firebase_auth: ^5.1.1
-  #firebase database
-  firebase_database: ^11.0.2
+
   responsive_builder: ^0.7.1
   lottie: ^3.1.2
   flutter_svg: ^2.0.10+1
@@ -116,7 +115,19 @@ dependencies:
   flutter_keyboard_visibility: ^6.0.0
   flutter_staggered_animations: ^1.1.1
   http: ^1.2.1
+  json_annotation: ^4.9.0
+  json_serializable: ^6.8.0
 
+  #firebase core
+  firebase_core: ^3.1.1
+  #firebase storage
+  firebase_storage: ^12.1.0
+  #firebase messaging
+  firebase_messaging: ^15.0.2
+  #firebase auth
+  firebase_auth: ^5.1.1
+  #firebase database
+  firebase_database: ^11.0.2
 
 
 
@@ -143,6 +154,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -199,6 +212,9 @@ flutter:
     - assets/images/gif/
     - assets/icons/
     - assets/fonts/
+    - assets/lottie/
+    - assets/json/map_style_with_google.json
+#    - json/
 
   # change the main icon for app
 flutter_icons:

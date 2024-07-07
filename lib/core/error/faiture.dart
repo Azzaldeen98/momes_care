@@ -16,7 +16,7 @@ class ServerFailure extends Failure {
 }
 
 //خطاء بحالة لا توجد  بيانات بالكاش
-class EmtyCacheFailure extends Failure {
+class EmptyCacheFailure extends Failure {
   @override
   List<Object?> get props => [];
 }

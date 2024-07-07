@@ -6,6 +6,12 @@ class CacheHelper {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
+  // SharedPreferences getInstance()  {
+  //   if(_sharedPreferences==null)
+  //     Future.value(init());
+  //   return _sharedPreferences;
+  // }
+
   static void setString(String key, String value) =>
       _sharedPreferences.setString(key, value);
 
@@ -16,7 +22,7 @@ class CacheHelper {
 
   static String? getString(String key) => _sharedPreferences.getString(key);
   static int? getInt(String key) => _sharedPreferences.getInt(key);
-  static bool? getBool(String key) => _sharedPreferences.getBool(key);
+  static bool? getBool(String key) =>  _sharedPreferences.getBool(key);
 
   static Future<bool> removeAt(String key) => _sharedPreferences.remove(key);
   static Future<bool> clearAll() => _sharedPreferences.clear();
