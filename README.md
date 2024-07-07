@@ -14,3 +14,10 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+# 	Bottoms Navigation Bar Libraries
+    `motion_tab_bar`
+    `awesome_bottom_bar`
+    `floating_bottom_bar`
+    `curved_navigation_bar`

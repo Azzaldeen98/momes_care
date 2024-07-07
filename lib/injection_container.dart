@@ -15,6 +15,7 @@ import 'package:moms_care/features/forum/domain/usecases/post/get_all_posts_use_
 import 'package:moms_care/features/forum/presentation/bloc/post/post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/post/post_event.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'core/constants/api_servers.dart';
 import 'core/controller/work_on_servers/network/network_info.dart';
 import 'core/local/locale_controller.dart';
 import 'core/helpers/cache_helper.dart';
@@ -76,6 +77,7 @@ Future<void> init() async {
   sl.registerLazySingleton<PostRepository>(() => PostRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(remoteRestApiDataSource: sl(),remoteFirebaseDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<FirebaseAuthApiService>(() => FirebaseAuthApiServiceImp(firebaseAuth: FirebaseAuth?.instance));
+  sl.registerLazySingleton<AuthApiService>(() => AuthApiServiceImpl(sl(),baseUrl: BASE_URL));
   sl.registerLazySingleton<FirebaseAuthRepository>(() => FirebaseAuthRepositoryImp(networkInfo: sl(),remoteDataSource: sl()));
   sl.registerLazySingleton<FleetkeyRepostitory>(() => FleetkeyRepostitoryImp(remoteDataSource: sl(), networkInfo: sl()));
 
@@ -125,7 +127,7 @@ Future<void> init() async {
   sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteImplWithHttp(client: sl()));
 
   //Post
-  sl.registerLazySingleton<PostRemoteDataSource>(() => PostRemoteDataSourceImpl(sl(),baseUrl:baseURL));
+  sl.registerLazySingleton<PostRemoteDataSource>(() => PostRemoteDataSourceImpl(sl(),baseUrl:BASE_URL));
 
   // Dependencies
   sl.registerSingleton<NewsApiService>(NewsApiService(sl()));

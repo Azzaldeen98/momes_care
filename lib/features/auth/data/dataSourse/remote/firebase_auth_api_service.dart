@@ -53,18 +53,27 @@ class FirebaseAuthApiServiceImp implements FirebaseAuthApiService {
   @override
   Future<Auth> signUp(Map<String, dynamic> model) async {
     try{
+
       UserCredential user_credit= await _firebaseAuth.createUserWithEmailAndPassword(
           email:model['email']! ,
           password:model['password']!);
+      print("UserCredential");
+
+      if(user_credit==null)  throw CustomerExistisExecption();
+
       final user=Auth(userInfo:local.UserInfo(
           uId: user_credit.user?.uid,
           email:user_credit.user?.email));
       return user;
 
     } on FirebaseException{
-      rethrow;
+      print("UserCredential-E1");
+      throw CustomerExistisExecption();
     }on ServerExecption{
       throw ServerExecption();
+    }catch(e){
+      print("UserCredential-E2");
+      throw CustomerExistisExecption();
     }
   }
 

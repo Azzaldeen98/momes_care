@@ -14,7 +14,16 @@ class ServerFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
-
+// firebase error
+class FirebaseFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}
+// sigOut error
+class SigOutFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}
 //خطاء بحالة لا توجد  بيانات بالكاش
 class EmptyCacheFailure extends Failure {
   @override

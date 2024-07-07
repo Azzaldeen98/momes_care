@@ -1,5 +1,6 @@
 
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moms_care/core/controller/work_on_servers/network/network_info.dart';
 import '../../error/exception.dart';
 import '../../error/faiture.dart';
@@ -9,17 +10,21 @@ import '../../error/faiture.dart';
 
   if(await networkInfo.isConnected){
     try{
+
       final response = await callback();
       return Right(response);
-    } on ServerExecption{
-      return Left(ServerFailure());
-    }on InvalidEmailOrPasswordExecption{
-      return Left(InvalidEmailOrPasswordFailure());
-    } on CustomerExistisExecption{
-      return Left(CustomerExistisFailure());
-    } on AccountNotActiveExecption {
-      return Left(AccountNotActiveFailure());
     }
+    on ServerExecption{ return Left(ServerFailure());}
+    on InvalidEmailOrPasswordExecption{return Left(InvalidEmailOrPasswordFailure());}
+    on AccountNotActiveExecption{return Left(AccountNotActiveFailure());}
+    on OldPasswordExecption{return Left(OldPasswordFailure());}
+    on SigOutExecption{return Left(SigOutFailure());}
+    on CustomerExistisExecption{return Left(CustomerExistisFailure());}
+    on CustomerNotFoundExecption {return Left(CustomerNotFoundFailure());}
+    on FirebaseException{return Left(FirebaseFailure());}
+    on OfflineExecption{return Left(OfflineFailure());}
+    on EmptyCacheException{return Left(EmptyCacheFailure());}
+
   }else{
     return Left(OfflineFailure());
   }

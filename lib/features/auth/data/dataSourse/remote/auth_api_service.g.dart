@@ -8,17 +8,16 @@ part of 'auth_api_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _AuthApiService implements AuthApiService {
-  _AuthApiService(
+class AuthApiServiceImpl implements AuthApiService {
+
+  AuthApiServiceImpl(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://newsapi.org/v2/Account';
-  }
+  }) ;
 
   final Dio _dio;
-
-  String? baseUrl;
+  final String? baseUrl;
+  final String api="api/v1/Auth";
 
   @override
   Future<Auth> signIn(Map<String, dynamic> request) async {
@@ -35,7 +34,7 @@ class _AuthApiService implements AuthApiService {
     )
             .compose(
               _dio.options,
-              '/signIn',
+              '${api}/SignIn',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -68,7 +67,7 @@ class _AuthApiService implements AuthApiService {
       extra: _extra,
     ).compose(
               _dio.options,
-              '/signUp',
+              '/SignUp',
               queryParameters: queryParameters,
               data: _data,
             )

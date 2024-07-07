@@ -3,6 +3,8 @@ import 'package:moms_care/features/auth/data/models/signup_model.dart';
 import 'package:moms_care/features/auth/domain/entities/user_info.dart';
 import 'package:moms_care/features/daily_news/data/models/article.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:substring_highlight/substring_highlight.dart';
+import '../../../../../core/constants/api_servers.dart';
 import '../../../../../core/constants/constants.dart';
 import 'package:dio/dio.dart';
 import '../../../../../core/error/exception.dart';
@@ -14,14 +16,14 @@ import '../../../domain/entities/auth.dart';
 part 'auth_api_service.g.dart';
 
 
-@RestApi(baseUrl:"${baseURL}/Account")
+@RestApi(baseUrl:"${BASE_URL}api/v1/Auth")
 abstract class AuthApiService {
 
-  factory AuthApiService(Dio dio) = _AuthApiService;
-  
-  @POST('/signIn')
+  factory AuthApiService(Dio dio) = AuthApiServiceImpl;
+
+  @POST('/SignIn')
   Future<Auth> signIn(@Body() Map<String, dynamic> model);
-  @POST('/signUp')
+  @POST('/SignUp')
   Future<Auth> signUp(@Body() Map<String, dynamic> model );
 }
 

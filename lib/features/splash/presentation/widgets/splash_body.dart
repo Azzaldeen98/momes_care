@@ -59,15 +59,17 @@ class SplashViewBodyState extends State<SplashViewBody>
 
   void _goToNextView() {
     Future.delayed(const Duration(seconds: 5), () async {
-      if (Helper.isAuth) {
-        String infoAccount = CacheHelper.getString(INFO_ACCOUNT_CACHED) ?? "";
-        final decodeJson = json.decode(infoAccount);
-        Helper.auth = Auth.fromJson(decodeJson);
-        Helper.isAdmin = Helper.auth?.userInfo != null && Helper.auth?.userInfo?.role==UserRoles.ADMIN;
-        Get.offAll(() => const HomeView());
-      } else {
-        Get.offAll(() => const AuthView());
-      }
+
+      Get.offAll(() => const HomePage());
+      // if (Helper.isAuth) {
+      //   String infoAccount = CacheHelper.getString(INFO_ACCOUNT_CACHED) ?? "";
+      //   final decodeJson = json.decode(infoAccount);
+      //   Helper.auth = Auth.fromJson(decodeJson);
+      //   Helper.isAdmin = Helper.auth?.userInfo != null && Helper.auth?.userInfo?.role==UserRoles.ADMIN;
+      //   Get.offAll(() => const HomePage());
+      // } else {
+      //   Get.offAll(() => const AuthView());
+      // }
     });
   }
 }

@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-const   BASE_URL = 'http://sps.runasp.net/'; //http://sparepart2024-001-site1.ctempurl.com/';
+const   BASE_URL = 'http://momescare.runasp.net/';
 
 const PUBLIC_BAST_URL = "AIzaSyBgURR4gxzb2EIU1jtibGmQBnA4PxkLgO4";
 
