@@ -1,80 +1,71 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:moms_care/core/constants/cached/cached_name.dart';
+import 'package:moms_care/core/error/exception.dart';
+import 'package:moms_care/core/server/header_server.dart';
 
 import '../../helpers/cache_helper.dart';
 
-class ApiService {
+class RemoteDioService {
 
-  ApiService(this._dio,this.cancelToken);
+  RemoteDioService(this._dio){
+    cancelToken=CancelToken();
+  }
 
-  final CancelToken cancelToken;
+  CancelToken? cancelToken;
   final Dio _dio ;
 
-  Future<String> execute(Function(Dio dio) apiCall) async {
+  Future<dynamic> call(Function(Dio dio) apiCall,Dio _dio) async {
+
+    print( 'Rest_Api_Execute');
     try {
       final response = await apiCall(_dio,);
-      if (response.statusCode == 200) {
-        if (response.data is String) {
-          return response.data;
-        } else {
-          return json.encode(response?.data!); // Convert Map to JSON string
-        }
 
+      print('Request_with_status: ${response.statusCode}');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.data;
+        // if (response.data is String) {
+        //   return response.data;
+        // } else {
+        //   return json.encode(response?.data!); // Convert Map to JSON string
+        // }
       } else {
-        throw Exception('Request failed with status: ${response.statusCode}');
+        printError(info: 'Request failed with status: ${response.statusCode}');
+        throw ServerExecption();
       }
-    } on SocketException catch (e) {
-      throw Exception('$e');
-    }
-    catch (e) {
-      throw Exception('Failed to execute request: $e');
+    }catch(e){
+      printError(info: '#Exception: ${e}');
+      rethrow;
     }
   }
-  Future<String> executeWithToken(Function(Dio dio) apiCall) async {
-    try {
-      var token = CacheHelper.getString(AUTH_TOKEN_CACHED);
-      if (token == null)
-        throw Exception("not Authorize !!");
 
-      // _dio.options.headers['content-Type'] = 'application/json';
-      _dio.options.headers={
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer YOUR_API_KEY',
-      };
+  Future<dynamic?> execute(Function(Dio dio) apiCall) async {
+    // _dio.options.headers=HeaderServer.header;
+    var response= await call(apiCall,_dio);
+    return  response; // json.decode(response!);
 
-      final response = await apiCall(_dio);
-      if (response != null && response.statusCode == 200) {
-        print("response is Success: ${response.data}");
-        if (response.data is String) {
-          return response?.data; // No need for casting
-        } else {
-          return json.encode(response?.data!); // Convert Map to JSON string
-        }
+  }
+  Future<dynamic?> executeWithToken(Function(Dio dio) apiCall) async {
 
-      } else {
-        throw Exception('Request failed with status: ${response.statusCode}');
-      }
+    _dio.options.headers=HeaderServer.headerWithToken;
+    var response= await call(apiCall,_dio);
+    return  response; //json.decode(response!);
 
-    } on SocketException catch (e) {
+      // var token = CacheHelper.getString(AUTH_TOKEN_CACHED);
+      // if (token == null)
+      //   throw Exception("not Authorize !!");
+      //
+      // _dio.options.headers={
+      //   'Content-Type': 'application/json',
+      //   'Authorization': 'Bearer YOUR_API_KEY',
+      // };
 
-      throw Exception('$e');
-    }
-    catch (error) {
-      if (error is DioError) {
-        if (error.response != null) {
-          print('Request failed with status code: ${error.response!.statusCode}');
-          if(error.response!.statusCode == 401) {
 
-          }
 
-        }
-      }
-      throw Exception('Failed to execute request: $error');
-
-    }
   }
 
 }

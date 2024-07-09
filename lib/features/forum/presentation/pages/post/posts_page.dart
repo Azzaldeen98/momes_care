@@ -8,6 +8,7 @@ import 'package:moms_care/core/constants/enam/forum_pages.dart';
 import 'package:moms_care/features/forum/presentation/bloc/post/post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/post/post_event.dart';
 import '../../../../../core/utils/dailog/message/message_box.dart';
+import '../../../../../core/widget/navigation_bar/bottom_navigation_bar.dart';
 import '../../../domain/entities/Post.dart';
 import '../../bloc/post/post_state.dart';
 import '/injection_container.dart' as di;
@@ -35,6 +36,7 @@ class _PostsPageState extends State<PostsPage> {
     return BlocProvider(
       create: (context) => di.sl<PostBloc>()..add(GetAllPostsEvent()),
       child: Scaffold(
+        bottomNavigationBar:AppBottomNavigationBar(),
         backgroundColor: const Color.fromRGBO(215, 212, 212, 1.0),
         body: BlocConsumer<PostBloc, PostState>(
           builder: _builderPostsPageBlocState,

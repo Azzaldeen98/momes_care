@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:moms_care/core/local/locale_controller.dart';
 import 'package:moms_care/config/routes/routes_name.dart';
-import 'package:moms_care/core/helpers/cache_helper.dart';
 import 'package:moms_care/features/daily_news/domain/entities/article.dart';
 import 'package:moms_care/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:moms_care/features/daily_news/presentation/bloc/article/remote/remote_article_state.dart';
@@ -15,6 +14,8 @@ import 'package:moms_care/features/daily_news/presentation/widgets/article_tile.
 import 'package:moms_care/features/moms_care/presentation/bloc/local/speech/commands.dart';
 import 'package:moms_care/features/moms_care/presentation/bloc/local/speech/speech.dart';
 import 'package:substring_highlight/substring_highlight.dart';
+
+import '../../../../../core/widget/navigation_bar/bottom_navigation_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -33,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+        bottomNavigationBar:AppBottomNavigationBar(),
       appBar: AppBar(
         backgroundColor: Colors.teal,
         centerTitle: true,

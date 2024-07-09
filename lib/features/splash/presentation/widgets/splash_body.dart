@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:moms_care/features/forum/presentation/pages/post/posts_page.dart';
 import '../../../../config/theme/text_style.dart';
 import '../../../../core/constants/cached/cached_name.dart';
 import '../../../../core/constants/enam/user_roles.dart';
@@ -13,6 +14,8 @@ import '../../../auth/domain/entities/auth.dart';
 import '../../../auth/persention/page/auth_view.dart';
 import '../../../home/persention/pages/home_page.dart';
 import '../../../home/persention/pages/home_view.dart';
+import '../on_boarding_screen.dart';
+
 
 
 class SplashViewBody extends StatefulWidget {
@@ -60,16 +63,20 @@ class SplashViewBodyState extends State<SplashViewBody>
   void _goToNextView() {
     Future.delayed(const Duration(seconds: 5), () async {
 
-      Get.offAll(() => const HomePage());
-      // if (Helper.isAuth) {
-      //   String infoAccount = CacheHelper.getString(INFO_ACCOUNT_CACHED) ?? "";
-      //   final decodeJson = json.decode(infoAccount);
-      //   Helper.auth = Auth.fromJson(decodeJson);
-      //   Helper.isAdmin = Helper.auth?.userInfo != null && Helper.auth?.userInfo?.role==UserRoles.ADMIN;
-      //   Get.offAll(() => const HomePage());
-      // } else {
-      //   Get.offAll(() => const AuthView());
-      // }
+      if (Helper.isAuth) {
+        String infoAccount = CacheHelper.getString(INFO_ACCOUNT_CACHED) ?? "";
+        print("infoAccount: $infoAccount");
+
+          final decodeJson = json.decode(infoAccount);
+          Helper.auth = Auth.fromJson(decodeJson);
+          Helper.isAdmin = Helper.auth?.userInfo != null &&
+              Helper.auth?.userInfo?.role == UserRoles.ADMIN;
+          Get.offAll(() => const PostsPage());
+
+      }
+      else
+        Get.offAll(() => const OnBoardingScreen());
+
     });
   }
 }

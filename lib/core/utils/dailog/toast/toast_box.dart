@@ -12,5 +12,6 @@ class ToastBox {
         backgroundColor: AppColors.redOneColor,
         textColor: Colors.white,
         fontSize: 14.0);
+
   }
 }

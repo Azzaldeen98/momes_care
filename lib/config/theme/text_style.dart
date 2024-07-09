@@ -24,6 +24,8 @@ mixin AppTextStyles {
     );
   }
 
+
+
   static TextStyle getLabelStyle(
       {double fontSize = FontSizeManager.s14,
         FontWeight fontWeight = FontWeightManager.regular,
@@ -135,7 +137,7 @@ mixin AppTextStyles {
 //* Bold
   static TextStyle getBoldStyle(
       {double fontSize = FontSizeManager.s14,
-      FontWeight fontWeight = FontWeightManager.regular,
+      FontWeight fontWeight = FontWeightManager.bold,
       Color color = AppColors.grayOneColor}) {
     return TextStyle(
       fontFamily: FontFamilyNames.dINNextLTArabicBold,
@@ -144,4 +146,6 @@ mixin AppTextStyles {
       color: color,
     );
   }
+
+  // static TextStyle getBoldStyle()=>getBoldStyle(fontSize: FontSizeManager())
 }

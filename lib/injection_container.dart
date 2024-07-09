@@ -18,7 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/constants/api_servers.dart';
 import 'core/controller/work_on_servers/network/network_info.dart';
 import 'core/local/locale_controller.dart';
-import 'core/helpers/cache_helper.dart';
+import 'core/remote/api_service.dart';
 import 'features/auth/data/dataSourse/auth_remote_data_source.dart';
 import 'features/auth/data/dataSourse/remote/auth_api_service.dart';
 import 'features/auth/data/dataSourse/remote/firebase_auth_api_service.dart';
@@ -58,6 +58,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => InternetConnectionChecker());
   //? Dio
   sl.registerSingleton<Dio>(Dio());
+  //?ApiService
+  sl.registerSingleton<RemoteDioService>(RemoteDioService(sl()));
 
   //? Database
   final database = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
@@ -77,7 +79,7 @@ Future<void> init() async {
   sl.registerLazySingleton<PostRepository>(() => PostRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(remoteRestApiDataSource: sl(),remoteFirebaseDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<FirebaseAuthApiService>(() => FirebaseAuthApiServiceImp(firebaseAuth: FirebaseAuth?.instance));
-  sl.registerLazySingleton<AuthApiService>(() => AuthApiServiceImpl(sl(),baseUrl: BASE_URL));
+  // sl.registerLazySingleton<AuthApiService>(() => _AuthApiService(sl(),baseUrl: BASE_URL));
   sl.registerLazySingleton<FirebaseAuthRepository>(() => FirebaseAuthRepositoryImp(networkInfo: sl(),remoteDataSource: sl()));
   sl.registerLazySingleton<FleetkeyRepostitory>(() => FleetkeyRepostitoryImp(remoteDataSource: sl(), networkInfo: sl()));
 
@@ -124,10 +126,9 @@ Future<void> init() async {
 
   //? Datasources
   //login
-  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteImplWithHttp(client: sl()));
-
+  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(remoteDioService: sl(),baseUrl: BASE_URL));
   //Post
-  sl.registerLazySingleton<PostRemoteDataSource>(() => PostRemoteDataSourceImpl(sl(),baseUrl:BASE_URL));
+  sl.registerLazySingleton<PostRemoteDataSource>(() => PostRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
 
   // Dependencies
   sl.registerSingleton<NewsApiService>(NewsApiService(sl()));

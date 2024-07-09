@@ -20,6 +20,6 @@ class SignUpEntity extends Equatable{
   });
 
   @override
-  List < Object ? > get props => [uId,email, firstName, lastName, password,];
+  List < Object ? > get props => [uId,email, firstName, lastName, password,role];
 
 }

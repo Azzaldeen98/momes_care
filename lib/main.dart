@@ -15,13 +15,13 @@ import 'core/local/locale_controller.dart';
 import 'config/routes/routes.dart';
 import 'config/routes/routes_name.dart';
 import 'config/theme/app_themes.dart';
-import 'core/helpers/cache_helper.dart';
 import 'features/auth/persention/bloc/auth_bloc/auth_bloc.dart';
 import 'features/auth/persention/page/sigin_page.dart';
 import 'features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
 import 'features/daily_news/presentation/pages/home/daily_news.dart';
 import 'features/home/persention/pages/home_page.dart';
+import 'helpers/cache_helper.dart';
 import 'helpers/my_bloc_observer.dart';
 import 'helpers/public_infromation.dart';
 
@@ -30,20 +30,11 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   Helper.isAuth = CacheHelper.getString(AUTH_TOKEN_CACHED) != null;
-  Bloc.observer = MyBlocObserver();
   await Firebase.initializeApp();
   await di.init();
+  Bloc.observer = MyBlocObserver();
   // Helper.init();
-
-
-  // FirebaseAuth.instance
-  //     .authStateChanges()
-  //     .listen((User? user) {
-  //   // Helper.isAuth= (user != null);
-  //
-  //     });
-
-  // LocaleController().chingeLanguage(languageCode:"ar");
+  LocaleController().chingeLanguage(languageCode:"ar");
   runApp(const MyApp());
 }
 
@@ -52,9 +43,10 @@ void main() async{
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
 
 
     SystemChrome.setSystemUIOverlayStyle(

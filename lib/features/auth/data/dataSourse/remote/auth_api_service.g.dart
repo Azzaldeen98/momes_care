@@ -8,83 +8,96 @@ part of 'auth_api_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class AuthApiServiceImpl implements AuthApiService {
+class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
-  AuthApiServiceImpl(
-    this._dio, {
-    this.baseUrl,
-  }) ;
+  // final Dio _dio;
+  String? baseUrl;
+   final RemoteDioService? remoteDioService ;
 
-  final Dio _dio;
-  final String? baseUrl;
-  final String api="api/v1/Auth";
+  AuthRemoteDataSourceImpl({ this.remoteDioService, this.baseUrl}) {
+    baseUrl ??='${BASE_URL}';
+    baseUrl='${baseUrl}api/v1/Auth';
+  }
+
+
 
   @override
-  Future<Auth> signIn(Map<String, dynamic> request) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(request);
-    final resonse = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<UserInfo>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '${api}/SignIn',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+  Future<Auth> signIn(Map<String, dynamic> model) async {
 
-      if (resonse.statusCode == 200 || resonse.statusCode == 201) {
-        return Auth.fromJson({'userInfo': resonse});
-      } else {
-        throw ServerExecption();
-      }
+    final _json = await remoteDioService?.execute((dio) => dio.post('${baseUrl}/SignIn',
+        data: jsonEncode(model)));
+    // final jsonMap=json.decode(_json);
+    var response = BaseResponse.fromJson(_json!);
+    if(response !=null && response.result!=null){
+      print("jsonMap: ${response.result.toString()}");
+      return Auth(userInfo: UserInfo.fromJson(response.result!));
+    }
+    else
+       throw ServerExecption();
 
+    // final _extra = <String, dynamic>{};
+    // final queryParameters = <String, dynamic>{};
+    // final _headers = <String, dynamic>{};
+    // final _data = <String, dynamic>{};
+    // _data.addAll(model);
+    // final _result =
+    //     await _dio.fetch<Map<String, dynamic>>(_setStreamType<Auth>(Options(
+    //   method: 'POST',
+    //   headers: _headers,
+    //   extra: _extra,
+    // )
+    //         .compose(
+    //           _dio.options,
+    //           '/SignIn',
+    //           queryParameters: queryParameters,
+    //           data: _data,
+    //         )
+    //         .copyWith(
+    //             baseUrl: _combineBaseUrls(
+    //           _dio.options.baseUrl,
+    //           baseUrl,
+    //         ))));
+  //   final _value = Auth.fromJson(_result.data!);
+  //   return _value;
   }
 
   @override
-  Future<Auth> signUp(Map<String, dynamic>  model) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(model);
-    final resonse =
-    await _dio.fetch(
-        _setStreamType(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    ).compose(
-              _dio.options,
-              '/SignUp',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
+  Future<Unit> signUp(Map<String, dynamic> model) async {
 
-    if (resonse.statusCode == 200 || resonse.statusCode == 201) {
-      return Future.value(Auth());
-    } else {
+    final _json = await remoteDioService?.execute((dio) => dio.post('${baseUrl}/SignUp',
+        data: jsonEncode(model)));
+    print("dio: ${_json.toString()}");
+    var response = BaseResponse.fromJson(_json);
+    if(response !=null && response.isSuccess! ){
+      print("signUp Successfully");
+      return Future.value(unit);
+    }else
       throw ServerExecption();
-    }
-    // final _value = UserInfo.fromJson(_result.data!);
-    // final httpResponse = HttpResponse(_value, _result);
-    // return httpResponse;
+
+    // final _extra = <String, dynamic>{};
+    // final queryParameters = <String, dynamic>{};
+    // final _headers = <String, dynamic>{};
+    // final _data = <String, dynamic>{};
+    // _data.addAll(model);
+    // final _result =
+    //     await _dio.fetch<Map<String, dynamic>>(_setStreamType<Auth>(Options(
+    //   method: 'POST',
+    //   headers: _headers,
+    //   extra: _extra,
+    // )
+    //         .compose(
+    //           _dio.options,
+    //           '/SignUp',
+    //           queryParameters: queryParameters,
+    //           data: _data,
+    //         )
+    //         .copyWith(
+    //             baseUrl: _combineBaseUrls(
+    //           _dio.options.baseUrl,
+    //           baseUrl,
+    //         ))));
+    // final _value = Auth.fromJson(_result.data!);
+    // return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

@@ -26,8 +26,8 @@ class PostRepositoryImpl  implements PostRepository{
   Future<Either<Failure, List<Post>>> getAllPosts() async {
 
     return await safeExecuteTaskWithNetworkCheck<List<Post>>(networkInfo,() async{
-      final response= await  remoteDataSource.getAllPosts();
-      return response;
+      return (await  remoteDataSource.getAllPosts()).map((item) => item.toEntity()).toList();
+
     });
   }
 
@@ -40,10 +40,10 @@ class PostRepositoryImpl  implements PostRepository{
   }
 
   @override
-  Future<Either<Failure, Unit>> deletePost(int postId) async {
+  Future<Either<Failure, Unit>> deletePost(int id) async {
 
     return await safeExecuteTaskWithNetworkCheck<Unit>(networkInfo,() async{
-      final response= await  remoteDataSource.deletePost(postId);
+      final response= await  remoteDataSource.deletePost(id);
       return response;
     });
   }
@@ -55,6 +55,15 @@ class PostRepositoryImpl  implements PostRepository{
       final response= await  remoteDataSource.updatePost(PostModel.fromEntity(post));
       return response;
     });
+  }
+
+  @override
+  Future<Either<Failure, Post>> getPost(int id) async{
+      return await safeExecuteTaskWithNetworkCheck<Post>(networkInfo,() async{
+        final response= await  remoteDataSource.getPost(id);
+        return response.toEntity();
+      });
+
   }
 
 

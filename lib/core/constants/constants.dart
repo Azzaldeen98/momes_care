@@ -11,3 +11,5 @@ const String kDefaultImage = "https://www.google.com/search?q=default+image&clie
 
 final List<String> Roles = ['User', 'Doctor','Admin'];
 final List<String> userRoles = ['User'.tr, 'Doctor'.tr];//,'Admin'.tr];
+
+

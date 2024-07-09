@@ -120,4 +120,8 @@ class TypeImage {
   static const String ERROR = "assets/icons/cross-circle.png";
 
   static const String LOGO_COLORS = "assets/icons/logo-color.png";
+
+  static const String  WALK_THEME_IMG1="assets/icons/logo-color.png";
+  static const String  WALK_THEME_IMG2="assets/icons/logo-color.png";
+  static const String  WALK_THEME_IMG3="assets/icons/logo-color.png";
 }

@@ -4,7 +4,7 @@ import 'package:moms_care/core/constants/enam/user_roles.dart';
 import 'package:moms_care/features/auth/domain/entities/signup_entity.dart';
 
 
-part 'signup_model.g.dart';
+// part 'signup_model.g.dart';
 
 @JsonSerializable()
 class SignUpModel extends SignUpEntity{
@@ -39,4 +39,44 @@ class SignUpModel extends SignUpEntity{
   factory SignUpModel.fromEntity(SignUpEntity instance) =>_$SignUpModelFromEntity(instance);
 
 
+
+
+
 }
+
+SignUpModel _$SignUpModelFromEntity(SignUpEntity instance) => SignUpModel(
+    uId: instance.uId,
+    firstName: instance.firstName,
+    lastName: instance.lastName,
+    email: instance.email,
+    password: instance.password,
+    role: instance.role);
+
+SignUpEntity _$SignUpModelToEntity(Map<String, dynamic> json) => SignUpEntity(
+    uId: json['uId'] as String?,
+    email: json['email'] as String?,
+    firstName: json['firstName'] as String?,
+    lastName: json['lastName'] as String?,
+    password: json['password'] as String?,
+    role: json['role'] as String? //$enumDecodeNullable(_$UserRolesEnumMap, json['role']),
+);
+
+
+SignUpModel _$SignUpModelFromJson(Map<String, dynamic> json) => SignUpModel(
+    uId: json['uId'] as String?,
+    email: json['email'] as String?,
+    firstName: json['firstName'] as String?,
+    lastName: json['lastName'] as String?,
+    password: json['password'] as String?,
+    role: json['role'] as String? //$enumDecodeNullable(_$UserRolesEnumMap, json['role']),
+);
+
+Map<String, dynamic> _$SignUpModelToJson(SignUpModel instance) =>
+    <String, dynamic>{
+      'uId': instance.uId,
+      'email': instance.email,
+      'firstName': instance.firstName,
+      'lastName': instance.lastName,
+      'password': instance.password,
+      'role': instance.role,
+    };

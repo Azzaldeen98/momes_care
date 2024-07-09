@@ -1,6 +1,7 @@
 
 // part '';
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -9,24 +10,31 @@ import 'package:flutter/services.dart';
 import 'package:moms_care/features/forum/data/models/post_model.dart';
 import 'package:retrofit/http.dart';
 
+import '../../../../../core/constants/api_servers.dart';
 import '../../../../../core/constants/constants.dart';
+import '../../../../../core/data/models/base_response.dart';
+import '../../../../../core/error/exception.dart';
+import '../../../../../core/remote/api_service.dart';
 import '../../../domain/entities/Post.dart';
 
 @RestApi(baseUrl:"${baseURL}/Account")
 abstract class PostRemoteDataSource{
 
-  factory PostRemoteDataSource(Dio dio) = PostRemoteDataSourceImpl;
+  factory PostRemoteDataSource() = PostRemoteDataSourceImpl;
 
-  @GET('/getAllPosts')
+  @GET('/getAll')
   Future<List<PostModel>> getAllPosts();
 
-  @POST('/addPost')
+  @GET('/getPost')
+  Future<PostModel> getPost(@Query("id") int ? id);
+
+  @POST('/create')
   Future<Unit> addPost(@Body() PostModel model);
 
-  @PUT('/updatePost')
+  @PUT('/update')
   Future<Unit> updatePost(@Body() PostModel model);
 
-  @DELETE('/deletePost')
+  @DELETE('/delete')
   Future<Unit> deletePost(@Query("id") int ? id);
 
 }
@@ -35,14 +43,32 @@ abstract class PostRemoteDataSource{
 
  class PostRemoteDataSourceImpl implements PostRemoteDataSource{
 
-  final Dio dio;
+  // final Dio dio;
    String? baseUrl;
-  PostRemoteDataSourceImpl(this.dio,{this.baseUrl}){
-    baseUrl ??= baseURL;
+  final RemoteDioService? remoteDioService ;
+  PostRemoteDataSourceImpl({this.remoteDioService,this.baseUrl}){
+    baseUrl ??= BASE_URL;
+    baseUrl='${baseUrl}api/v1/Post';
   }
 
   @override
   Future<List<PostModel>> getAllPosts() async {
+
+    final _json = await remoteDioService?.executeWithToken((dio) => dio.get('${baseUrl}/getAll'));
+    // final jsonMap=json.decode(_json);
+    var response = BaseResponse.fromJson(_json!);
+    if(response !=null && response.isSuccess){
+      print("jsonMap: ${response.result.toString()}");
+      // List<dynamic> jsonList = json.decode(response.result!);
+      List<PostModel> posts = (response.result as List).map((item) => PostModel.fromJson(item)).toList();
+
+      return posts;
+    }
+    else
+      throw ServerExecption();
+
+
+
     return  Future.value([PostModel(id: 1,title: "A",body: "Body",likes: 10,publishedAt: DateTime.now()),
       PostModel(id: 2,title: "B",body: "Body",likes: 10,publishedAt: DateTime.now()),
       PostModel(id: 3,title: "C",body: "Body",likes: 10,publishedAt: DateTime.now()),
@@ -52,22 +78,62 @@ abstract class PostRemoteDataSource{
 
   @override
   Future<Unit> addPost(PostModel model) async{
-    // TODO: implement addPost
-    throw UnimplementedError();
+
+    final _json = await remoteDioService?.executeWithToken((dio) => dio.post('${baseUrl}/create',
+    data: jsonEncode({
+      "title":model.title,
+      "body":model.body,})
+    ),);
+    var response = BaseResponse.fromJson(_json!);
+    if(response !=null && response.isSuccess){
+      return unit;
+    }
+    else
+      throw ServerExecption();
+
   }
 
 
 
   @override
   Future<Unit> deletePost(int? id) async{
-    // TODO: implement deletePost
-    throw UnimplementedError();
+
+    final _json = await remoteDioService?.executeWithToken((dio) => dio.delete("${baseUrl}/delete?id=$id"));
+    var response = BaseResponse.fromJson(_json!);
+    if(response !=null && response.isSuccess){
+    return unit;
+    }
+    else
+    throw ServerExecption();
   }
 
   @override
   Future<Unit> updatePost(PostModel model)  async{
-    // TODO: implement updatePost
-    throw UnimplementedError();
+
+    final _json = await remoteDioService?.executeWithToken((dio) => dio.put('${baseUrl}/update',
+        data: jsonEncode({
+          "id":model.id,
+          "title":model.title,
+          "body":model.body,})
+    ),);
+    var response = BaseResponse.fromJson(_json!);
+    if(response !=null && response.isSuccess){
+      return unit;
+    }
+    else
+      throw ServerExecption();
+  }
+
+  @override
+  Future<PostModel> getPost(int? id) async {
+    final _json = await remoteDioService?.executeWithToken((dio) => dio.get('${baseUrl}/getPost?id=$id'));
+    var response = BaseResponse.fromJson(_json!);
+    if(response !=null && response.isSuccess){
+      // print("jsonMap: ${response.result.toString()}");
+      return PostModel.fromJson(response.result)  ;
+    }
+    else
+      throw ServerExecption();
   }
 
 }
