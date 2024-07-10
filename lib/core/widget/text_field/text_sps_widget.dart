@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import '../../utils/function/choose_name_langauge.dart';
 import 'text_field_widget.dart';
 
-class TextFieldSPSWidget extends StatelessWidget {
-  const TextFieldSPSWidget(
+class TextFieldMomsCareWidget extends StatelessWidget {
+  const TextFieldMomsCareWidget(
       {super.key,
       required this.controller,
       required this.name,

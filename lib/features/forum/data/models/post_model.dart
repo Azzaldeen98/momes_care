@@ -1,6 +1,10 @@
 
 
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
+import 'package:moms_care/core/data/entities/author.dart';
+import 'package:moms_care/core/data/models/author_model.dart';
 import 'package:moms_care/features/forum/domain/entities/Comment.dart';
 import 'package:moms_care/features/moms_care/presentation/bloc/local/speech/commands.dart';
 
@@ -14,6 +18,8 @@ import 'comment_model.dart';
 @JsonSerializable()
 class PostModel extends Post{
 
+  // final AuthorModel? author;
+
   PostModel({
     super.id,
     super.title,
@@ -22,20 +28,24 @@ class PostModel extends Post{
     super.likes,
     super.comments,
     super.commentsCount,
+    super.author
   });
 
-  factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
-    id: json['id'] ,
-    title: json['title'] as String?,
-    body: json['body'] as String?,
-    publishedAt: json['publishedAt'] != null
-        ? DateTime.parse(json['publishedAt'] as String)
+  factory PostModel.fromJson(Map<String, dynamic> _json) => PostModel(
+    id: _json['id'] ,
+    title: _json['title'] as String?,
+    body: _json['body'] as String?,
+    publishedAt: _json['publishedAt'] != null
+        ? DateTime.parse(_json['publishedAt'] as String)
         : null,
-    likes: json['likes'] ,
-    commentsCount: json['commentsCount'],
-    comments:(json['comments']==null)?[]
-        :(json['comments'] as List<dynamic>).map((comment) =>
+    likes: _json['likes'] ,
+    commentsCount: _json['commentsCount'],
+    comments:(_json['comments']==null)?[]
+        :(_json['comments'] as List<dynamic>).map((comment) =>
         CommentModel.fromJson(comment!)).toList(),
+
+    author: (_json['author']==null) ?null: AuthorModel.fromJson(_json['author'])
+
   );
 
 
@@ -65,6 +75,7 @@ class PostModel extends Post{
       likes: this.likes,
       commentsCount: this.commentsCount,
       comments: this.comments,
+      author: this.author,
     );
 
 

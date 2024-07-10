@@ -9,7 +9,8 @@ import '../../../../../core/utils/theme/images.dart';
 import '../../../../../core/utils/draw/triangle_clipper.dart';
 import '../../../../../core/utils/theme/theme_app.dart';
 import '../../../../../core/widget/text_field/text_field_shearsh_widget.dart';
-import '../../logic/sps/sps_bloc.dart';
+import '../../bloc/moms_care/moms_care_bloc.dart';
+
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key, required this.body});
@@ -41,11 +42,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                   onChange: () {
                     if (searchController.text.trim().isNotEmpty) {
                       context
-                          .read<SPSBloc>()
-                          .add(SearchSparePartEvent(searchController.text));
-                    } else {
-                      context.read<SPSBloc>().add(const GetSparePartEvent());
+                          .read<MomsCareBloc>()
+                          .add(GetMomsCareItemsEvent());
                     }
+                    // else {
+                    //   context.read<MomsCareBloc>().add(const GetSparePartEvent());
+                    // }
                   },
                 ),
                 const SizedBox(height: 4),

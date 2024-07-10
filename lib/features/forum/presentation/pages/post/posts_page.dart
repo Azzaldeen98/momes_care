@@ -7,10 +7,14 @@ import 'package:moms_care/config/theme/text_style.dart';
 import 'package:moms_care/core/constants/enam/forum_pages.dart';
 import 'package:moms_care/features/forum/presentation/bloc/post/post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/post/post_event.dart';
+import '../../../../../config/theme/color_app.dart';
+import '../../../../../config/theme/font_manager.dart';
 import '../../../../../core/utils/dailog/message/message_box.dart';
+import '../../../../../core/widget/label/text_widget.dart';
 import '../../../../../core/widget/navigation_bar/bottom_navigation_bar.dart';
 import '../../../domain/entities/Post.dart';
 import '../../bloc/post/post_state.dart';
+import '../../wedgits/post_card_widget.dart';
 import '/injection_container.dart' as di;
 
 class PostsPage extends StatefulWidget {
@@ -36,7 +40,7 @@ class _PostsPageState extends State<PostsPage> {
     return BlocProvider(
       create: (context) => di.sl<PostBloc>()..add(GetAllPostsEvent()),
       child: Scaffold(
-        bottomNavigationBar:AppBottomNavigationBar(),
+        // bottomNavigationBar:BottomNavigationWidget(),
         backgroundColor: const Color.fromRGBO(215, 212, 212, 1.0),
         body: BlocConsumer<PostBloc, PostState>(
           builder: _builderPostsPageBlocState,
@@ -65,12 +69,15 @@ class _PostsPageState extends State<PostsPage> {
     if (state is LoadedPostsState) {
       return ListView.builder(
         itemBuilder: (context,index){
-          return PostWidget(
-            post: state.posts![index] ,
-            onPressed: (post){
+          return PostCardWidget(post: state.posts![index]);
+          // TextViewCardWidget(title: state.posts![index]?.title,content: state.posts![index]?.body,) ;
 
-            },
-          );
+          //   PostWidget(
+          //   post: state.posts![index] ,
+          //   onPressed: (post){
+          //
+          //   },
+          // );
         },
         itemCount: state.posts!.length,
       );

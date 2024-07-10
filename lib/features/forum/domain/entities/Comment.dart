@@ -2,6 +2,8 @@
 
 import 'package:equatable/equatable.dart';
 
+import '../../../../core/data/entities/author.dart';
+
 
 class Comment extends Equatable{
 
@@ -9,11 +11,12 @@ class Comment extends Equatable{
   final String? contant;
   final DateTime ? createdAt;
   final int? likes;
+  final Author? author;
 
-  Comment({this.id, this.contant, this.createdAt, this.likes});
+  Comment({this.id, this.contant, this.createdAt, this.likes,this.author});
 
   @override
 
-  List<Object?> get props => [id,contant,createdAt,likes];
+  List<Object?> get props => [id,contant,createdAt,likes,author];
 
 }

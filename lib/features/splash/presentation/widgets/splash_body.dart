@@ -71,7 +71,7 @@ class SplashViewBodyState extends State<SplashViewBody>
           Helper.auth = Auth.fromJson(decodeJson);
           Helper.isAdmin = Helper.auth?.userInfo != null &&
               Helper.auth?.userInfo?.role == UserRoles.ADMIN;
-          Get.offAll(() => const PostsPage());
+          Get.offAll(() => const HomePage());
 
       }
       else

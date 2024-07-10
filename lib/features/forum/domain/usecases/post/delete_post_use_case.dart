@@ -18,3 +18,14 @@ class DeletePostUseCase {
 
 
 }
+class DetailsPostUseCase {
+
+  DetailsPostUseCase();
+
+  @override
+  Post call(Post post)  {
+    return  post;
+  }
+
+
+}

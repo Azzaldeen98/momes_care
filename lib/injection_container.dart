@@ -14,6 +14,13 @@ import 'package:moms_care/features/forum/domain/usecases/post/add_post_use_case.
 import 'package:moms_care/features/forum/domain/usecases/post/get_all_posts_use_case.dart';
 import 'package:moms_care/features/forum/presentation/bloc/post/post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/post/post_event.dart';
+import 'package:moms_care/features/home/data/data_sourse/moms_care_datasourse.dart';
+import 'package:moms_care/features/home/domain/repositories/moms_care_repository.dart';
+import 'package:moms_care/features/home/domain/usecases/get_moms_care_items_usecase.dart';
+import 'package:moms_care/features/home/persention/bloc/moms_care/moms_care_bloc.dart';
+import 'package:moms_care/features/speech/data/dataSourse/remote/speech_remote_datasourse.dart';
+import 'package:moms_care/features/speech/domain/usecases/getsparepart_usecases.dart';
+import 'package:moms_care/features/speech/persention/bloc/speech/speech_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/constants/api_servers.dart';
 import 'core/controller/work_on_servers/network/network_info.dart';
@@ -39,10 +46,12 @@ import 'features/daily_news/presentation/bloc/article/local/local_article_bloc.d
 import 'features/forum/data/repository/post_repository_impl.dart';
 import 'features/forum/domain/usecases/post/delete_post_use_case.dart';
 import 'features/forum/domain/usecases/post/update_post_use_case.dart';
-import 'features/home/data/repositories/sps_repostitorese_imp.dart';
-import 'features/home/domain/repositories/sps_repostitorese.dart';
 import 'package:http/http.dart' as http;
 import 'package:moms_care/features/forum/presentation/bloc/post/post_state.dart';
+
+import 'features/home/data/repositories/moms_care_repository_imp.dart';
+import 'features/speech/data/repositories/speech_repostitorese_imp.dart';
+import 'features/speech/domain/repositories/speech_repozitorese.dart';
 
 final sl = GetIt.instance;
 
@@ -79,9 +88,10 @@ Future<void> init() async {
   sl.registerLazySingleton<PostRepository>(() => PostRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(remoteRestApiDataSource: sl(),remoteFirebaseDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<FirebaseAuthApiService>(() => FirebaseAuthApiServiceImp(firebaseAuth: FirebaseAuth?.instance));
-  // sl.registerLazySingleton<AuthApiService>(() => _AuthApiService(sl(),baseUrl: BASE_URL));
+
   sl.registerLazySingleton<FirebaseAuthRepository>(() => FirebaseAuthRepositoryImp(networkInfo: sl(),remoteDataSource: sl()));
-  sl.registerLazySingleton<FleetkeyRepostitory>(() => FleetkeyRepostitoryImp(remoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<SpeechRepository>(() => SpeechRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<MomsCareRepository>(() => MomsCareRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
 
 
 
@@ -104,6 +114,13 @@ Future<void> init() async {
     deletePostUseCase: sl(),
   ));
 
+  // MomsCare
+  sl.registerFactory(() => MomsCareBloc(getMomsCareItemsUseCase: sl()));
+
+  // SpeechBloc
+  sl.registerFactory(() => SpeechBloc(askAiUseCases: sl()));
+
+
 
   //? UseCase
 
@@ -120,7 +137,11 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DeletePostUseCase(sl()));
   sl.registerLazySingleton(() => UpdatePostUseCase(sl()));
 
+// MomsCare
+  sl.registerLazySingleton(() => GetMomsCareItemsUseCase(sl()));
 
+  // Speech
+  sl.registerLazySingleton(() => AskAiUseCases(sl()));
 
 
 
@@ -129,6 +150,11 @@ Future<void> init() async {
   sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(remoteDioService: sl(),baseUrl: BASE_URL));
   //Post
   sl.registerLazySingleton<PostRemoteDataSource>(() => PostRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
+
+  //MomsCare
+  sl.registerLazySingleton<MomsCareRemoteDataSource>(() => MomsCareRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
+  //Speech
+  sl.registerLazySingleton<SpeechRemoteDataSource>(() => SpeechRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
 
   // Dependencies
   sl.registerSingleton<NewsApiService>(NewsApiService(sl()));

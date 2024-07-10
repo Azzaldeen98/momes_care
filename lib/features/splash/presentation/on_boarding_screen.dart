@@ -29,6 +29,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   bool onLastage=false;
 
 
+
   @override
   Widget build(BuildContext context) {
 

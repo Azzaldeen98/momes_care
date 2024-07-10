@@ -9,20 +9,30 @@ import 'package:motion_tab_bar/MotionBadgeWidget.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
 
-class AppBottomNavigationBar extends StatefulWidget {
-  const AppBottomNavigationBar({Key? key}) : super(key: key);
+import '../../logic/navigation_logic.dart';
+
+class BottomNavigationWidget extends StatefulWidget {
+   BottomNavigationWidget({Key? key,this.currentIndex,this.changeScreen}) : super(key: key);
+
+  final int? currentIndex;
+  final void Function(int)? changeScreen;
+  late NavigationLogic navigationLogic;
+  late GlobalKey<TooltipState> tooltipkey;
+  void update() {
+    navigationLogic.chagneButtonNavigation();
+  }
 
   @override
-  State<AppBottomNavigationBar> createState() => _bottomNavigationBar();
+  State<BottomNavigationWidget> createState() => _BottomNavigationWidgetState();
 }
 
-class _bottomNavigationBar extends  State<AppBottomNavigationBar>  with TickerProviderStateMixin {
+class _BottomNavigationWidgetState extends  State<BottomNavigationWidget>  with TickerProviderStateMixin {
   MotionTabBarController? _motionTabBarController;
 
   @override
   void initState() {
     _motionTabBarController = MotionTabBarController(
-      initialIndex: 1,
+      initialIndex: widget.currentIndex ?? 0,
       length: 4,
       vsync: this,
     );
@@ -33,8 +43,8 @@ class _bottomNavigationBar extends  State<AppBottomNavigationBar>  with TickerPr
 
       controller: _motionTabBarController, // ADD THIS if you need to change your tab programmatically
       initialSelectedTab: "Home".tr,
-      labels:  ["Forum".tr, "Home".tr, "Profile".tr, "Settings".tr],
-      icons: const [Icons.forum, Icons.home, Icons.people_alt, Icons.settings],
+      labels:  [ "Home".tr,"Forum".tr, "Profile".tr, "Settings".tr],
+      icons: const [ Icons.home,Icons.forum, Icons.people_alt, Icons.settings],
 
       // optional badges, length must be same with labels
       badges: [
@@ -84,15 +94,17 @@ class _bottomNavigationBar extends  State<AppBottomNavigationBar>  with TickerPr
       tabIconSelectedColor: Colors.white,
       tabBarColor: Colors.white,
       onTabItemSelected: (int value) {
+
         setState(() {
           _motionTabBarController!.index = value;
         });
-        switch(value){
-          case 0: Get.offAll(() => const PostsPage()); break;
-          case 1: Get.offAll(() => const HomePage()); break;
-          case 2: Get.offAll(() => const HomePage()); break;
-          case 3: Get.offAll(() => const HomePage()); break;
-        }
+        widget.changeScreen!(value);
+        // switch(value){
+        //   case 0: Get.offAll(() => const PostsPage()); break;
+        //   case 1: Get.offAll(() => const HomePage()); break;
+        //   case 2: Get.offAll(() => const HomePage()); break;
+        //   case 3: Get.offAll(() => const HomePage()); break;
+        // }
       },
     );
   }

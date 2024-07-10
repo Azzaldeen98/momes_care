@@ -19,19 +19,15 @@ import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
-class SpeechPage extends StatefulWidget {
-  const SpeechPage({Key? key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  State<SpeechPage> createState() => _SpeechPageState();
+  State<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SpeechPageState extends State<SpeechPage> {
-  String textSample = "";//'Click button to start recording'.tr;
-  bool isListening = false;
-  bool flag=true;
-  String btn_name="Arabic";
-
+class _SettingsPageState extends State<SettingsPage>   {
+  String  textSample = "";
 
   @override
   void initState() {
@@ -45,7 +41,7 @@ class _SpeechPageState extends State<SpeechPage> {
 
 
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+
       body: SingleChildScrollView(
           reverse: true,
           child: Column(
@@ -63,17 +59,7 @@ class _SpeechPageState extends State<SpeechPage> {
                       //   },
                       //   child: Text("Arabic"),
                       // ),
-                      ElevatedButton(
-                        onPressed: () {
 
-                          setState(() {
-                            btn_name=(!flag)?"English":"Arabic";
-                          });
-                          LocaleController().chingeLanguage(languageCode: (flag)?'en':'ar');
-                          flag=!flag;
-                        },
-                        child: Text(btn_name),
-                      ),
                     ],
                   ),
                 ),
@@ -100,20 +86,8 @@ class _SpeechPageState extends State<SpeechPage> {
     );
   }
 
-  Future toggleRecording() => Speech.toggleRecording(
-      onResult: (String text) => setState(() {
-        textSample = text;
-      }),
-      onListening: (bool isListening) {
-        setState(() {
-          this.isListening = isListening;
-        });
-        if (!isListening) {
-          Future.delayed(const Duration(milliseconds: 5000), () {
-            Utils.scanVoicedText(textSample);
-          });
-        }
-      });
+
+
 
 
 

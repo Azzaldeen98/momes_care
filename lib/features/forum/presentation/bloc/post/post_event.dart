@@ -16,6 +16,11 @@ abstract class PostEvent extends Equatable {
 
 class RefreshPostsEvent extends PostEvent{}
 
+class DetailsPostEvent extends PostEvent{
+  const DetailsPostEvent({required this.post});
+  final Post post;
+}
+
  class AddPostEvent extends PostEvent{
    const AddPostEvent({required this.post});
    final Post post;

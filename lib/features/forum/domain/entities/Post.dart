@@ -1,7 +1,12 @@
 
 
+import 'dart:collection';
+
 import 'package:equatable/equatable.dart';
+
 import 'package:moms_care/features/forum/domain/entities/Comment.dart';
+
+import '../../../../core/data/entities/author.dart';
 
 
 class Post extends Equatable{
@@ -13,6 +18,7 @@ class Post extends Equatable{
   final int? likes;
   final int? commentsCount;
   final List<Comment>? comments;
+  final Author? author;
 
   Post({ this.id,
     this.title,
@@ -20,7 +26,8 @@ class Post extends Equatable{
     this.publishedAt,
     this.commentsCount,
     this.likes=0,
-    this.comments=null});
+    this.comments=null,
+    this.author});
 
   @override
   List<Object?> get props => [
@@ -31,6 +38,8 @@ class Post extends Equatable{
     likes,
     comments,
     commentsCount,
+    author
   ];
 
 }
+

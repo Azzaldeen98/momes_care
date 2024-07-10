@@ -1,35 +1,31 @@
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
-import 'package:get/get.dart';
-import '../../../../core/constants/api_servers.dart';
-import '../../../../core/server/header_server.dart';
-import '../../../../core/utils/dailog/message/message_box.dart';
-import '../../../../core/widget/card/card_item_details_widget.dart';
-import '../../../../features/home/persention/logic/sps/sps_bloc.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/widget/state/loading_widget.dart';
 
-import '../widget/appber/home_widget.dart';
 import '../../../../core/Animation/animation_scale_widget.dart';
+import '../bloc/moms_care/moms_care_bloc.dart';
+import '../widget/appber/home_widget.dart';
 import '../widget/state_home_widget.dart';
 import 'package:flutter/material.dart';
 
-class SPSView extends StatelessWidget {
-  const SPSView({super.key, required this.changeScreen});
+class MomsCareView extends StatelessWidget {
+  const MomsCareView({super.key, required this.changeScreen});
 
   final void Function(int) changeScreen;
   @override
   Widget build(BuildContext context) {
     return HomeWidget(
-      body: BlocBuilder<SPSBloc, SPSState>(
+      body: BlocBuilder<MomsCareBloc, MomsCareState>(
         builder: (context, state) {
-          if (state is SPSInitial) {
+          if (state is MomsCareInitial) {
             return const InitialHomeWidget();
-          } else if (state is LoadingGetSparePartState) {
+          } else if (state is LoadingGetMomsCareItemsState) {
             return const LoadingVehicleWidget();
-          } else if (state is ErrorGetSparePartState) {
+          } else if (state is ErrorGetMomsCareItemsState) {
             return ErrorHomeWidget(error: state.message);
-          } else if (state is GetSparePartSeccessfulState) {
+          } else if (state is GetMomsCareItemsSuccessfulState) {
             return _homeWidgtet(context, state);
           } else {
             return const LoadingVehicleWidget();
@@ -39,8 +35,8 @@ class SPSView extends StatelessWidget {
     );
   }
 
-  Widget _homeWidgtet(BuildContext context, GetSparePartSeccessfulState state) {
-    return state.sparePart!.isEmpty
+  Widget _homeWidgtet(BuildContext context, GetMomsCareItemsSuccessfulState state) {
+    return state.items!.isEmpty
         ? const EmptyHomeWidget()
         : AnimationSlideWidget(
             physics: const ClampingScrollPhysics(),

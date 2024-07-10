@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        bottomNavigationBar:AppBottomNavigationBar(),
+        bottomNavigationBar:BottomNavigationWidget(),
       appBar: AppBar(
         backgroundColor: Colors.teal,
         centerTitle: true,

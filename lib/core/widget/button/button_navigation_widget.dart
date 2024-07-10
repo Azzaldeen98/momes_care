@@ -121,7 +121,7 @@ Widget _numberCart(int numberProduct) {
 
 enum ButtonInfo {
   order(
-    "MyOrders",
+    "Forum",
     AppImage.SHOP_CART_GREY,
     AppImage.SHOP_CART_GREY,
     false,
@@ -136,12 +136,20 @@ enum ButtonInfo {
   ),
 
   profile(
-    "حسابي",
+    "Profile",
+    AppImage.USER_GREY,
+    AppImage.USER_GREY,
+    false,
+    false,
+  ),
+  settings(
+    "Settings",
     AppImage.USER_GREY,
     AppImage.USER_GREY,
     false,
     false,
   );
+
 
   final String name;
   final String activeIcon;

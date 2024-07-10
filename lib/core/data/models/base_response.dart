@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonSerializable()
 class BaseResponse {
   final dynamic result;
   final List<String>? errorMessages;
