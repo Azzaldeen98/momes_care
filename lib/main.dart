@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:moms_care/features/daily_news/presentation/pages/splash/splash.dart';
+import 'package:moms_care/features/forum/presentation/bloc/add_delete_update_comment/add_delete_update_comment_bloc.dart';
 import 'package:moms_care/features/forum/presentation/pages/post/posts_page.dart';
 import 'package:moms_care/features/splash/presentation/splash_view.dart';
 import 'package:moms_care/injection_container.dart' as di;
@@ -20,7 +21,9 @@ import 'features/auth/persention/page/sigin_page.dart';
 import 'features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
 import 'features/daily_news/presentation/pages/home/daily_news.dart';
-import 'features/forum/presentation/bloc/post/post_bloc.dart';
+import 'features/forum/presentation/bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
+import 'features/forum/presentation/bloc/comments/comment_bloc.dart';
+import 'features/forum/presentation/bloc/posts/post_bloc.dart';
 import 'features/home/persention/pages/home_page.dart';
 import 'helpers/cache_helper.dart';
 import 'helpers/my_bloc_observer.dart';
@@ -57,8 +60,11 @@ class MyApp extends StatelessWidget with WidgetsBindingObserver {
 
     return MultiBlocProvider(providers: [
     BlocProvider<RemoteArticlesBloc>(create: (context) => di.sl()..add(const GetArticles())),
-    BlocProvider(create: (context) => di.sl<PostBloc>())
-    // BlocProvider<AuthBloc>(create: (context) => di.sl()..add(const SignInEvent())),
+    BlocProvider(create: (context) => di.sl<PostBloc>()),
+    BlocProvider(create: (context) => di.sl<AddDeleteUpdatePostBloc>()),
+    BlocProvider(create: (context) => di.sl<CommentBloc>()),
+    BlocProvider(create: (context) => di.sl<AddDeleteUpdateCommentBloc>()),
+
     ], child: GetMaterialApp(
       debugShowCheckedModeBanner: false,
       locale: Get.put(LocaleController()).initLocale,

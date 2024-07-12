@@ -32,7 +32,7 @@ class _BottomNavigationWidgetState extends  State<BottomNavigationWidget>  with 
 
   @override
   void initState() {
-    _motionTabBarController = MotionTabBarController(
+     _motionTabBarController = MotionTabBarController(
       initialIndex: widget.currentIndex ?? 0,
       length: 4,
       vsync: this,
@@ -88,7 +88,7 @@ class _BottomNavigationWidgetState extends  State<BottomNavigationWidget>  with 
         color: AppColor.primaryColor,
         fontWeight: FontWeight.w500,
       ),
-      tabIconColor: AppColor.primaryColor,
+                  tabIconColor: AppColor.primaryColor,
       tabIconSize: 28.0,
       tabIconSelectedSize: 26.0,
       tabSelectedColor: AppColor.primaryColor,

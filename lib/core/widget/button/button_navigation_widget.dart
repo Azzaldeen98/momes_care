@@ -77,13 +77,13 @@ class IconBottomApp extends StatelessWidget {
           const SizedBox(height: 5),
           // Construct and pass in a widget builder per screen type
           ScreenTypeLayout.builder(
-            mobile: (BuildContext context) => Image.asset(
-                check ? buttonInfo.activeIcon : buttonInfo.name,
+            mobile: (BuildContext context) =>(this.buttonInfo.icon!=null)? this.buttonInfo.icon! : Image.asset(
+                check ? buttonInfo.activeIcon! : buttonInfo.name,
                 color: check ? AppColors.secondaryOneColor : Colors.grey,
                 width: 22,
                 height: 22),
-            tablet: (BuildContext context) => Image.asset(
-                check ? buttonInfo.activeIcon : buttonInfo.name,
+            tablet: (BuildContext context) =>(this.buttonInfo.icon!=null)? this.buttonInfo.icon! : Image.asset(
+                check ? buttonInfo.activeIcon! : buttonInfo.name,
                 color: check ? AppColors.secondaryOneColor : Colors.grey,
                 width: 32,
                 height: 32),
@@ -126,6 +126,7 @@ enum ButtonInfo {
     AppImage.SHOP_CART_GREY,
     false,
     true,
+    icon: Icon(Icons.forum),
   ),
   home(
     "Home",
@@ -141,6 +142,7 @@ enum ButtonInfo {
     AppImage.USER_GREY,
     false,
     false,
+
   ),
   settings(
     "Settings",
@@ -148,11 +150,13 @@ enum ButtonInfo {
     AppImage.USER_GREY,
     false,
     false,
+
   );
 
 
   final String name;
-  final String activeIcon;
+  final String? activeIcon;
+  final Icon? icon;
   final String label;
   final bool showNotification;
   final bool showCartProducts;
@@ -161,6 +165,8 @@ enum ButtonInfo {
     this.name,
     this.activeIcon,
     this.showNotification,
-    this.showCartProducts,
+    this.showCartProducts, {
+    this.icon,
+  }
   );
 }

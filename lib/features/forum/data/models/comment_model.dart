@@ -17,7 +17,7 @@ class CommentModel extends Comment{
     super.contant,
     super.createdAt,
     super.likes,
-    super  .author});
+    super.author});
 
   factory CommentModel.fromJson(Map<String, dynamic> json) => CommentModel(
     id: json['id'] ,
@@ -28,16 +28,33 @@ class CommentModel extends Comment{
     likes: json['likes'] ?? 0 ,
     author:  (json['author']==null) ? null : AuthorModel.fromJson(json['author']) ,
   );
-
   Map<String, dynamic> toJson() => <String, dynamic>{
     'id': this.id.toString() ?? "",
     'contant': this.contant ?? "",
     'createdAt': this.createdAt ?? "",
     'likes': this.likes.toString() ?? "",
   };
+  Comment toEntity() => Comment(
+    id: this.id ?? 0,
+    contant: this.contant ?? "",
+    createdAt: this.createdAt ?? DateTime.now(),
+    likes: this.likes ?? 0,
+    author: this.author,
+    userLiked: this.userLiked
+  );
+
+
   factory CommentModel.fromEntity(Comment comment) {
-    return comment as CommentModel;
+    return CommentModel(
+      id: comment.id ?? 0,
+      contant: comment.contant ?? "",
+      createdAt: comment.createdAt ?? DateTime.now(),
+      likes: comment.likes ?? 0,
+    );
   }
+
+
+
 
 
 }

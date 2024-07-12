@@ -44,9 +44,9 @@ class Post extends Equatable{
     author
   ];
 
-  Post copyWith({String? title,String? body}) {
+  Post copyWith({int? id,String? title,String? body}) {
     return Post(
-      id: this.id ?? 0,
+      id: id ?? this.id ?? 0,
       title: title ??  this.title ?? "",
       body: body ?? this.body ?? "",
       publishedAt: this.publishedAt ?? DateTime.now(),

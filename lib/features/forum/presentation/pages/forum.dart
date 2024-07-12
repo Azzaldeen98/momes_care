@@ -6,8 +6,8 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:moms_care/core/constants/enam/forum_pages.dart';
-// import 'package:moms_care/features/forum/presentation/bloc/post/post_bloc.dart';
-// import '../bloc/post/post_state.dart';
+// import 'package:moms_care/features/forum/presentation/bloc/post/comment_bloc.dart';
+// import '../bloc/post/add_delete_update_comment_state.dart';
 // import '/injection_container.dart' as di;
 //
 // class ForumPage extends StatefulWidget {

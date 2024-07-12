@@ -5,20 +5,12 @@ import '../../../../../core/error/faiture.dart';
 import '../../../../../core/resources/data_state.dart';
 import '../../../../../core/usecase/usecase.dart';
 import '../../repository/post_repository.dart';
+class DetailsPostUseCase {
 
-class DeletePostUseCase {
-
-  final PostRepository _postRepository;
-  DeletePostUseCase(this._postRepository);
+  DetailsPostUseCase();
 
   @override
-  Future<Either<Failure,Unit>> call(int postId) async {
-
-    return await _postRepository.deletePost(postId);
+  Post call(Post post)  {
+    return  post;
   }
-
-
 }
-
-
-

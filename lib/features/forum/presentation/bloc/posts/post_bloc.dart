@@ -11,8 +11,8 @@ import 'package:moms_care/features/forum/domain/usecases/post/add_post_use_case.
 import 'package:moms_care/features/forum/domain/usecases/post/delete_post_use_case.dart';
 import 'package:moms_care/features/forum/domain/usecases/post/like_unlike_post_use_case.dart';
 import 'package:moms_care/features/forum/domain/usecases/post/update_post_use_case.dart';
-import 'package:moms_care/features/forum/presentation/bloc/post/post_event.dart';
-import 'package:moms_care/features/forum/presentation/bloc/post/post_state.dart';
+import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
+import 'package:moms_care/features/forum/presentation/bloc/posts/post_state.dart';
 import 'package:moms_care/features/home/persention/pages/moms_care_view.dart';
 // import 'package:nb_utils/nb_utils.dart';
 
@@ -24,28 +24,21 @@ import '../../pages/post/post_details.dart';
 class PostBloc extends Bloc<PostEvent,PostState>{
 
  final GetAllPostsUseCase  getAllPostsUseCase;
- final AddPostUseCase  addPostUseCase;
- final UpdatePostUseCase  updatePostUseCase;
- final DeletePostUseCase  deletePostUseCase;
  final LikeUnLikePostUseCase likeUnLikePostUseCase;
 
 
   PostBloc({
     required this.getAllPostsUseCase,
-    required this.addPostUseCase,
-    required this.updatePostUseCase,
-    required this.deletePostUseCase,
     required this.likeUnLikePostUseCase,
+
   }) :super(PostsInitial()){
 
-
     on<GetAllPostsEvent>(_getAllPosts);
-    on<AddPostEvent>(_addPost);
-    on<UpdatePostEvent>(_updatePost);
-    on<DeletePostEvent>(_deletePost);
     on<DetailsPostEvent>(_detailsPost);
-    on<GoToPagePostEvent>(_goToPagePost);
     on<LikeUnLikePostEvent>(_likeUnLikePost);
+    on<GoToPagePostEvent>(_goToPagePost);
+
+
   }
 
  Future<void> _getAllPosts(GetAllPostsEvent event, Emitter<PostState> emit) async{
@@ -82,49 +75,7 @@ class PostBloc extends Bloc<PostEvent,PostState>{
 
 
  }
- Future<void> _addPost(AddPostEvent event, Emitter<PostState> emit) async{
 
-   emit(LoadingPostsState());
-
-   final failureOrsuccess= await addPostUseCase(Post(title:event.title,body:event.content));
-   failureOrsuccess.fold(
-         (failure){
-           Get.back();
-           emit(ErrorPostsState(message: mapFailureToMessage(failure)));
-         },
-         (_){
-               print("AddPostSuccessState is @@!!!");
-             emit(AddPostSuccessState());
-         });
- }
- Future<void> _updatePost(UpdatePostEvent event, Emitter<PostState> emit) async{
-   print("_updatePost@@");
-
-   emit(LoadingPostsState());
-   final failureOrsuccess= await updatePostUseCase(event.post);
-   failureOrsuccess.fold(
-       (failure){
-         Get.back();
-         emit(ErrorPostsState(message: mapFailureToMessage(failure)));
-       },
-       (_){
-         emit(UpdatedPostSuccessState());
-       });
- }
- Future<void> _deletePost(DeletePostEvent event, Emitter<PostState> emit) async{
-   print("_deletePost@@");
-
-   emit(LoadingPostsState());
-   final failureOrsuccess= await deletePostUseCase(event.postId);
-   failureOrsuccess.fold(
-       (failure){
-         Get.back();
-         emit(ErrorPostsState(message: mapFailureToMessage(failure)));
-       },
-       (_){
-         emit(DeletedPostSuccessState());
-       });
- }
  Future<void> _goToPagePost(GoToPagePostEvent event, Emitter<PostState> emit) async{}
  Future<void>  _detailsPost(DetailsPostEvent event, Emitter<PostState> emit) async{
 

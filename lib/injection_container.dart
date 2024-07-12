@@ -10,10 +10,12 @@ import 'package:moms_care/features/daily_news/domain/usecases/get_article.dart';
 import 'package:moms_care/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:moms_care/features/forum/data/dataSource/remote/posts_remote_data_source.dart';
 import 'package:moms_care/features/forum/domain/repository/post_repository.dart';
+import 'package:moms_care/features/forum/domain/usecases/Comment/like_unlike_Comment_use_case.dart';
 import 'package:moms_care/features/forum/domain/usecases/post/add_post_use_case.dart';
+import 'package:moms_care/features/forum/domain/usecases/post/details_post_use_case.dart';
 import 'package:moms_care/features/forum/domain/usecases/post/get_all_posts_use_case.dart';
-import 'package:moms_care/features/forum/presentation/bloc/post/post_bloc.dart';
-import 'package:moms_care/features/forum/presentation/bloc/post/post_event.dart';
+import 'package:moms_care/features/forum/presentation/bloc/posts/post_bloc.dart';
+import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
 import 'package:moms_care/features/home/data/data_sourse/moms_care_datasourse.dart';
 import 'package:moms_care/features/home/domain/repositories/moms_care_repository.dart';
 import 'package:moms_care/features/home/domain/usecases/get_moms_care_items_usecase.dart';
@@ -43,13 +45,23 @@ import 'features/daily_news/domain/usecases/get_saved_article.dart';
 import 'features/daily_news/domain/usecases/remove_article.dart';
 import 'features/daily_news/domain/usecases/save_article.dart';
 import 'features/daily_news/presentation/bloc/article/local/local_article_bloc.dart';
+import 'features/forum/data/dataSource/remote/comments_remote_data_source.dart';
+import 'features/forum/data/repository/comment_repository_impl.dart';
 import 'features/forum/data/repository/post_repository_impl.dart';
+import 'features/forum/domain/repository/Comment_repository.dart';
+import 'features/forum/domain/usecases/Comment/add_Comment_use_case.dart';
+import 'features/forum/domain/usecases/Comment/delete_Comment_use_case.dart';
+import 'features/forum/domain/usecases/Comment/update_Comment_use_case.dart';
+import 'features/forum/domain/usecases/comment/get_all_comments_use_case.dart';
 import 'features/forum/domain/usecases/post/delete_post_use_case.dart';
 import 'features/forum/domain/usecases/post/like_unlike_post_use_case.dart';
 import 'features/forum/domain/usecases/post/update_post_use_case.dart';
 import 'package:http/http.dart' as http;
-import 'package:moms_care/features/forum/presentation/bloc/post/post_state.dart';
+import 'package:moms_care/features/forum/presentation/bloc/posts/post_state.dart';
 
+import 'features/forum/presentation/bloc/add_delete_update_comment/add_delete_update_comment_bloc.dart';
+import 'features/forum/presentation/bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
+import 'features/forum/presentation/bloc/comments/comment_bloc.dart';
 import 'features/home/data/repositories/moms_care_repository_imp.dart';
 import 'features/speech/data/repositories/speech_repostitorese_imp.dart';
 import 'features/speech/domain/repositories/speech_repozitorese.dart';
@@ -87,6 +99,7 @@ Future<void> init() async {
 //? Repository
 
   sl.registerLazySingleton<PostRepository>(() => PostRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<CommentRepository>(() => CommentRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(remoteRestApiDataSource: sl(),remoteFirebaseDataSource: sl(), networkInfo: sl()));
   sl.registerLazySingleton<FirebaseAuthApiService>(() => FirebaseAuthApiServiceImp(firebaseAuth: FirebaseAuth?.instance));
 
@@ -110,10 +123,27 @@ Future<void> init() async {
   // POST
   sl.registerFactory(() => PostBloc(
     getAllPostsUseCase: sl(),
+    likeUnLikePostUseCase: sl(),
+  ));
+
+  // Comment
+  sl.registerFactory(() => CommentBloc(
+    getAllCommentsUseCase: sl(),
+    likeUnLikeCommentUseCase: sl(),
+  ));
+
+ // AddDeleteUpdatePost
+  sl.registerFactory(() => AddDeleteUpdatePostBloc(
     addPostUseCase: sl(),
     updatePostUseCase: sl(),
-    likeUnLikePostUseCase: sl(),
     deletePostUseCase: sl(),
+  ));
+
+  // AddDeleteUpdateComment
+  sl.registerFactory(() => AddDeleteUpdateCommentBloc(
+    addCommentUseCase: sl(),
+    updateCommentUseCase: sl(),
+    deleteCommentUseCase: sl(),
   ));
 
   // MomsCare
@@ -139,6 +169,15 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AddPostUseCase(sl()));
   sl.registerLazySingleton(() => DeletePostUseCase(sl()));
   sl.registerLazySingleton(() => UpdatePostUseCase(sl()));
+  sl.registerLazySingleton(() => DetailsPostUseCase());
+
+  // Comment
+  sl.registerSingleton<LikeUnLikeCommentUseCase>(LikeUnLikeCommentUseCase(sl()));
+  sl.registerSingleton<GetAllCommentsUseCase>(GetAllCommentsUseCase(sl()));
+  sl.registerSingleton<AddCommentUseCase>(AddCommentUseCase(sl()));
+  sl.registerSingleton<DeleteCommentUseCase>(DeleteCommentUseCase(sl()));
+  sl.registerSingleton<UpdateCommentUseCase>(UpdateCommentUseCase(sl()));
+
 
 // MomsCare
   sl.registerLazySingleton(() => GetMomsCareItemsUseCase(sl()));
@@ -153,6 +192,8 @@ Future<void> init() async {
   sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(remoteDioService: sl(),baseUrl: BASE_URL));
   //Post
   sl.registerLazySingleton<PostRemoteDataSource>(() => PostRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
+  //Comment
+  sl.registerLazySingleton<CommentRemoteDataSource>(() => CommentRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
 
   //MomsCare
   sl.registerLazySingleton<MomsCareRemoteDataSource>(() => MomsCareRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));

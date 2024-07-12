@@ -32,6 +32,7 @@ class LoadingDetailsPostsState extends PostState{
 class LoadingAddPostState extends PostState{
   const LoadingAddPostState();
 }
+
 class AddPostSuccessState extends PostState{
   const AddPostSuccessState();
 }

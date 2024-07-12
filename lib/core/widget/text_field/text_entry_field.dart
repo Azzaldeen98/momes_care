@@ -16,6 +16,7 @@ class TextEntryField extends StatefulWidget {
   final String? hintText;
   final IconData? icon;
   final int? maxLines;
+  // final FormFieldValidator<String>? validator;
   final int? maxLength;
   final TextEditingController controller;
   final String? error_text;
@@ -24,6 +25,7 @@ class TextEntryField extends StatefulWidget {
     required this.labelText,
     required this.hintText,
     required this.controller,
+     // this.validator,
      this.icon,
      this.maxLines=1,
      this.maxLength=1000,
@@ -41,8 +43,9 @@ class _TextEntryFieldState extends State<TextEntryField> {
     return SizedBox(
             // height: widget.height,
             // padding: EdgeInsets.symmetric(horizontal: 5),
-            child: TextField(
+            child: TextFormField(
              controller: widget.controller!,
+              // validator: widget.validator!,
               style: TextStyle(fontSize: FontSizeManager.s14,),
               maxLines: widget.maxLines ?? 1,
               maxLength: widget.maxLength,

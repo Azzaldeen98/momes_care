@@ -19,8 +19,8 @@ import '../../domain/entities/Comment.dart';
 import '../../domain/entities/Post.dart';
 
 
-class TextViewCarBodyWidget  extends StatelessWidget {
-  const TextViewCarBodyWidget({super.key, this.title, required this.content});
+class BodyWidget  extends StatelessWidget {
+  const BodyWidget({super.key, this.title="", required this.content});
   final String? title;
   final String? content;
   @override
@@ -38,27 +38,37 @@ class TextViewCarBodyWidget  extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+
+              ListTile(
+                title: Text(title ?? "----",style: AppTextStyles.getTitleStyle(
+                    color: AppColors.grayOneColor,fontSize: FontSizeManager.s16),textAlign: TextAlign.justify,),
+                subtitle:Text(
+                  content ?? "---",
+                  textAlign: TextAlign.justify,
+                  style: AppTextStyles.getMediumStyle(
+                      fontSize: 14, color: AppColors.grayTwoColor),),
+              ),
               // Container(
               //   padding: EdgeInsets.all(5),
               //   alignment: Alignment.centerRight,
               //   width: double.maxFinite,
               //   decoration: BoxDecoration(border: Border(bottom:BorderSide(width: 0.1))),
-               Text(title ?? "----",style: AppTextStyles.getTitleStyle(
-                   color: AppColors.grayOneColor,fontSize: FontSizeManager.s16),textAlign: TextAlign.justify,),
-              const SizedBox(height:10),
-
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      content ?? "---",
-                      textAlign: TextAlign.justify,
-                      style: AppTextStyles.getMediumStyle(
-                          fontSize: 14, color: AppColors.grayTwoColor),
-                    ),
-                  ),
-                ],
-              ),
+              //  Text(title ?? "----",style: AppTextStyles.getTitleStyle(
+              //      color: AppColors.grayOneColor,fontSize: FontSizeManager.s16),textAlign: TextAlign.justify,),
+              // const SizedBox(height:10),
+              //
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: Text(
+              //         content ?? "---",
+              //         textAlign: TextAlign.justify,
+              //         style: AppTextStyles.getMediumStyle(
+              //             fontSize: 14, color: AppColors.grayTwoColor),
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           )),
 

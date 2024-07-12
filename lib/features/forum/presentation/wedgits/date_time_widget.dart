@@ -22,9 +22,9 @@ import '../../domain/entities/Comment.dart';
 import '../../domain/entities/Post.dart';
 
 
-class TextViewCardDateTimeWidget  extends StatelessWidget {
+class DateTimeWidget  extends StatelessWidget {
 
-  const TextViewCardDateTimeWidget({super.key, this.dateTime});
+  const DateTimeWidget({super.key, this.dateTime});
 
   final DateTime? dateTime;
 
@@ -33,11 +33,8 @@ class TextViewCardDateTimeWidget  extends StatelessWidget {
     final dateTimeVM = DateTimeViewModel(dateTime: dateTime!);
     return  Container(
       // color: AppColor.scaffoldBackgroundColor,
-
       padding: EdgeInsets.symmetric(vertical:7,horizontal: 20 ),
-      decoration: BoxDecoration(
-        border: Border.symmetric(horizontal:BorderSide(color: AppColor.underLineColor,width:1))
-      ),
+
       child: SizedBox(
         child: Expanded(
           child: Row(

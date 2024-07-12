@@ -10,35 +10,37 @@ import 'package:moms_care/config/theme/font_manager.dart';
 import 'package:moms_care/core/data/entities/author.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 import 'package:moms_care/features/forum/domain/usecases/post/like_unlike_post_use_case.dart';
-import 'package:moms_care/features/forum/presentation/bloc/post/post_bloc.dart';
-import 'package:moms_care/features/forum/presentation/bloc/post/post_event.dart';
-import 'package:moms_care/features/forum/presentation/wedgits/text_view_card_body_widget.dart';
-import 'package:moms_care/features/forum/presentation/wedgits/text_view_card_footer_widget.dart';
-import 'package:moms_care/features/forum/presentation/wedgits/text_view_card_header_widget.dart';
+import 'package:moms_care/features/forum/presentation/bloc/posts/post_bloc.dart';
+import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
+import 'package:moms_care/features/forum/presentation/wedgits/body_widget.dart';
+import 'package:moms_care/features/forum/presentation/wedgits/footer_widget.dart';
+import 'package:moms_care/features/forum/presentation/wedgits/header_widget.dart';
 import 'package:moms_care/helpers/public_infromation.dart';
 // import 'package:nb_utils/nb_utils.dart';
 
-import '../../../../config/theme/app_color.dart';
-import '../../../../config/theme/color_app.dart';
-import '../../../../config/theme/text_style.dart';
-import '../../../../core/constants/enam/DemoCWActionSheetType.dart';
-import '../../../../core/constants/enam/input_model_type.dart';
-import '../../../../core/data/view_models/date_time_view_model.dart';
-import '../../../../core/utils/dailog/message/messagebox_dialog_widget.dart';
-import '../../../../core/widget/bottom_sheets/DemoCWActionSheetScreen.dart';
-import '../../../../core/widget/bottom_sheets/bottom_sheet.dart';
-import '../../../../core/widget/card/card_author_widget.dart';
-import '../../../../core/widget/image/image_widget.dart';
-import '../../../../core/widget/label/text_newprice_widget.dart';
-import '../../../../core/widget/label/text_widget.dart';
-import '../../domain/entities/Comment.dart';
-import '../../domain/entities/Post.dart';
-import 'create_post_bottom_sheet_widget.dart';
-import 'date_time_widget.dart';
+import '../../../../../config/theme/app_color.dart';
+import '../../../../../config/theme/color_app.dart';
+import '../../../../../config/theme/text_style.dart';
+import '../../../../../core/constants/enam/DemoCWActionSheetType.dart';
+import '../../../../../core/constants/enam/input_model_type.dart';
+import '../../../../../core/data/view_models/date_time_view_model.dart';
+import '../../../../../core/utils/dailog/message/messagebox_dialog_widget.dart';
+import '../../../../../core/widget/bottom_sheets/DemoCWActionSheetScreen.dart';
+import '../../../../../core/widget/bottom_sheets/bottom_sheet.dart';
+import '../../../../../core/widget/card/card_author_widget.dart';
+import '../../../../../core/widget/image/image_widget.dart';
+import '../../../../../core/widget/label/text_newprice_widget.dart';
+import '../../../../../core/widget/label/text_widget.dart';
+import '../../../domain/entities/Comment.dart';
+import '../../../domain/entities/Post.dart';
+import '../../bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
+import '../../bloc/add_delete_update_post/add_delete_update_post_event.dart';
+import '../pages/add_update_post_widget.dart';
+import '../date_time_widget.dart';
 
 
-class PostCardWidget  extends StatelessWidget {
-  const PostCardWidget({super.key, this.onDelete, required this.post});
+class PostWidget  extends StatelessWidget {
+  const PostWidget({super.key, this.onDelete, required this.post});
   final Post post;
   final VoidCallback? onDelete;
   @override
@@ -62,37 +64,35 @@ class PostCardWidget  extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        const SizedBox(height: 0),
-                        TextViewCarHeaderWidget(
+                        HeaderWidget(
                           author:post!.author ,
                             onClickMoreOptions:(){
                               showCupertinoModalPopup(context: context, builder: (BuildContext context) =>
                                   DemoCWActionEditDeleteSheetScreen(
                                     onEdited:(_context) async{
                                       // toasty(context, "onEdited7777");
-                                      showCustomBottomSheet(context: context,child: CreateUpdatePostWidget(
-                                        title: post.title,
-                                        content: post.body,
-                                        inputModelType: InputModelType.UPDATE_POST,
-                                        onClickSaved:(title,content) async{
+                                      // showCustomBottomSheet(context: context,child:
+                                       Get.to(AddUpdatePostPage(post: post, isUpdatePost: true,));
 
-                                          final _newPost=post.copyWith(title: title,body: content);
-                                          // if(title!=post.title || content!=post.body)
-                                          BlocProvider.of<PostBloc>(context).add(UpdatePostEvent(post:_newPost));
-
-                                        },onCreatedOrUpdatedIsSuccess: (){
-                                        print("onCreatedOrUpdatedIsSuccess");
-                                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                                          _refreshIndicatorKey.currentState?.show();
-                                        });
-                                        // Get.back();
-                                      },baseContext: context,));
-                                      // BlocProvider.of<PostBloc>(context).add(UpdatePostEvent(post: post));
-                                       //
+                                      //   onClickSaved:(title,content) async{
+                                      //
+                                      //     final _newPost=post.copyWith(title: title,body: content);
+                                      //     // if(title!=post.title || content!=post.body)
+                                      //     BlocProvider.of<PostBloc>(context).add(UpdatePostEvent(post:_newPost));
+                                      //
+                                      //   },onCreatedOrUpdatedIsSuccess: (){
+                                      //   print("onCreatedOrUpdatedIsSuccess");
+                                      //   WidgetsBinding.instance.addPostFrameCallback((_) {
+                                      //     _refreshIndicatorKey.currentState?.show();
+                                      //   });
+                                      //   // Get.back();
+                                      // },baseContext: context,));
+                                      // // BlocProvider.of<PostBloc>(context).add(UpdatePostEvent(post: post));
+                                      //  //
                                     } ,
                                     onDeleted: (_context) async{
                                       // toasty(context, "onDeleted7777");
-                                       BlocProvider.of<PostBloc>(context).add(DeletePostEvent(postId:post.id!));
+                                       BlocProvider.of<AddDeleteUpdatePostBloc>(context).add(DeletePostEvent(postId:post.id!));
                                        // MessageBox.showSuccess(context,  "onDeleted");
 
                                           // toast("Accept Delete");
@@ -110,12 +110,13 @@ class PostCardWidget  extends StatelessWidget {
 
                               // MessageBox.showDialog(context, textBody: "onClickMoreOptions");
                             }),
-                        const SizedBox(height: 0),
-                        TextViewCarBodyWidget(title:post?.title ,content: post?.body),
-                        const SizedBox(height: 10),
-                        TextViewCardDateTimeWidget(dateTime: post!.publishedAt,),
-                        const SizedBox(height: 10),
-                        TextViewCarFooterWidget(
+                        Divider(height: 20,thickness: 0.5),
+                        BodyWidget(title:post?.title ,content: post?.body),
+                        SizedBox(height: 10,),
+                        Divider(height: 10,thickness: 0.3,),
+                        DateTimeWidget(dateTime: post!.publishedAt,),
+                        Divider(height: 10,),
+                        FooterWidget(
                             onLiked:(){
                               BlocProvider.of<PostBloc>(context).add((LikeUnLikePostEvent(postId:post.id!)));
                             },
@@ -235,7 +236,7 @@ class PostCardWidget  extends StatelessWidget {
   // }
   //
   // Widget _buildBodyCard({String? title,String? content}){
-  //   return  TextViewCardWidget(title:title,content: content,) ;
+  //   return  dWidget(title:title,content: content,) ;
   // }
   //
   // Widget _buildFooterCard({

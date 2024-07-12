@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../config/theme/app_color.dart';
 import '../../../config/theme/color_app.dart';
 import '../../../config/theme/text_style.dart';
 import '../../utils/style/border_text_filed.dart';
@@ -19,6 +20,7 @@ class TextFieldWidget extends StatelessWidget {
     this.password = false,
     this.outline = true,
     this.textInputType = TextInputType.number,
+    this.hintText,
     this.validator,
     this.radius = 12,
     this.padding = 20,
@@ -27,6 +29,7 @@ class TextFieldWidget extends StatelessWidget {
     this.maxLength = 1000,
   }) : super(key: key);
   final String name;
+  final String? hintText;
   final bool multiLines;
   final bool outline;
   final bool password;
@@ -46,8 +49,8 @@ class TextFieldWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: padding, vertical: 0),
       child: TextFormField(
         controller: controller,
-        maxLines: multiLines ? 3 : 1,
-        minLines: multiLines ? 3 : 1,
+        maxLines: multiLines ? 6 : 1,
+        minLines: multiLines ? 6 : 1,
         obscureText: password,
         keyboardType: textInputType,
         validator: validator,
@@ -56,9 +59,11 @@ class TextFieldWidget extends StatelessWidget {
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          label: TextWidget(name, fontSize: 14, color: AppColors.grayTwoColor),
+          label: TextWidget(name, fontSize: 14, color: AppColor.primaryDarkColor),
           errorStyle: BorderTextFiled.errorStyle,
           labelStyle: AppTextStyles.getRegularStyle(),
+          // labelText: ,
+          hintText: hintText??"",
           enabledBorder: BorderTextFiled.enabledBorder(outline, radius),
           focusedBorder: BorderTextFiled.focusedBorder(outline, radius),
           border: BorderTextFiled.border(outline, radius),

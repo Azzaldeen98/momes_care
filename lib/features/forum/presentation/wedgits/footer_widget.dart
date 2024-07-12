@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // import 'package:nb_utils/nb_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:moms_care/config/theme/app_color.dart';
 import 'package:moms_care/config/theme/font_manager.dart';
 import 'package:moms_care/core/data/entities/author.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
@@ -23,9 +24,9 @@ import '../../domain/entities/Comment.dart';
 import '../../domain/entities/Post.dart';
 
 
-class TextViewCarFooterWidget  extends StatefulWidget {
+class FooterWidget  extends StatefulWidget {
 
-  const TextViewCarFooterWidget({super.key,
+  const FooterWidget({super.key,
     this.likes=0,
     this.comments=0,
    required this.onLiked,
@@ -42,12 +43,12 @@ class TextViewCarFooterWidget  extends StatefulWidget {
   final  bool? isPost;
   final  bool? userLiked;
   @override
-  State<TextViewCarFooterWidget> createState() => _TextViewCarFooterWidgetState();
+  State<FooterWidget> createState() => _FooterWidgetState();
 
 }
 
 
-class _TextViewCarFooterWidgetState  extends  State<TextViewCarFooterWidget> {
+class _FooterWidgetState  extends  State<FooterWidget> {
 
  late int likesCount=0;
  late bool _userLiked=false;
@@ -68,7 +69,7 @@ class _TextViewCarFooterWidgetState  extends  State<TextViewCarFooterWidget> {
 
 
     return  Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -79,8 +80,10 @@ class _TextViewCarFooterWidgetState  extends  State<TextViewCarFooterWidget> {
               likesCount+= _userLiked ? -1:1;
               _userLiked=!_userLiked;
             });
-          }, icon: Icon( _userLiked? Icons.favorite_sharp:Icons.favorite_outline_sharp),),
-          (!widget.isPost!)? SizedBox(): TextButton.icon( label:Text(widget.comments.toString()),onPressed: widget.onComments, icon:   Icon(Icons.comment_sharp) ?? Icon(Icons.favorite_sharp),),
+          }, icon: Icon( _userLiked? Icons.favorite_sharp:Icons.favorite_outline_sharp,
+              color: AppColor.primaryLightIconColor),),
+          (!widget.isPost!)? SizedBox(): TextButton.icon( label:Text(widget.comments.toString()),onPressed: widget.onComments,
+            icon:   Icon(Icons.comment_sharp,color: AppColor.primaryLightIconColor,) ?? Icon(Icons.favorite_sharp),),
           IconButton(onPressed: widget.onReply, icon:   Icon(Icons.reply)),
         ],
       ),);

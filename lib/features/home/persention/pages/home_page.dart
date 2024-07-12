@@ -13,6 +13,7 @@ import 'package:moms_care/features/moms_care/presentation/pages/splash/splash.da
 import 'package:moms_care/features/speech/persention/pages/speech_page.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 import '../../../../core/widget/bottom_sheets/DemoCWActionSheetScreen.dart';
+import '../../../../core/widget/button/button_navigation_widget.dart';
 import '../../../../core/widget/navigation_bar/bottom_navigation_bar.dart';
 import '../../../../helpers/public_infromation.dart';
 import '../../../../main.dart';
@@ -33,7 +34,8 @@ class _HomePageState extends State<HomePage>   {
 
   String textSample = "";//'Click button to start recording'.tr;
   bool isListening = false;
-  int numberScreen = 0;
+  PageController? pageController;
+  int numberScreen = 1;
   final pages=[
     const HomePageWidget() ,
     const PostsPage(),
@@ -44,6 +46,7 @@ class _HomePageState extends State<HomePage>   {
   @override
   void initState() {
     numberScreen = widget.numberScreen;
+    pageController = PageController(initialPage: numberScreen);
     // pageController = PageController(initialPage: numberScreen);
     //(index)=>  setState(()=>numberScreen=index)
 
@@ -51,11 +54,28 @@ class _HomePageState extends State<HomePage>   {
   }
   @override
   Widget build(BuildContext context) {
+
     Helper.bottomNavigation = BottomNavigationWidget(changeScreen: changeScreen, currentIndex: numberScreen);
+
+    //   Helper.buttonNavigation  = ButtonNavigationWidget(
+    //     changeScreen: changeScreen, currentIndex: numberScreen);
+
     return Scaffold(
             bottomNavigationBar: Helper.bottomNavigation,
             appBar: _buildAppBar(),
-            body:   Container(child: pages[numberScreen]),
+            body:  PageView(
+                physics: const ClampingScrollPhysics(),
+                onPageChanged: _changeScreen,
+                controller: pageController,
+                children: [
+                  const HomePageWidget() ,
+                  const PostsPage(),
+                  const SpeechPage(),
+                  const SettingsPage(),
+                  // MomsCareView(changeScreen: changeScreen),
+                  // const ProfileVeiw(),
+                ]),
+            // Container(child: pages[numberScreen]),
     );
     //   Stack(
     //   children: [
@@ -185,13 +205,18 @@ class _HomePageState extends State<HomePage>   {
         }
       });
 
-  void changeScreen(int index) {
+  void _changeScreen(int numberScreen) {
+    this.numberScreen = numberScreen;
+    setState(() {});
+  }
+
+  void changeScreen(int numberScreen) {
     while (Navigator.canPop(context)) {
       Get.back();
     }
-    // pageController!.animateToPage(numberScreen,
-    //     duration: const Duration(microseconds: 300), curve: Curves.easeOutSine);
-    setState(() { this.numberScreen= index; });
+    pageController!.animateToPage(numberScreen,
+        duration: const Duration(microseconds: 300), curve: Curves.easeOutSine);
+    setState(() {});
   }
 
 

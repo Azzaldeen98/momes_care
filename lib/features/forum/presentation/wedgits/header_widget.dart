@@ -23,9 +23,9 @@ import '../../domain/entities/Comment.dart';
 import '../../domain/entities/Post.dart';
 
 
-class TextViewCarHeaderWidget  extends StatelessWidget {
+class HeaderWidget  extends StatelessWidget {
 
-  const TextViewCarHeaderWidget({super.key,
+  const HeaderWidget({super.key,
     this.author,
     this.onClickMoreOptions});
 
@@ -46,8 +46,9 @@ class TextViewCarHeaderWidget  extends StatelessWidget {
       margin: const EdgeInsets.only(left: 2,right: 2, top: 5),
       decoration: BoxDecoration(
         color:Colors.white,// CupertinoColors.opaqueSeparator,
-          border: Border(bottom: BorderSide(
-              color: const Color.fromARGB(227, 225, 224, 224), width: 0.7)),
+          // border: Border(bottom: BorderSide(
+          //     color: const Color.fromARGB(227, 225, 224, 224), width: 0.7)
+          // ),
           borderRadius: BorderRadius.circular(0)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
