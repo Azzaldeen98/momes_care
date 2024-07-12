@@ -18,7 +18,17 @@ class ServerFailure extends Failure {
 class FirebaseFailure extends Failure {
   @override
   List<Object?> get props => [];
+}// firebase error
+class DioFailure extends Failure {
+  @override
+  List<Object?> get props => [];
 }
+// firebase error
+class AuthorizeFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}
+
 // sigOut error
 class SigOutFailure extends Failure {
   @override

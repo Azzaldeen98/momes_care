@@ -14,17 +14,15 @@ class FirstPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-        color: Theme.of(context).primaryColor,
+        color: AppColor.whiteColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               padding: EdgeInsets.all(10),
                 child: Text("First Page View".tr,
-                    style: AppTextStyles.getRegularStyle(
-                      fontSize: 16,
-                      color: Theme.of(context).textTheme.titleLarge!.color!,
-                    )),
+                    style: AppTextStyles.getBoldStyle(
+                      fontSize: FontSizeManager.s28)),
 
             ),
             SizedBox(height: 30,),

@@ -133,7 +133,7 @@ dependencies:
   motion_tab_bar: ^2.0.4
   awesome_bottom_bar: ^1.2.4
   smooth_page_indicator: ^1.1.0
-
+#  restart_app: ^1.2.1
 #  nb_utils: ^7.0.3
 
 

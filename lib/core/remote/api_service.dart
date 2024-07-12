@@ -39,7 +39,7 @@ class RemoteDioService {
       }
     }catch(e){
       printError(info: '#Exception: ${e}');
-      rethrow;
+      throw ServerExecption();
     }
   }
 

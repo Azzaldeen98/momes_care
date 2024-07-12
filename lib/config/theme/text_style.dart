@@ -138,11 +138,13 @@ mixin AppTextStyles {
   static TextStyle getBoldStyle(
       {double fontSize = FontSizeManager.s14,
       FontWeight fontWeight = FontWeightManager.bold,
-      Color color = AppColors.grayOneColor}) {
+      Color color = AppColors.grayOneColor,
+      TextDecoration decoration= TextDecoration.none}) {
     return TextStyle(
       fontFamily: FontFamilyNames.dINNextLTArabicBold,
       fontWeight: fontWeight,
       fontSize: fontSize,
+      decoration: decoration,
       color: color,
     );
   }

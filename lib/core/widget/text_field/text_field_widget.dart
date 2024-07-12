@@ -1,11 +1,16 @@
-import '../../utils/theme/text_style.dart';
 
-import '../../utils/style/border_text_filed.dart';
-import '../../utils/theme/color_app.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../config/theme/color_app.dart';
+import '../../../config/theme/text_style.dart';
+import '../../utils/style/border_text_filed.dart';
 import '../label/text_widget.dart';
 
 class TextFieldWidget extends StatelessWidget {
+
+
   const TextFieldWidget({
     Key? key,
     required this.name,
@@ -19,6 +24,7 @@ class TextFieldWidget extends StatelessWidget {
     this.padding = 20,
     this.showStar = true,
     this.readOnly = false,
+    this.maxLength = 1000,
   }) : super(key: key);
   final String name;
   final bool multiLines;
@@ -31,6 +37,7 @@ class TextFieldWidget extends StatelessWidget {
   final double radius;
   final double padding;
   final bool readOnly;
+  final int maxLength;
 
   @override
   Widget build(BuildContext context) {

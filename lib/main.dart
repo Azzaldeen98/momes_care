@@ -20,6 +20,7 @@ import 'features/auth/persention/page/sigin_page.dart';
 import 'features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
 import 'features/daily_news/presentation/pages/home/daily_news.dart';
+import 'features/forum/presentation/bloc/post/post_bloc.dart';
 import 'features/home/persention/pages/home_page.dart';
 import 'helpers/cache_helper.dart';
 import 'helpers/my_bloc_observer.dart';
@@ -35,12 +36,13 @@ void main() async{
   Bloc.observer = MyBlocObserver();
   // Helper.init();
   LocaleController().chingeLanguage(languageCode:"ar");
+
   runApp(const MyApp());
 }
 
 
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget with WidgetsBindingObserver {
   const MyApp({super.key});
 
 
@@ -55,6 +57,7 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(providers: [
     BlocProvider<RemoteArticlesBloc>(create: (context) => di.sl()..add(const GetArticles())),
+    BlocProvider(create: (context) => di.sl<PostBloc>())
     // BlocProvider<AuthBloc>(create: (context) => di.sl()..add(const SignInEvent())),
     ], child: GetMaterialApp(
       debugShowCheckedModeBanner: false,

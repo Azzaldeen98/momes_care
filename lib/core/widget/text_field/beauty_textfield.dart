@@ -19,9 +19,10 @@ class BeautyTextfield extends StatefulWidget {
   final ValueChanged<String>? onChanged, onSubmitted;
   final GestureTapCallback? onTap;
   final TextEditingController? controller;
+  final double? fontSize;
 
   const BeautyTextfield(
-      { this.width=0.80,
+      { this.width=double.maxFinite,
         this.height=50,
         this.prefixIcon,
         this.inputType=TextInputType.text,
@@ -51,6 +52,7 @@ class BeautyTextfield extends StatefulWidget {
         this.minLines,
         this.onChanged,
         this.onTap,
+        this.fontSize=12,
         this.onSubmitted})
       : assert(width != null),
         assert(height != null),
@@ -63,6 +65,8 @@ class BeautyTextfield extends StatefulWidget {
 
 class _BeautyTextfieldState extends State<BeautyTextfield> {
   bool isFocus = false;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +148,7 @@ class _BeautyTextfieldState extends State<BeautyTextfield> {
                         fontWeight: widget.fontWeight,
                         wordSpacing: widget.wordSpacing,
                         textBaseline: widget.textBaseline,
-                        fontSize: 18,
+                        fontSize: widget.fontSize,
                         letterSpacing: 2,
                         color: widget.textColor,
                       ),

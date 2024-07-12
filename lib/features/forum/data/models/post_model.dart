@@ -28,6 +28,7 @@ class PostModel extends Post{
     super.likes,
     super.comments,
     super.commentsCount,
+    super.userLiked,
     super.author
   });
 
@@ -39,6 +40,7 @@ class PostModel extends Post{
         ? DateTime.parse(_json['publishedAt'] as String)
         : null,
     likes: _json['likes'] ,
+    userLiked: _json['userLiked'] ,
     commentsCount: _json['commentsCount'],
     comments:(_json['comments']==null)?[]
         :(_json['comments'] as List<dynamic>).map((comment) =>
@@ -76,6 +78,7 @@ class PostModel extends Post{
       commentsCount: this.commentsCount,
       comments: this.comments,
       author: this.author,
+      userLiked: this.userLiked,
     );
 
 

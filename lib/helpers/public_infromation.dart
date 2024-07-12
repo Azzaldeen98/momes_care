@@ -11,6 +11,7 @@ import '../core/widget/button/button_navigation_widget.dart';
 class Helper {
   static List<dynamic> settings = [];
   static bool isAuth = false;
+  static String Auth_UId = FirebaseAuth.instance.currentUser!.uid ?? "";
   static bool notification = false;
   static ButtonNavigationWidget? buttonNavigation;
   static BottomNavigationWidget? bottomNavigation;

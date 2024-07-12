@@ -5,75 +5,38 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:moms_care/config/theme/font_manager.dart';
 import 'package:moms_care/core/data/entities/author.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
+import 'package:moms_care/features/forum/domain/usecases/post/like_unlike_post_use_case.dart';
 import 'package:moms_care/features/forum/presentation/bloc/post/post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/post/post_event.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/text_view_card_body_widget.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/text_view_card_footer_widget.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/text_view_card_header_widget.dart';
 import 'package:moms_care/helpers/public_infromation.dart';
+// import 'package:nb_utils/nb_utils.dart';
 
+import '../../../../config/theme/app_color.dart';
 import '../../../../config/theme/color_app.dart';
 import '../../../../config/theme/text_style.dart';
+import '../../../../core/constants/enam/DemoCWActionSheetType.dart';
+import '../../../../core/constants/enam/input_model_type.dart';
 import '../../../../core/data/view_models/date_time_view_model.dart';
+import '../../../../core/utils/dailog/message/messagebox_dialog_widget.dart';
+import '../../../../core/widget/bottom_sheets/DemoCWActionSheetScreen.dart';
+import '../../../../core/widget/bottom_sheets/bottom_sheet.dart';
 import '../../../../core/widget/card/card_author_widget.dart';
 import '../../../../core/widget/image/image_widget.dart';
 import '../../../../core/widget/label/text_newprice_widget.dart';
 import '../../../../core/widget/label/text_widget.dart';
 import '../../domain/entities/Comment.dart';
 import '../../domain/entities/Post.dart';
+import 'create_post_bottom_sheet_widget.dart';
+import 'date_time_widget.dart';
 
 
-// class TextViewCardWidget  extends StatelessWidget {
-//   const TextViewCardWidget({super.key, this.title, required this.content});
-//   final String? title;
-//   final String? content;
-//   @override
-//   Widget build(BuildContext context) {
-//     return    Container(
-//       padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
-//       margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-//       decoration: BoxDecoration(
-//           color: Colors.white,
-//           border: Border.all(
-//               color: const Color.fromARGB(227, 225, 224, 224), width: 0.7),
-//           borderRadius: BorderRadius.circular(5)),
-//       child: Expanded(
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             children: [
-//               // Container(
-//               //   padding: EdgeInsets.all(5),
-//               //   alignment: Alignment.centerRight,
-//               //   width: double.maxFinite,
-//               //   decoration: BoxDecoration(border: Border(bottom:BorderSide(width: 0.1))),
-//                Text(title ?? "----",style: AppTextStyles.getTitleStyle(
-//                    color: AppColors.grayOneColor,fontSize: FontSizeManager.s16),),
-//               const SizedBox(height: 5),
-//
-//               const SizedBox(height: 5),
-//               Row(
-//                 children: [
-//                   Expanded(
-//                     child: Text(
-//                       content ?? "---",
-//                       style: AppTextStyles.getMediumStyle(
-//                           fontSize: 14, color: AppColors.grayTwoColor),
-//                     ),
-//                   ),
-//                   const SizedBox(width: 20),
-//                 ],
-//               ),
-//               const SizedBox(width: 20),
-//             ],
-//           )),
-//
-//     );
-//   }
-// }
 class PostCardWidget  extends StatelessWidget {
   const PostCardWidget({super.key, this.onDelete, required this.post});
   final Post post;
@@ -81,6 +44,9 @@ class PostCardWidget  extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final dateTimeVM = DateTimeViewModel(dateTime: post.publishedAt!);
+
+    final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
     return Container(
       child: Column(
         children: [
@@ -97,20 +63,70 @@ class PostCardWidget  extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         const SizedBox(height: 0),
-                        TextViewCarHeaderWidget(author:post!.author ,createdAt:post!.publishedAt ,),
+                        TextViewCarHeaderWidget(
+                          author:post!.author ,
+                            onClickMoreOptions:(){
+                              showCupertinoModalPopup(context: context, builder: (BuildContext context) =>
+                                  DemoCWActionEditDeleteSheetScreen(
+                                    onEdited:(_context) async{
+                                      // toasty(context, "onEdited7777");
+                                      showCustomBottomSheet(context: context,child: CreateUpdatePostWidget(
+                                        title: post.title,
+                                        content: post.body,
+                                        inputModelType: InputModelType.UPDATE_POST,
+                                        onClickSaved:(title,content) async{
+
+                                          final _newPost=post.copyWith(title: title,body: content);
+                                          // if(title!=post.title || content!=post.body)
+                                          BlocProvider.of<PostBloc>(context).add(UpdatePostEvent(post:_newPost));
+
+                                        },onCreatedOrUpdatedIsSuccess: (){
+                                        print("onCreatedOrUpdatedIsSuccess");
+                                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                                          _refreshIndicatorKey.currentState?.show();
+                                        });
+                                        // Get.back();
+                                      },baseContext: context,));
+                                      // BlocProvider.of<PostBloc>(context).add(UpdatePostEvent(post: post));
+                                       //
+                                    } ,
+                                    onDeleted: (_context) async{
+                                      // toasty(context, "onDeleted7777");
+                                       BlocProvider.of<PostBloc>(context).add(DeletePostEvent(postId:post.id!));
+                                       // MessageBox.showSuccess(context,  "onDeleted");
+
+                                          // toast("Accept Delete");
+                                          // _showDeleteDialog(_context);
+                                          //  MessageBoxDialogWidget(message: "Do you really want to delete the current diagnostic process".tr,onAccenpt: () {
+                                      //
+                                      // },);
+                                      // checkDeletedBox(context: context,onChangeOk: (){
+                                      //
+                                      // });
+
+                                      // MessageBox.showDialog(context, textBody: "onDeleted");
+                                    },
+                                  ));
+
+                              // MessageBox.showDialog(context, textBody: "onClickMoreOptions");
+                            }),
                         const SizedBox(height: 0),
                         TextViewCarBodyWidget(title:post?.title ,content: post?.body),
                         const SizedBox(height: 10),
+                        TextViewCardDateTimeWidget(dateTime: post!.publishedAt,),
+                        const SizedBox(height: 10),
                         TextViewCarFooterWidget(
-                            onLiked:onPressedLike,
+                            onLiked:(){
+                              BlocProvider.of<PostBloc>(context).add((LikeUnLikePostEvent(postId:post.id!)));
+                            },
                             onComments:(){
-                              // MessageBox.show(context, "onComments");
-                              BlocProvider.of<PostBloc>(context).add(DetailsPostEvent(post: post));
+                                 BlocProvider.of<PostBloc>(context).add(DetailsPostEvent(post: post));
                               },
                             onReply:onPressedReply,
                             likes: post?.likes,
                             comments: post?.commentsCount,
                             isPost: true,
+                            userLiked: post!.userLiked!,
                         ),
                         const SizedBox(width: 20),
                       ],
@@ -121,6 +137,41 @@ class PostCardWidget  extends StatelessWidget {
       ),
     );
   }
+
+
+  void _showDeleteDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('تنبيه'),
+          content: Text("هل تريد حقًا حذف العملية التشخيصية الحالية؟".tr),
+          actions: [
+            TextButton(
+              child: Text('إلغاء'.tr),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('موافق'.tr),
+              onPressed: () {
+                // تنفيذ عملية الحذف هنا
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  void checkDeletedBox({required BuildContext context,required Function() onChangeOk}) {
+    MessageBoxDialogWidget(message: "Do you really want to delete the current diagnostic process".tr,onAccenpt: () {
+      onChangeOk();
+    },);
+    }
+
+
 
 
   // Widget _buildHeaderCard(Author? author,DateTime? dateTime){
@@ -206,12 +257,10 @@ class PostCardWidget  extends StatelessWidget {
   //     ),);
   // }
 
-  void onPressedLike(){
+  void onPressedLike(BuildContext context){
 
   }
-  void onPressedComments(){
 
-  }
   void onPressedReply(){
 
   }

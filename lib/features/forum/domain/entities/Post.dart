@@ -19,6 +19,7 @@ class Post extends Equatable{
   final int? commentsCount;
   final List<Comment>? comments;
   final Author? author;
+  final bool? userLiked;
 
   Post({ this.id,
     this.title,
@@ -27,6 +28,7 @@ class Post extends Equatable{
     this.commentsCount,
     this.likes=0,
     this.comments=null,
+    this.userLiked,
     this.author});
 
   @override
@@ -37,9 +39,19 @@ class Post extends Equatable{
     publishedAt,
     likes,
     comments,
+    userLiked,
     commentsCount,
     author
   ];
+
+  Post copyWith({String? title,String? body}) {
+    return Post(
+      id: this.id ?? 0,
+      title: title ??  this.title ?? "",
+      body: body ?? this.body ?? "",
+      publishedAt: this.publishedAt ?? DateTime.now(),
+    );
+  }
 
 }
 

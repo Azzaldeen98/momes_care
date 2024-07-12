@@ -17,7 +17,7 @@ class CardAuthorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(0),
-      // margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       // decoration: BoxDecoration(
       //     color: Colors.white,
       //     border: Border.all(
@@ -25,11 +25,11 @@ class CardAuthorWidget extends StatelessWidget {
       //     borderRadius: BorderRadius.circular(10)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: 30,
-            width: 30,
+            height: 40,
+            width: 40,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
@@ -48,8 +48,8 @@ class CardAuthorWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextWidget(author!.name ?? "----",),
-              const SizedBox(height: 5),
+              Text(author!.name ?? "----",),
+              const SizedBox(height: 0),
               // TextWidget("author.id" ?? "----", fontSize: 14),
               // const SizedBox(height: 5),
               // Row(

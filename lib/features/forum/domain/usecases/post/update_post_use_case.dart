@@ -13,6 +13,8 @@ class UpdatePostUseCase { //implements UseCase<Either<Failure,List<Post>>,void>{
 
   @override
   Future<Either<Failure,Unit>> call(Post _post) async {
+
+    print("UpdatePostUseCase ${_post.title}");
     return await _postRepository.updatePost(_post);
   }
 

@@ -10,6 +10,10 @@ class OTPNotValiedExecption implements Exception {}
 
 class SigOutExecption implements Exception {}
 
+class DioException implements Exception {}
+
+class AuthorizeException implements Exception {}
+
 class OldPasswordExecption implements Exception {}
 
 class CustomerExistisExecption implements Exception {}

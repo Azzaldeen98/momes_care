@@ -4,8 +4,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// import 'package:nb_utils/nb_utils.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:moms_care/config/theme/font_manager.dart';
 import 'package:moms_care/core/data/entities/author.dart';
+import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 import 'package:moms_care/helpers/public_infromation.dart';
 
 import '../../../../config/theme/color_app.dart';
@@ -19,14 +23,15 @@ import '../../domain/entities/Comment.dart';
 import '../../domain/entities/Post.dart';
 
 
-class TextViewCarFooterWidget  extends StatelessWidget {
+class TextViewCarFooterWidget  extends StatefulWidget {
 
   const TextViewCarFooterWidget({super.key,
-    this.likes,
-    this.comments,
-    this.onLiked,
-    this.onComments,
-    this.onReply,
+    this.likes=0,
+    this.comments=0,
+   required this.onLiked,
+    required this.onComments,
+    required  this.onReply,
+    this.userLiked=false,
     this.isPost=true, });
 
   final Function()? onLiked;
@@ -34,19 +39,53 @@ class TextViewCarFooterWidget  extends StatelessWidget {
   final Function()? onReply;
   final  int? likes;
   final  int? comments;
-  final  bool isPost;
+  final  bool? isPost;
+  final  bool? userLiked;
+  @override
+  State<TextViewCarFooterWidget> createState() => _TextViewCarFooterWidgetState();
+
+}
+
+
+class _TextViewCarFooterWidgetState  extends  State<TextViewCarFooterWidget> {
+
+ late int likesCount=0;
+ late bool _userLiked=false;
+ @override
+ void initState() {
+   likesCount=widget!.likes??0;
+   _userLiked=widget.userLiked??false;
+   super.initState();
+ }
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
+
+
     return  Container(
+      padding: EdgeInsets.all(10),
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          TextButton.icon( label:Text(likes.toString()),onPressed: onLiked, icon:   Icon(Icons.favorite_outline_sharp) ?? Icon(Icons.favorite_sharp),),
-          (!isPost)? SizedBox(): TextButton.icon( label:Text(comments.toString()),onPressed: onComments, icon:   Icon(Icons.comment_sharp) ?? Icon(Icons.favorite_sharp),),
-          IconButton(onPressed: onReply, icon:   Icon(Icons.reply)),
+
+          TextButton.icon( label:Text(likesCount.toString()),onPressed: (){
+            widget.onLiked!();
+            setState(() {
+              likesCount+= _userLiked ? -1:1;
+              _userLiked=!_userLiked;
+            });
+          }, icon: Icon( _userLiked? Icons.favorite_sharp:Icons.favorite_outline_sharp),),
+          (!widget.isPost!)? SizedBox(): TextButton.icon( label:Text(widget.comments.toString()),onPressed: widget.onComments, icon:   Icon(Icons.comment_sharp) ?? Icon(Icons.favorite_sharp),),
+          IconButton(onPressed: widget.onReply, icon:   Icon(Icons.reply)),
         ],
       ),);
   }
 
 }
+
+

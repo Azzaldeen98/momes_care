@@ -12,6 +12,7 @@ import '../../../../helpers/cache_helper.dart';
 import '../../../../helpers/public_infromation.dart';
 import '../../../auth/domain/entities/auth.dart';
 import '../../../auth/persention/page/auth_view.dart';
+import '../../../../core/widget/bottom_sheets/DemoCWActionSheetScreen.dart';
 import '../../../home/persention/pages/home_page.dart';
 import '../../../home/persention/pages/home_view.dart';
 import '../on_boarding_screen.dart';
@@ -71,7 +72,7 @@ class SplashViewBodyState extends State<SplashViewBody>
           Helper.auth = Auth.fromJson(decodeJson);
           Helper.isAdmin = Helper.auth?.userInfo != null &&
               Helper.auth?.userInfo?.role == UserRoles.ADMIN;
-          Get.offAll(() => const HomePage());
+          Get.offAll(() =>  HomePage()); // DemoCWActionSheetScreen()
 
       }
       else

@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moms_care/config/theme/font_manager.dart';
 import 'package:moms_care/core/data/entities/author.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/text_view_card_body_widget.dart';
@@ -11,15 +12,21 @@ import 'package:moms_care/features/forum/presentation/wedgits/text_view_card_foo
 import 'package:moms_care/features/forum/presentation/wedgits/text_view_card_header_widget.dart';
 import 'package:moms_care/helpers/public_infromation.dart';
 
+import '../../../../config/theme/app_color.dart';
 import '../../../../config/theme/color_app.dart';
 import '../../../../config/theme/text_style.dart';
+import '../../../../core/constants/enam/input_model_type.dart';
 import '../../../../core/data/view_models/date_time_view_model.dart';
+import '../../../../core/widget/bottom_sheets/DemoCWActionSheetScreen.dart';
+import '../../../../core/widget/bottom_sheets/bottom_sheet.dart';
 import '../../../../core/widget/card/card_author_widget.dart';
 import '../../../../core/widget/image/image_widget.dart';
 import '../../../../core/widget/label/text_newprice_widget.dart';
 import '../../../../core/widget/label/text_widget.dart';
 import '../../domain/entities/Comment.dart';
 import '../../domain/entities/Post.dart';
+import 'create_post_bottom_sheet_widget.dart';
+import 'date_time_widget.dart';
 
 
 
@@ -27,42 +34,83 @@ class CommentCardViewWidget  extends StatelessWidget {
   const CommentCardViewWidget({super.key, this.onDelete, required this.comment});
   final Comment comment;
   final VoidCallback? onDelete;
+
+
   @override
   Widget build(BuildContext context) {
       print("CommentCardViewWidget:${comment.contant}");
     return Container(
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(0),
-            margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                    color: const Color.fromARGB(227, 225, 224, 224), width: 0.7),
-                borderRadius: BorderRadius.circular(10)),
-                child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const SizedBox(height: 0),
-                        TextViewCarHeaderWidget(author:comment!.author ,createdAt:comment!.createdAt ,),
-                        const SizedBox(height: 0),
-                        TextViewCarBodyWidget(title:"" ,content: comment?.contant),
-                        const SizedBox(height: 10),
-                        // TextViewCarFooterWidget(
-                        //     onLiked:onPressedLike,
-                        //     onComments: onPressedComments,
-                        //     onReply:onPressedReply,
-                        //   likes: comment?.likes,
-                        //   isPost: false,
-                        // ),
-                        const SizedBox(width: 0),
-                      ],
-                    ),
+      color: Colors.white,
+      padding: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(7),
+      child: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+        child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const SizedBox(height: 0),
+                TextViewCarHeaderWidget(author:comment!.author,onClickMoreOptions: (){
+                  showCupertinoModalPopup(context: context, builder: (BuildContext context) =>
+                      DemoCWActionEditDeleteSheetScreen(
+                        onEdited:(_context) async{
+                          // toasty(context, "onEdited7777");
+                          showCustomBottomSheet(context: context,child: CreateUpdatePostWidget(
+                            title: "",
+                            content: comment.contant ?? "",
+                            inputModelType: InputModelType.UPDATE_COMMENT,
+                            onClickSaved:(title,content) async{
 
-          ),
-        ],
+                              // final _newPost=post.copyWith(title: title,body: content);
+                              // if(title!=post.title || content!=post.body)
+
+
+                            },onCreatedOrUpdatedIsSuccess: (){
+                            print("onCreatedOrUpdatedIsSuccess");
+
+                            // Get.back();
+                          },baseContext: context,));
+                          // BlocProvider.of<PostBloc>(context).add(UpdatePostEvent(post: post));
+                          //
+                        } ,
+                        onDeleted: (_context) async{
+                          // toasty(context, "onDeleted7777");
+                          // BlocProvider.of<PostBloc>(context).add(DeletePostEvent(postId:post.id!));
+                          // MessageBox.showSuccess(context,  "onDeleted");
+
+                          // toast("Accept Delete");
+                          // _showDeleteDialog(_context);
+                          //  MessageBoxDialogWidget(message: "Do you really want to delete the current diagnostic process".tr,onAccenpt: () {
+                          //
+                          // },);
+                          // checkDeletedBox(context: context,onChangeOk: (){
+                          //
+                          // });
+
+                          // MessageBox.showDialog(context, textBody: "onDeleted");
+                        },
+                      ));
+                },),
+                const SizedBox(height: 0),
+                TextViewCarBodyWidget(title:"" ,content: comment?.contant),
+                const SizedBox(height: 10),
+                TextViewCardDateTimeWidget(dateTime: comment!.createdAt,),
+                TextViewCarFooterWidget(
+                    onLiked:(){
+                      // BlocProvider.of<PostBloc>(context).add((LikeUnLikePostEvent(postId:post.id!)));
+                    },
+                    onComments:(){
+                    },
+                    onReply:(){},
+                    likes: comment.likes??0,
+                    isPost: false,
+                    userLiked: comment!.userLiked??false,
+                    comments: 0,
+                  ),
+
+                const SizedBox(width: 0),
+              ],
+            ),
       ),
     );
   }

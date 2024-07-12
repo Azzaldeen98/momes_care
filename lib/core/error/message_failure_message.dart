@@ -34,6 +34,12 @@ String mapFailureToMessage(Failure failure) {
     case CustomerNotFoundFailure:
       return CUSTOMER_NOT_FOUND_AR;
 
+    case DioFailure:
+      return CUSTOMER_NOT_FOUND_AR;
+
+      case AuthorizeFailure:
+      return AUTHORIZE_FAILURE_MESSAGE_AN;
+
     default:
       return UNEXPECTED_FAILURE_MESSAGE_AR;
   }

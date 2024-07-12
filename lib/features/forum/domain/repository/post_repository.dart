@@ -10,6 +10,7 @@ abstract  class PostRepository {
 
   Future<Either<Failure,List<Post>>> getAllPosts();
   Future<Either<Failure,Unit>> addPost(Post post);
+  Future<Either<Failure,bool>> likeUnLikePost(int postId);
   Future<Either<Failure,Unit>> updatePost(Post post);
   Future<Either<Failure,Unit>> deletePost(int postId);
   Future<Either<Failure,Post>> getPost(int id);

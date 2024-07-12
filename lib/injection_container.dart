@@ -45,6 +45,7 @@ import 'features/daily_news/domain/usecases/save_article.dart';
 import 'features/daily_news/presentation/bloc/article/local/local_article_bloc.dart';
 import 'features/forum/data/repository/post_repository_impl.dart';
 import 'features/forum/domain/usecases/post/delete_post_use_case.dart';
+import 'features/forum/domain/usecases/post/like_unlike_post_use_case.dart';
 import 'features/forum/domain/usecases/post/update_post_use_case.dart';
 import 'package:http/http.dart' as http;
 import 'package:moms_care/features/forum/presentation/bloc/post/post_state.dart';
@@ -111,6 +112,7 @@ Future<void> init() async {
     getAllPostsUseCase: sl(),
     addPostUseCase: sl(),
     updatePostUseCase: sl(),
+    likeUnLikePostUseCase: sl(),
     deletePostUseCase: sl(),
   ));
 
@@ -132,6 +134,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => FirebaseSignUpUseCases(sl()));
 
   // Post
+  sl.registerLazySingleton(() => LikeUnLikePostUseCase(sl()));
   sl.registerLazySingleton(() => GetAllPostsUseCase(sl()));
   sl.registerLazySingleton(() => AddPostUseCase(sl()));
   sl.registerLazySingleton(() => DeletePostUseCase(sl()));

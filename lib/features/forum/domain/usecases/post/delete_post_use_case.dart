@@ -13,6 +13,7 @@ class DeletePostUseCase {
 
   @override
   Future<Either<Failure,Unit>> call(int postId) async {
+
     return await _postRepository.deletePost(postId);
   }
 

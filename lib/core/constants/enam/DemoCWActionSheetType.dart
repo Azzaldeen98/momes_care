@@ -1,0 +1,7 @@
+
+enum DemoCWActionSheetType{
+  EDIT_DELETE_SHEET,
+  ONE_ACTIONS,
+  TWO_ACTIONS,
+  THREE_ACTIONS,
+}

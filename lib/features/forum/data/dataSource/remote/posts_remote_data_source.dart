@@ -17,7 +17,7 @@ import '../../../../../core/error/exception.dart';
 import '../../../../../core/remote/api_service.dart';
 import '../../../domain/entities/Post.dart';
 
-@RestApi(baseUrl:"${baseURL}/Account")
+@RestApi(baseUrl:"${BASE_URL}/api/v1/Post")
 abstract class PostRemoteDataSource{
 
   factory PostRemoteDataSource() = PostRemoteDataSourceImpl;
@@ -30,6 +30,9 @@ abstract class PostRemoteDataSource{
 
   @POST('/create')
   Future<Unit> addPost(@Body() PostModel model);
+
+  @POST('/likeUnlike')
+  Future<bool> likeUnLikePost(@Query("id") int ? id);
 
   @PUT('/update')
   Future<Unit> updatePost(@Body() PostModel model);
@@ -78,13 +81,15 @@ abstract class PostRemoteDataSource{
 
   @override
   Future<Unit> addPost(PostModel model) async{
-
     final _json = await remoteDioService?.executeWithToken((dio) => dio.post('${baseUrl}/create',
     data: jsonEncode({
       "title":model.title,
       "body":model.body,})
     ),);
+
+    print("response44 $_json");
     var response = BaseResponse.fromJson(_json!);
+    print("response44: ${response.result}");
     if(response !=null && response.isSuccess){
       return unit;
     }
@@ -93,6 +98,18 @@ abstract class PostRemoteDataSource{
 
   }
 
+   @override
+   Future<bool> likeUnLikePost(int? id) async{
+
+     final _json = await remoteDioService?.executeWithToken((dio) => dio.post('${baseUrl}/likeUnlike?id=${id}'));
+     var response = BaseResponse.fromJson(_json!);
+     if(response !=null && response.isSuccess){
+       return response.result as bool;
+     }
+     else
+       throw ServerExecption();
+
+   }
 
 
   @override

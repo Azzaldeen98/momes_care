@@ -21,9 +21,15 @@ class DetailsPostEvent extends PostEvent{
   final Post post;
 }
 
+class LikeUnLikePostEvent extends PostEvent{
+  const LikeUnLikePostEvent({required this.postId});
+  final int postId;
+}
+
  class AddPostEvent extends PostEvent{
-   const AddPostEvent({required this.post});
-   final Post post;
+   const AddPostEvent( {required this.title,required this.content});
+   final String title;
+   final String content;
  }
  class UpdatePostEvent extends PostEvent{
    const UpdatePostEvent({required this.post});

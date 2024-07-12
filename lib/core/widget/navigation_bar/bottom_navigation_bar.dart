@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:moms_care/config/theme/app_color.dart';
 import 'package:moms_care/features/forum/presentation/pages/post/posts_page.dart';
 import 'package:moms_care/features/moms_care/presentation/pages/home/home_page.dart';
 import 'package:motion_tab_bar/MotionBadgeWidget.dart';
@@ -50,23 +51,23 @@ class _BottomNavigationWidgetState extends  State<BottomNavigationWidget>  with 
       badges: [
         // Default Motion Badge Widget
         const MotionBadgeWidget(
-          text: '10+',
+          // text: '10+',
           textColor: Colors.white, // optional, default to Colors.white
-          color: Colors.red, // optional, default to Colors.red
+          color: AppColor.primaryColor, // optional, default to Colors.red
           size: 18, // optional, default to 18
         ),
 
         // custom badge Widget
         Container(
-          color: Colors.black,
-          padding: const EdgeInsets.all(2),
-          child: const Text(
-            '11',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.white,
-            ),
-          ),
+          // color: Colors.black,
+          padding: const EdgeInsets.all(0),
+          // child: const Text(
+          //
+          //   style: TextStyle(
+          //     fontSize: 14,
+          //     color: Colors.white,
+          //   ),
+          // ),
         ),
 
         // allow null
@@ -75,7 +76,7 @@ class _BottomNavigationWidgetState extends  State<BottomNavigationWidget>  with 
         // Default Motion Badge Widget with indicator only
         const MotionBadgeWidget(
           isIndicator: true,
-          color: Colors.blue, // optional, default to Colors.red
+          color: AppColor.primaryColor, // optional, default to Colors.red
           size: 5, // optional, default to 5,
           show: true, // true / false
         ),
@@ -84,13 +85,13 @@ class _BottomNavigationWidgetState extends  State<BottomNavigationWidget>  with 
       tabBarHeight: 55,
       textStyle: const TextStyle(
         fontSize: 12,
-        color: Colors.black,
+        color: AppColor.primaryColor,
         fontWeight: FontWeight.w500,
       ),
-      tabIconColor: Colors.blue[600],
+      tabIconColor: AppColor.primaryColor,
       tabIconSize: 28.0,
       tabIconSelectedSize: 26.0,
-      tabSelectedColor: Colors.blue[900],
+      tabSelectedColor: AppColor.primaryColor,
       tabIconSelectedColor: Colors.white,
       tabBarColor: Colors.white,
       onTabItemSelected: (int value) {

@@ -26,13 +26,13 @@ class TextViewCarBodyWidget  extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return    Container(
-      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
       margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
       decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(
-              color: const Color.fromARGB(227, 225, 224, 224), width: 0.7),
-          borderRadius: BorderRadius.circular(5)),
+          // color: Colors.green,
+          // border: Border.all(
+          //     color: const Color.fromARGB(227, 225, 224, 224), width: 0),
+          borderRadius: BorderRadius.circular(0)),
       child: Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,23 +44,21 @@ class TextViewCarBodyWidget  extends StatelessWidget {
               //   width: double.maxFinite,
               //   decoration: BoxDecoration(border: Border(bottom:BorderSide(width: 0.1))),
                Text(title ?? "----",style: AppTextStyles.getTitleStyle(
-                   color: AppColors.grayOneColor,fontSize: FontSizeManager.s16),),
-              const SizedBox(height: 5),
+                   color: AppColors.grayOneColor,fontSize: FontSizeManager.s16),textAlign: TextAlign.justify,),
+              const SizedBox(height:10),
 
-              const SizedBox(height: 5),
               Row(
                 children: [
                   Expanded(
                     child: Text(
                       content ?? "---",
+                      textAlign: TextAlign.justify,
                       style: AppTextStyles.getMediumStyle(
                           fontSize: 14, color: AppColors.grayTwoColor),
                     ),
                   ),
-                  const SizedBox(width: 20),
                 ],
               ),
-              const SizedBox(width: 20),
             ],
           )),
 

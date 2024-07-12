@@ -21,8 +21,31 @@ class LoadingPostsState extends PostState{
   const LoadingPostsState();
 }
 
+class LoadingLikeUnLikePostState extends PostState{
+  const LoadingLikeUnLikePostState();
+}
+
 class LoadingDetailsPostsState extends PostState{
   const LoadingDetailsPostsState();
+
+}
+class LoadingAddPostState extends PostState{
+  const LoadingAddPostState();
+}
+class AddPostSuccessState extends PostState{
+  const AddPostSuccessState();
+}
+
+class DeletedPostSuccessState extends PostState{
+  const DeletedPostSuccessState();
+}
+class UpdatedPostSuccessState extends PostState{
+  const UpdatedPostSuccessState();
+}
+
+class LikeUnLikePostSuccessState extends PostState{
+  final bool userLiked;
+  const LikeUnLikePostSuccessState({required this.userLiked});
 }
 class LoadedPostsState extends PostState{
   final List<Post> posts;

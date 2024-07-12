@@ -5,7 +5,7 @@ class AppBaseColor{
   static const Color black= Color(0xFF000000);
   static const Color white= Color(0xFFFFFFFF);
   static const Color red= Color(0xFFFF0000);
-  static const  Color baseColor=Color(0xFFDA4849);
+  static const  Color baseColor=Color(0xFF242424);
 }
 class AppColor {
 
@@ -13,20 +13,27 @@ class AppColor {
   static const Color whiteColor = Color(0xFFFFFFFF);
 
   /// Light
-  static const primaryColor =Color(0xFFDA4849);
+  static const primaryColor =Color(0xFF050505);
   static const primaryColor2 =Color(0xFAD3595A);
   static const secondColor =Color(0xFFFCC6C6);
-  static const scaffoldBackgroundColor = Color(0xFFFCC6C6);
-  static const Color primaryTextColor = AppBaseColor.white;
+  static const PrimaryButtonLightColor =Color(0xFF333232);
+  static const scaffoldBackgroundColor = Color(0xFFC5C5C5);
+  static const opacitybgCololr = const Color.fromRGBO(180, 178, 178, 1.0);
+  static const Color primaryAppBarColor = AppBaseColor.black;// Color(0xFF1B4A8C);
+  static const Color primaryTextColor = AppBaseColor.black;
   static const Color secondaryTextColor = AppBaseColor.black;
   static const Color secondaryIconColor = AppBaseColor.black;
+  static const Color primaryLightIconColor = AppBaseColor.black;
   static const Color primaryIconColor = AppBaseColor.white;
 
   /// Dark
   static const primaryDarkColor =Color(0xFF050505);
   static const secondDarkColor =Color(0xFF2C2B2B);
+  static const underLineColor = const Color.fromARGB(227, 225, 224, 224);
   static const scaffoldBackgroundDarkColor =Color(0xFF2C2B2B);
-  static const Color primaryTextDarkColor = AppBaseColor.white;
+  static const Color PrimaryTextDarkColor = Color(0xFF313030);
+  static const Color PrimaryTextLightColor = Color(0xFFFFFFFF);
+  static const Color SecondTextDarkColor = Color(0xFF464545);
   static const Color primaryIconDarkColor = AppBaseColor.white;
   // Color.fromRGBO(243, 3, 3, 1.0);
   // AppColors.deepPurple ;
@@ -42,7 +49,7 @@ class AppColor {
       82, 155, 250, 0.5);
   /// Basic Buttons  Colors
   static const Color buttonPrimaryColor = AppBaseColor.baseColor;
-  static const Color buttonSecondaryColor = AppColors.redOneColor;
+  static const Color buttonSecondaryColor = secondDarkColor;
   /// Buttons Icon - Colors
   static const Color buttonIconColor = primaryColor;
   /// Buttons Text - Colors

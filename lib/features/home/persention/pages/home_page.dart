@@ -1,14 +1,21 @@
 import 'package:clipboard/clipboard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:moms_care/config/theme/app_color.dart';
+import 'package:moms_care/core/utils/function/set_auth.dart';
+import 'package:moms_care/features/auth/persention/page/auth_view.dart';
 import 'package:moms_care/features/moms_care/presentation/bloc/local/speech/commands.dart';
 import 'package:moms_care/features/moms_care/presentation/bloc/local/speech/speech.dart';
+import 'package:moms_care/features/moms_care/presentation/pages/splash/splash.dart';
 import 'package:moms_care/features/speech/persention/pages/speech_page.dart';
 import 'package:substring_highlight/substring_highlight.dart';
+import '../../../../core/widget/bottom_sheets/DemoCWActionSheetScreen.dart';
 import '../../../../core/widget/navigation_bar/bottom_navigation_bar.dart';
 import '../../../../helpers/public_infromation.dart';
+import '../../../../main.dart';
 import '../../../forum/presentation/pages/post/posts_page.dart';
 import '../../../settings/persention/pages/setting_page.dart';
 import '/injection_container.dart' as di;
@@ -68,19 +75,8 @@ class _HomePageState extends State<HomePage>   {
     // );
       // bottomNavigationBar: BottomNavigationWidget(changeScreen: changeScreen, currentIndex: numberScreen),
       // appBar: _buildAppBar(),
-      // floatingActionButton: AvatarGlow(
-      //   endRadius: 80,
-      //   animate: isListening,
-      //   glowColor: Colors.teal,
-      //   child: FloatingActionButton(
-      //     onPressed: toggleRecording,
-      //     child: Icon(
-      //       isListening ? Icons.circle : Icons.mic,
-      //       size: 35,
-      //     ),
-      //   ),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      //
+      //  floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 
 
 
@@ -132,22 +128,42 @@ class _HomePageState extends State<HomePage>   {
   }
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.teal,
+      backgroundColor: AppColor.primaryAppBarColor,
       centerTitle: true,
       title:  Text(
-        'Speech Recognition'.tr,
+        // 'Speech Recognition'.tr,
+        'AppName'.tr,
         style: TextStyle(color: Colors.white),
       ),
       actions: [
         IconButton(
           onPressed: () async {
-            await FlutterClipboard.copy(textSample);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Text Copied to Clipboard'.tr)),
-            );
+
+            showCupertinoModalPopup(context: context, builder: (BuildContext context) =>
+                DemoCWActionMoreOptionSheetScreen(
+                  onLogOut:() async{
+                    try {
+                      if (FirebaseAuth.instance != null && FirebaseAuth.instance.currentUser != null)
+                        await FirebaseAuth.instance.signOut();
+                    }
+                    finally{
+
+                        if(Helper.isAuth) {
+                          await removeAuthAsync();
+                        }
+                        Get.offAll(AuthView());
+                    }
+
+                  }));
+
+
+            // await FlutterClipboard.copy(textSample);
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(content: Text('Text Copied to Clipboard'.tr)),
+            // );
           },
           icon: const Icon(
-            Icons.copy,
+            Icons.more_vert,
             color: Colors.white,
           ),
         ),

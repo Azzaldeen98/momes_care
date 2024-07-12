@@ -11,8 +11,18 @@ import '../../error/faiture.dart';
   if(await networkInfo.isConnected){
     try{
 
-      final response = await callback();
-      return Right(response);
+      if(T == Unit || T is Unit){
+        await callback();
+        print("safeExecuteTaskWithNetworkCheck : Unit");
+        return Right(unit as T);
+      }else{
+        final response = await callback();
+        print("safeExecuteTaskWithNetworkCheck : Response");
+        return Right(response);
+      }
+
+
+
     }
     on ServerExecption{ return Left(ServerFailure());}
     on InvalidEmailOrPasswordExecption{return Left(InvalidEmailOrPasswordFailure());}
@@ -24,6 +34,7 @@ import '../../error/faiture.dart';
     on FirebaseException{return Left(FirebaseFailure());}
     on OfflineExecption{return Left(OfflineFailure());}
     on EmptyCacheException{return Left(EmptyCacheFailure());}
+    on AuthorizeException{return Left(AuthorizeFailure());}
 
   }else{
     return Left(OfflineFailure());

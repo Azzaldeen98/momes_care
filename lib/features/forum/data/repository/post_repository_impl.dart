@@ -26,8 +26,7 @@ class PostRepositoryImpl  implements PostRepository{
   Future<Either<Failure, List<Post>>> getAllPosts() async {
 
     return await safeExecuteTaskWithNetworkCheck<List<Post>>(networkInfo,() async{
-      return (await  remoteDataSource.getAllPosts()).map((item) => item.toEntity()).toList();
-
+      return (await  remoteDataSource.getAllPosts()).map((item)=> item.toEntity()).toList();
     });
   }
 
@@ -64,6 +63,14 @@ class PostRepositoryImpl  implements PostRepository{
         return response.toEntity();
       });
 
+  }
+
+  @override
+  Future<Either<Failure, bool>> likeUnLikePost(int postId) async {
+    return await safeExecuteTaskWithNetworkCheck<bool>(networkInfo,() async{
+      return  await  remoteDataSource.likeUnLikePost(postId);
+    });
+    throw UnimplementedError();
   }
 
 
