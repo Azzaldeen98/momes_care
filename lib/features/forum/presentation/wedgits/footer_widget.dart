@@ -1,27 +1,11 @@
 
 
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// import 'package:nb_utils/nb_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/font_manager.dart';
-import 'package:moms_care/core/data/entities/author.dart';
-import 'package:moms_care/core/utils/dailog/message/message_box.dart';
-import 'package:moms_care/helpers/public_infromation.dart';
 
-import '../../../../config/theme/color_app.dart';
-import '../../../../config/theme/text_style.dart';
-import '../../../../core/data/view_models/date_time_view_model.dart';
-import '../../../../core/widget/card/card_author_widget.dart';
-import '../../../../core/widget/image/image_widget.dart';
-import '../../../../core/widget/label/text_newprice_widget.dart';
-import '../../../../core/widget/label/text_widget.dart';
-import '../../domain/entities/Comment.dart';
-import '../../domain/entities/Post.dart';
+
 
 
 class FooterWidget  extends StatefulWidget {

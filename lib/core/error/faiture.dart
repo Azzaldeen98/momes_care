@@ -14,6 +14,12 @@ class ServerFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+// خطاء  اذن الوصول الى السرفر
+class AuthenticationFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}
+
 // firebase error
 class FirebaseFailure extends Failure {
   @override
@@ -23,8 +29,14 @@ class DioFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
-// firebase error
+// Authorize error
 class AuthorizeFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}
+
+// Error Failure
+class ErrorFailure extends Failure {
   @override
   List<Object?> get props => [];
 }

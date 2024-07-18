@@ -1,6 +1,6 @@
 
 import 'package:retrofit/retrofit.dart';
-import '../../../../../core/constants/constants.dart';
+import 'package:moms_care/core/constants/constants.dart';
 import 'package:dio/dio.dart';
 import '../../models/article.dart';
 

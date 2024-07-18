@@ -10,6 +10,7 @@ const String kDefaultImage = "https://www.google.com/search?q=default+image&clie
 //////////////////
 
 final List<String> Roles = ['User', 'Doctor','Admin'];
+final List<String> GenderTypes = ['Male'.tr, 'Female'.tr];
 final List<String> InputModelSheetTypes = ['New Post'.tr, 'Edit Post'.tr,'New Comment'.tr,'Edit Comment'.tr];
 final List<String> userRoles = ['User'.tr, 'Doctor'.tr];//,'Admin'.tr];
 

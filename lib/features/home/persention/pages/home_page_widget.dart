@@ -9,56 +9,61 @@ class _HomePageWidgetState extends State<HomePageWidget>   {
   @override
   Widget build(BuildContext context) {
 
-    return SingleChildScrollView(
-        reverse: true,
-        child: Column(
-          children: [
-            SizedBox(height: 100,),
-            Center(
-              child: SizedBox(
-                width: 250,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     LocaleController().chingeLanguage(languageCode: 'ar');
-                    //   },
-                    //   child: Text("Arabic"),
-                    // ),
-                    ElevatedButton(
-                      onPressed: () {
-
-                        setState(() {
-
-                        });
-
-
-                      },
-                      child: Text("my home page"),
-                    ),
-                  ],
+    return Scaffold(
+      appBar: AppBarPageWidget(pageName: "Home".tr,),
+      bottomNavigationBar: Helper.buttonNavigation ,
+      body: SingleChildScrollView(
+          reverse: true,
+          child: Column(
+            children: [
+              SizedBox(height: 100,),
+              Center(
+                child: SizedBox(
+                  width: 250,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     LocaleController().chingeLanguage(languageCode: 'ar');
+                      //   },
+                      //   child: Text("Arabic"),
+                      // ),
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //
+                      //     setState(() {
+                      //
+                      //     });
+                      //
+                      //
+                      //   },
+                      //   child: Text("home page"),
+                      // ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0).copyWith(bottom: 140),
-              child: SubstringHighlight(
-                text: "my home page",
-                textAlign: TextAlign.center,
-                terms: Command.commands,
-                textStyle: const TextStyle(
+              Padding(
+                padding: const EdgeInsets.all(20.0).copyWith(bottom: 50),
+                child: SubstringHighlight(
+                  text: "AppName".tr,
+                  textAlign: TextAlign.center,
+                  terms: Command.commands,
+                  textStyle: const TextStyle(
 
-                  color: Colors.teal,
-                  fontSize: 30,
-                ),
-                textStyleHighlight: const TextStyle(
-                    color: Colors.blue,
+                    color: AppColor.primaryTextColor,
                     fontSize: 30,
-                    fontWeight: FontWeight.bold),
+                  ),
+                  textStyleHighlight: const TextStyle(
+                      color: Colors.blue,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-          ],
-        ));
+              Image.asset(AppImage.SPLASH3_IMG,)
+            ],
+          )),
+    );
   }
 }

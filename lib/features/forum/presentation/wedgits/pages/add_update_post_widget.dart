@@ -6,25 +6,26 @@ import 'package:get/get.dart';
 import 'package:moms_care/config/theme/app_color.dart';
 import 'package:moms_care/config/theme/font_manager.dart';
 import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/features/forum/presentation/pages/post/posts_page.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/form_header_widget.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/header_widget.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/post_add_update/form_post_widget.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import '../../../../../config/theme/color_app.dart';
-import '../../../../../core/constants/constants.dart';
-import '../../../../../core/constants/enam/input_model_type.dart';
-import '../../../../../core/constants/enam/number_of_screen.dart';
-import '../../../../../core/utils/dailog/message/message_box.dart';
-import '../../../../../core/utils/dailog/message/message_snack_bar.dart';
-import '../../../../../core/utils/theme/button_style.dart';
-import '../../../../../core/widget/button/button_gr_widget.dart';
-import '../../../../../core/widget/button/custom_button.dart';
-import '../../../../../core/widget/label/text_widget.dart';
-import '../../../../../core/widget/text_field/beauty_textfield.dart';
-import '../../../../../core/widget/text_field/text_entry_field.dart';
-import '../../../../../core/widget/text_field/text_field_widget.dart';
-import '../../../../home/persention/pages/home_page.dart';
+import 'package:moms_care/core/constants/constants.dart';
+import 'package:moms_care/core/constants/enam/input_model_type.dart';
+import 'package:moms_care/core/constants/enam/number_of_screen.dart';
+import 'package:moms_care/core/utils/dailog/message/message_box.dart';
+import 'package:moms_care/core/utils/dailog/message/message_snack_bar.dart';
+import 'package:moms_care/core/utils/theme/button_style.dart';
+import 'package:moms_care/core/widget/button/button_gr_widget.dart';
+import 'package:moms_care/core/widget/button/custom_button.dart';
+import 'package:moms_care/core/widget/label/text_widget.dart';
+import 'package:moms_care/core/widget/text_field/beauty_textfield.dart';
+import 'package:moms_care/core/widget/text_field/text_entry_field.dart';
+import 'package:moms_care/core/widget/text_field/text_field_widget.dart';
+import 'package:moms_care/features/home/persention/pages/home_page.dart';
 import '../../../domain/entities/Post.dart';
 import '../../bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
 import '../../bloc/add_delete_update_post/add_delete_update_post_state.dart';
@@ -57,7 +58,7 @@ class _AAddUpdatePostPagetState extends State<AddUpdatePostPage> {
   void initState() {
 
     _title=widget.isUpdatePost?"Update Post".tr : "Add Post".tr;
-    if(widget.isUpdatePost==true){
+    if(widget.isUpdatePost==true && widget.post!=null){
       titleController.text=widget.post!.title!;
       bodyController.text=widget.post!.body!;
     }
@@ -65,23 +66,23 @@ class _AAddUpdatePostPagetState extends State<AddUpdatePostPage> {
   }
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddDeleteUpdatePostBloc, AddDeleteUpdatePostState>(
+    return BlocConsumer<AddDeleteUpdatePostBloc, AddDeleteUpdateState>(
       builder: _builderPageBlocState,
       listener: _listenerPageBlocState,
     );
   }
 
-  void _listenerPageBlocState(BuildContext context, AddDeleteUpdatePostState state) {
+  void _listenerPageBlocState(BuildContext context, AddDeleteUpdateState state) {
 
-    if (state is LoadingAddDeleteUpdatePostState) {
+    if (state is LoadingAddDeleteUpdateState) {
       print("LoadedPostsState99");
-      MessageBox.showProgress(context!,"Wait..".tr);
+      MessageBox.showProgress(context!,WAIT_MESSAGE);
     }
-    if (state is ErrorAddDeleteUpdatePostState) {
+    if (state is ErrorAddDeleteUpdateState) {
       Get.back();
       // MessageBox.showError(context!, state.message);
       SnackBarBuilder.ShowError(context: context ,message:state.message!);
-    } else if (state is AddDeleteUpdatePostSuccessState) {
+    } else if (state is AddDeleteUpdateSuccessState) {
       titleController.clear();
       bodyController.clear();
 
@@ -99,7 +100,7 @@ class _AAddUpdatePostPagetState extends State<AddUpdatePostPage> {
     }
 
   }
-  Widget _builderPageBlocState(BuildContext context, AddDeleteUpdatePostState state) {
+  Widget _builderPageBlocState(BuildContext context, AddDeleteUpdateState state) {
     return  KeyboardVisibilityBuilder(
         builder: (context, isKeyboardVisible)
         {

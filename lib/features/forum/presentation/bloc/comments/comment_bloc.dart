@@ -2,6 +2,7 @@
 
 
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moms_care/core/error/message_failure_message.dart';
@@ -26,6 +27,8 @@ class CommentBloc extends Bloc<CommentEvent,CommentState>{
   }) :super(CommentsInitial()){
     on<GetAllCommentsEvent>(_getAllComments);
     on<LikeUnLikeCommentEvent>(_likeUnLikeComment);
+    on<RefreshCommentsEvent>((e,r){});
+    on<DetailsCommentEvent>((e,r){});
   }
 
  Future<void> _getAllComments(GetAllCommentsEvent event, Emitter<CommentState> emit) async{

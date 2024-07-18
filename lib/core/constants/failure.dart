@@ -12,6 +12,10 @@ const String Dio_FAILURE_MESSAGE_EN = 'Error in server  ';
 const String AUTHORIZE_FAILURE_MESSAGE_EN = 'The connection to the specified service has not been authorized. Please try to log in again';
 const String AUTHORIZE_FAILURE_MESSAGE_AN = 'لم يتم التصريح بالاتصال بالخدمة المحددة. يرجى محاولة تسجيل الدخول مره اخرى ';
 
+
+const String AUTH_FAILURE_MESSAGE_EN = 'لايوجد اذن بالوصول الى السرفر. يرجى محاولة تسجيل الدخول مره اخرى ';
+const String AUTH_FAILURE_MESSAGE_AN = 'لايوجد اذن بالوصول الى السرفر. يرجى محاولة تسجيل الدخول مره اخرى ';
+
 // ignore: constant_identifier_names
 const String OFFLINE_FAILURE_MESSAGE_AR = 'تاكد من وجود انترنت على جهازك';
 // ignore: constant_identifier_names

@@ -5,8 +5,8 @@ import '../../utils/theme/color_app.dart';
 import '../../utils/theme/images.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class ImageWiget extends StatelessWidget {
-  const ImageWiget(
+class ImageWidget extends StatelessWidget {
+  const ImageWidget(
       {super.key,
       required this.urlImage,
       this.height,

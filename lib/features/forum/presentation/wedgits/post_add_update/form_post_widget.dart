@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import '../../../../../config/theme/app_color.dart';
-import '../../../../../core/widget/button/custom_button.dart';
-import '../../../../../core/widget/text_field/text_field_widget.dart';
+import 'package:moms_care/core/widget/button/custom_button.dart';
+import 'package:moms_care/core/widget/text_field/text_field_widget.dart';
 import '../../../domain/entities/Post.dart';
 import '../../bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
 import '../../bloc/add_delete_update_post/add_delete_update_post_event.dart';
@@ -87,7 +87,7 @@ class _FormPostWidgetState  extends  State<FormPostWidget> {
               padding: 0,),
             SizedBox(height: 20,),
             CustomButton(
-                widthPercent: 80,
+                widthPercent: 90,
                 raduis: 10,
                 labelText: widget.isUpdatePost?"Upadte".tr:"Add".tr,
                 icon: Icon(Icons.start,color: AppColor.primaryIconColor,) ,

@@ -13,6 +13,9 @@ String mapFailureToMessage(Failure failure) {
     case EmptyCacheFailure:
       return EMPTY_CACHE_FAILURE_MESSAGE_AR;
 
+      case ErrorFailure:
+          return UNEXPECTED_FAILURE_MESSAGE_AR;
+
     case OfflineFailure:
       return OFFLINE_FAILURE_MESSAGE_AR;
 
@@ -38,7 +41,10 @@ String mapFailureToMessage(Failure failure) {
       return CUSTOMER_NOT_FOUND_AR;
 
       case AuthorizeFailure:
-      return AUTHORIZE_FAILURE_MESSAGE_AN;
+        return AUTHORIZE_FAILURE_MESSAGE_AN;
+
+      case AuthenticationFailure:
+        return AUTH_FAILURE_MESSAGE_AN;
 
     default:
       return UNEXPECTED_FAILURE_MESSAGE_AR;

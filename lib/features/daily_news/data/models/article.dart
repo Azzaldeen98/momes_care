@@ -1,6 +1,6 @@
 import 'package:floor/floor.dart';
 import 'package:moms_care/features/daily_news/domain/entities/article.dart';
-import '../../../../core/constants/constants.dart';
+import 'package:moms_care/core/constants/constants.dart';
 
 @Entity(tableName: 'article',primaryKeys: ['id'])
 class ArticleModel extends ArticleEntity {

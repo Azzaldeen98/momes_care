@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/constants/enam/user_roles.dart';
+import 'package:moms_care/core/constants/enam/user_roles.dart';
 
 class SignUpEntity extends Equatable{
   final String ? uId;

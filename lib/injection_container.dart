@@ -8,7 +8,7 @@ import 'package:moms_care/features/daily_news/data/repository/article_repository
 import 'package:moms_care/features/daily_news/domain/repository/article_repository.dart';
 import 'package:moms_care/features/daily_news/domain/usecases/get_article.dart';
 import 'package:moms_care/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
-import 'package:moms_care/features/forum/data/dataSource/remote/posts_remote_data_source.dart';
+import 'package:moms_care/features/forum/data/dataSource/remote/post/posts_remote_data_source.dart';
 import 'package:moms_care/features/forum/domain/repository/post_repository.dart';
 import 'package:moms_care/features/forum/domain/usecases/Comment/like_unlike_Comment_use_case.dart';
 import 'package:moms_care/features/forum/domain/usecases/post/add_post_use_case.dart';
@@ -20,14 +20,31 @@ import 'package:moms_care/features/home/data/data_sourse/moms_care_datasourse.da
 import 'package:moms_care/features/home/domain/repositories/moms_care_repository.dart';
 import 'package:moms_care/features/home/domain/usecases/get_moms_care_items_usecase.dart';
 import 'package:moms_care/features/home/persention/bloc/moms_care/moms_care_bloc.dart';
+import 'package:moms_care/features/profile/data/dataSource/remote/babies/profile_babies_remote_data_source.dart';
+import 'package:moms_care/features/profile/data/dataSource/remote/profile_remote_data_source.dart';
+import 'package:moms_care/features/profile/data/repository/profile_babies_repository_impl.dart';
+import 'package:moms_care/features/profile/data/repository/profile_repository_impl.dart';
+import 'package:moms_care/features/profile/domain/repository/profile_babies_repository.dart';
+import 'package:moms_care/features/profile/domain/repository/profile_repository.dart';
+import 'package:moms_care/features/profile/domain/usecases/baby/add_baby_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/baby/delete_baby_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/baby/update_baby_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/get_my_posts_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/get_profile_info_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/update_user_email_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/update_user_name_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/update_user_password_use_case.dart';
+import 'package:moms_care/features/profile/persention/bloc/baby/baby_bloc.dart';
 import 'package:moms_care/features/speech/data/dataSourse/remote/speech_remote_datasourse.dart';
-import 'package:moms_care/features/speech/domain/usecases/getsparepart_usecases.dart';
+import 'package:moms_care/features/speech/domain/usecases/ask_gemini_ai_use_case.dart';
+import 'package:moms_care/features/speech/persention/bloc/gemini/gemini_bloc.dart';
 import 'package:moms_care/features/speech/persention/bloc/speech/speech_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/constants/api_servers.dart';
 import 'core/controller/work_on_servers/network/network_info.dart';
 import 'core/local/locale_controller.dart';
 import 'core/remote/api_service.dart';
+import 'core/remote/gemini_ai_server/gemini_api_client.dart';
 import 'features/auth/data/dataSourse/auth_remote_data_source.dart';
 import 'features/auth/data/dataSourse/remote/auth_api_service.dart';
 import 'features/auth/data/dataSourse/remote/firebase_auth_api_service.dart';
@@ -45,7 +62,7 @@ import 'features/daily_news/domain/usecases/get_saved_article.dart';
 import 'features/daily_news/domain/usecases/remove_article.dart';
 import 'features/daily_news/domain/usecases/save_article.dart';
 import 'features/daily_news/presentation/bloc/article/local/local_article_bloc.dart';
-import 'features/forum/data/dataSource/remote/comments_remote_data_source.dart';
+import 'features/forum/data/dataSource/remote/comment/comments_remote_data_source.dart';
 import 'features/forum/data/repository/comment_repository_impl.dart';
 import 'features/forum/data/repository/post_repository_impl.dart';
 import 'features/forum/domain/repository/Comment_repository.dart';
@@ -54,6 +71,7 @@ import 'features/forum/domain/usecases/Comment/delete_Comment_use_case.dart';
 import 'features/forum/domain/usecases/Comment/update_Comment_use_case.dart';
 import 'features/forum/domain/usecases/comment/get_all_comments_use_case.dart';
 import 'features/forum/domain/usecases/post/delete_post_use_case.dart';
+import 'features/forum/domain/usecases/post/get_post_use_case.dart';
 import 'features/forum/domain/usecases/post/like_unlike_post_use_case.dart';
 import 'features/forum/domain/usecases/post/update_post_use_case.dart';
 import 'package:http/http.dart' as http;
@@ -63,6 +81,7 @@ import 'features/forum/presentation/bloc/add_delete_update_comment/add_delete_up
 import 'features/forum/presentation/bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
 import 'features/forum/presentation/bloc/comments/comment_bloc.dart';
 import 'features/home/data/repositories/moms_care_repository_imp.dart';
+import 'features/profile/persention/bloc/profile_bloc.dart';
 import 'features/speech/data/repositories/speech_repostitorese_imp.dart';
 import 'features/speech/domain/repositories/speech_repozitorese.dart';
 
@@ -70,10 +89,15 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
 
+  //? *********************************
   //! External
+  //? *********************************
+  //? GeminiApiClient
+  sl.registerLazySingleton(() => GeminiApiClient());
+
   //? sharedPreferences
-  // final sharedPreferences = await SharedPreferences.getInstance();
-  // sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+   final sharedPreferences = await SharedPreferences.getInstance();
+   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   //? Client
   sl.registerLazySingleton(() => http.Client());
   //? InternetConnectionChecker
@@ -82,34 +106,45 @@ Future<void> init() async {
   sl.registerSingleton<Dio>(Dio());
   //?ApiService
   sl.registerSingleton<RemoteDioService>(RemoteDioService(sl()));
-
-  //? Database
+  //?  Database
   final database = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
   sl.registerSingleton<AppDatabase>(database);
 
-  // LocaleController
-  // sl.registerSingleton<LocaleController>(LocaleController(sl()));
+//? *********************************
+//!  --------- Core  ------------------
+//? *********************************
 
-  //=============================
-  //! Core
-  sl.registerLazySingleton<NetworkInfo>(
-          () => NetworkInfoImp(connectionChecker: sl()));
-
-
-//? Repository
-
-  sl.registerLazySingleton<PostRepository>(() => PostRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
-  sl.registerLazySingleton<CommentRepository>(() => CommentRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
-  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(remoteRestApiDataSource: sl(),remoteFirebaseDataSource: sl(), networkInfo: sl()));
+  //? NetworkInfo
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImp(connectionChecker: sl()));
+  //? FirebaseAuthApiService
   sl.registerLazySingleton<FirebaseAuthApiService>(() => FirebaseAuthApiServiceImp(firebaseAuth: FirebaseAuth?.instance));
 
+//? *********************************
+//? Repository
+//? *********************************
+
+  //? AuthRepository
+  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(remoteRestApiDataSource: sl(),remoteFirebaseDataSource: sl(), networkInfo: sl()));
+  //? FirebaseAuthRepository
   sl.registerLazySingleton<FirebaseAuthRepository>(() => FirebaseAuthRepositoryImp(networkInfo: sl(),remoteDataSource: sl()));
+  //? ProfileRepository
+  sl.registerLazySingleton<ProfileRepository>(() => ProfileRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  //? PostRepository
+  sl.registerLazySingleton<PostRepository>(() => PostRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  //? BabyRepository
+  sl.registerLazySingleton<BabiesRepository>(() => BabiesRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  //? CommentRepository
+  sl.registerLazySingleton<CommentRepository>(() => CommentRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  //? SpeechRepository
   sl.registerLazySingleton<SpeechRepository>(() => SpeechRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  //? MomsCareRepository
   sl.registerLazySingleton<MomsCareRepository>(() => MomsCareRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
 
 
 
-  //? BLOC
+//? *********************************
+//? BLOCS
+//? *********************************
 
   //AUTH
   sl.registerFactory(() => AuthBloc(
@@ -119,94 +154,146 @@ Future<void> init() async {
     firebaseSignInUseCases: sl(),
     firebaseSignUpUseCases: sl(),
   ));
+  //Profile
+  sl.registerFactory(() => ProfileBloc(
+    getProfileInfoUseCase: sl(),
+    updateUserEmailUseCase: sl(),
+    updateUserNameUseCase: sl(),
+    updateUserPasswordUseCase: sl()
+    // getMyPostsUseCase: sl(),
+  ));
 
-  // POST
+  //Baby
+  sl.registerFactory(() => BabyBloc(
+    addBabyUseCase: sl(),
+    updateBabyUseCase: sl(),
+    deleteBabyUseCase: sl(),
+  ));
+  //ProfilePostBloc
+  sl.registerFactory(() => ProfilePostBloc(
+    getMyPostsUseCase: sl(),
+  ));
+  //POST
   sl.registerFactory(() => PostBloc(
     getAllPostsUseCase: sl(),
     likeUnLikePostUseCase: sl(),
+    likeUnLikeCommentUseCase:  sl(),
+    getPostUseCase:  sl(),
   ));
-
-  // Comment
+  //Comment
   sl.registerFactory(() => CommentBloc(
     getAllCommentsUseCase: sl(),
     likeUnLikeCommentUseCase: sl(),
   ));
-
- // AddDeleteUpdatePost
+  //AddDeleteUpdatePost
   sl.registerFactory(() => AddDeleteUpdatePostBloc(
     addPostUseCase: sl(),
     updatePostUseCase: sl(),
     deletePostUseCase: sl(),
+    addCommentUseCase: sl(),
+    updateCommentUseCase: sl(),
+    deleteCommentUseCase: sl(),
   ));
-
-  // AddDeleteUpdateComment
+  //AddDeleteUpdateComment
   sl.registerFactory(() => AddDeleteUpdateCommentBloc(
     addCommentUseCase: sl(),
     updateCommentUseCase: sl(),
     deleteCommentUseCase: sl(),
   ));
-
-  // MomsCare
+  //MomsCare
   sl.registerFactory(() => MomsCareBloc(getMomsCareItemsUseCase: sl()));
+  //Speech
+  sl.registerFactory(() => SpeechBloc());
+  sl.registerFactory(() => GeminiBloc( askGeminiAiUseCase: sl()));
 
-  // SpeechBloc
-  sl.registerFactory(() => SpeechBloc(askAiUseCases: sl()));
+//? *********************************
+//? UseCase
+//? *********************************
 
-
-
-  //? UseCase
-
+  //-----------------
   //Auth
+  //-----------------
   sl.registerLazySingleton(() => RegisterUseCases(sl()));
   sl.registerLazySingleton(() => SiginUseCases(sl()));
   sl.registerLazySingleton(() => RegisterDoctorUseCases(sl()));
   sl.registerLazySingleton(() => FirebaseSignInUseCases(sl()));
   sl.registerLazySingleton(() => FirebaseSignUpUseCases(sl()));
+  //-----------------
+  //Profile
+  //-----------------
+  sl.registerLazySingleton(() => GetMyPostsUseCase(sl()));
+  sl.registerLazySingleton(() => GetProfileInfoUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateUserNameUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateUserEmailUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateUserPasswordUseCase(sl()));
+  //-----------------
+  //Baby
+  //-----------------
 
+  sl.registerLazySingleton(() => AddBabyUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateBabyUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteBabyUseCase(sl()));
+
+  //-----------------
   // Post
+  //-----------------
   sl.registerLazySingleton(() => LikeUnLikePostUseCase(sl()));
   sl.registerLazySingleton(() => GetAllPostsUseCase(sl()));
+  sl.registerLazySingleton(() => GetPostUseCase(sl()));
+  sl.registerLazySingleton(() => AddPostCommentUseCase(sl()));
   sl.registerLazySingleton(() => AddPostUseCase(sl()));
   sl.registerLazySingleton(() => DeletePostUseCase(sl()));
   sl.registerLazySingleton(() => UpdatePostUseCase(sl()));
   sl.registerLazySingleton(() => DetailsPostUseCase());
-
+  //-----------------
   // Comment
-  sl.registerSingleton<LikeUnLikeCommentUseCase>(LikeUnLikeCommentUseCase(sl()));
-  sl.registerSingleton<GetAllCommentsUseCase>(GetAllCommentsUseCase(sl()));
-  sl.registerSingleton<AddCommentUseCase>(AddCommentUseCase(sl()));
-  sl.registerSingleton<DeleteCommentUseCase>(DeleteCommentUseCase(sl()));
-  sl.registerSingleton<UpdateCommentUseCase>(UpdateCommentUseCase(sl()));
-
-
-// MomsCare
+  //-----------------
+  sl.registerLazySingleton(() => AddNewCommentUseCase(sl()));
+  sl.registerLazySingleton(() => LikeUnLikeCommentUseCase(sl()));
+  sl.registerLazySingleton(() => GetAllCommentsUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteCommentUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateCommentUseCase(sl()));
+  //-----------------
+  // MomsCare
+  //-----------------
   sl.registerLazySingleton(() => GetMomsCareItemsUseCase(sl()));
-
+  //-----------------
   // Speech
-  sl.registerLazySingleton(() => AskAiUseCases(sl()));
+  //-----------------
+  sl.registerLazySingleton(() => AskGeminiAiUseCase(sl()));
 
 
 
-  //? Datasources
-  //login
+
+
+  //? DataSources
+
+  //Auth
   sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(remoteDioService: sl(),baseUrl: BASE_URL));
+  //Profile
+  sl.registerLazySingleton<ProfileRemoteDataSource>(() => ProfileRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
+  //Baby
+  sl.registerLazySingleton<BabiesRemoteDataSource>(() => BabiesRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
   //Post
   sl.registerLazySingleton<PostRemoteDataSource>(() => PostRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
   //Comment
   sl.registerLazySingleton<CommentRemoteDataSource>(() => CommentRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
-
   //MomsCare
   sl.registerLazySingleton<MomsCareRemoteDataSource>(() => MomsCareRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
   //Speech
-  sl.registerLazySingleton<SpeechRemoteDataSource>(() => SpeechRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
+  sl.registerLazySingleton<SpeechRemoteDataSource>(() => SpeechRemoteDataSourceImpl(geminiApiClient:sl()));
 
-  // Dependencies
+
+
+
+  //==============================================================================================================
+  //? Dependencies
   sl.registerSingleton<NewsApiService>(NewsApiService(sl()));
 
   sl.registerSingleton<ArticleRepository>(
     ArticleRepositoryImpl(sl(),sl())
   );
-  
+
   //UseCases
   sl.registerSingleton<GetArticleUseCase>(
     GetArticleUseCase(sl())
@@ -219,7 +306,7 @@ Future<void> init() async {
   sl.registerSingleton<SaveArticleUseCase>(
     SaveArticleUseCase(sl())
   );
-  
+
   sl.registerSingleton<RemoveArticleUseCase>(
     RemoveArticleUseCase(sl())
   );

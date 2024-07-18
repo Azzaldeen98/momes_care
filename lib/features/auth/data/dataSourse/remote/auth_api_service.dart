@@ -6,12 +6,12 @@ import 'package:moms_care/features/auth/domain/entities/user_info.dart';
 import 'package:moms_care/features/daily_news/data/models/article.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:substring_highlight/substring_highlight.dart';
-import '../../../../../core/constants/api_servers.dart';
-import '../../../../../core/constants/constants.dart';
+import 'package:moms_care/core/constants/api_servers.dart';
+import 'package:moms_care/core/constants/constants.dart';
 import 'package:dio/dio.dart';
-import '../../../../../core/error/exception.dart';
-import '../../../../../core/remote/api_service.dart';
-import '../../../../../core/server/api_services_options.dart';
+import 'package:moms_care/core/error/exception.dart';
+import 'package:moms_care/core/remote/api_service.dart';
+import 'package:moms_care/core/server/api_services_options.dart';
 import '../../../domain/entities/auth.dart';
 
 

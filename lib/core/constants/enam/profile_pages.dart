@@ -1,0 +1,10 @@
+
+
+enum ProfilePage{
+  PROFILE,
+  EDIT_PROFILE,
+  EDIT_USER_NAME,
+  EDIT_USER_EMAIL,
+  EDIT_USER_PASSWORD,
+  MY_POSTS,
+}

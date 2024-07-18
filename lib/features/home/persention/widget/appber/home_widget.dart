@@ -1,14 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/local/locale_controller.dart';
-import '../../../../../core/utils/theme/color_app.dart';
+import 'package:moms_care/core/local/locale_controller.dart';
+import 'package:moms_care/core/utils/theme/color_app.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../core/utils/theme/images.dart';
-import '../../../../../core/utils/draw/triangle_clipper.dart';
-import '../../../../../core/utils/theme/theme_app.dart';
-import '../../../../../core/widget/text_field/text_field_shearsh_widget.dart';
+import 'package:moms_care/core/utils/theme/images.dart';
+import 'package:moms_care/core/utils/draw/triangle_clipper.dart';
+import 'package:moms_care/core/utils/theme/theme_app.dart';
+import 'package:moms_care/core/widget/text_field/text_field_shearsh_widget.dart';
 import '../../bloc/moms_care/moms_care_bloc.dart';
 
 

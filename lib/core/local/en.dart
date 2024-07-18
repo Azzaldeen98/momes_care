@@ -7,15 +7,19 @@ const Map<String, String> en_roles ={
 const Map<String, String> en_pages ={
   'Home':'Home',
   'Speech Recognition':'Speech Recognition',
-  'Text Copied to Clipboard':'Text copied to clipboard',
-  'Click button to start recording':'Click button to start recording',
+  "My posts":'My posts',
+  "Profile": "Profile",
+  "Edit profile": "Edit profile",
+  'Posts': 'Posts',
+  'Forum': 'Forum',
+  'Voice Chat': 'Voice Chat',
+
 };
 const Map<String, String> _en = {
   "AppName":"Mom's Care",
   "AppDescribe":"Mom's Care",
   "Arabic":"Arabic",
   "English":"English",
-  "Home": "Home",
   "Schedule": "Schedules",
   "Departments": "Departments",
   "Aboute": "Aboute",
@@ -26,7 +30,6 @@ const Map<String, String> _en = {
   "Section": "Section",
   "StartDate": "StartDate",
   "EndtDate": "EndtDate",
-
   "Wait..": "Wait..",
   "School year": "School year",
   'View hall information': "View hall information",
@@ -36,7 +39,6 @@ const Map<String, String> _en = {
   "Enter First Name": "Enter First Name",
   "Enter Last Name": "Enter Last Name",
   'Change language':  'Changed language',
-  "Profile": "Profile",
   "LevelId": "Academic level number",
   "Level": "School level",
   "Enter the full name": "Enter the full name",
@@ -87,6 +89,7 @@ const Map<String, String> _en = {
   "Reset Password":  "Reset Password",
   'Enter your email':  'Enter your email',
   'Send':  'Send',
+  "Age": "Age",
   'Alert':  'Alert',
   "New User": "New User ?",
   "Create Account": "Create Account",
@@ -100,19 +103,42 @@ const Map<String, String> _en = {
   'Upload medical analysis image':'Upload medical analysis image',
   'No Text Found':  'No Text Found',
   "No text was found in the image, use another medical analysis image":  "No text was found in the image, use another medical analysis image",
-  "Tips and instructions medical": "Tips and instructions medical",
-  "Your medical analysis is now diagnosed":"Your medical analysis is now diagnosed",
-  "A list of healthy foods is now being brought":"A list of healthy foods is now being brought",
-  "A list of unhealthy foods is now being brought":"A list of healthy foods is now being brought",
-  "A list of medical advice and instructions is now being brought":"A list of medical advice and instructions is now being brought",
-  "wait The medical report is diagnosing":"The medical report is diagnosing. Wait until the process is completed",
-  "Wait until the diagnostic process is finished":"Wait until the diagnostic process is finished ",
-  "Choose how to upload the analysis image":"You can upload an image of the medical analysis either through the camera or by choosing an image from the storage memory",
+  'Text Copied to Clipboard':'Text copied to clipboard',
+  'Click button to start recording':'Click button to start recording',
 };
 const Map<String, String> en_languages = {
   "Arabic":"Arabic",
   "English":"English",
 
+
+};
+
+const Map<String, String> en_text_generate_rules = {
+"UserQuestion":"User Question:",
+"Gemini_Model_Specialization": "Health care for infants and mothers",
+// "GenerateTextRules": "First, you must know that your field of specialization in conversation is the field of health care for infants and mothers. "
+// "You must adhere to the following five terms and rules when answering user questions: "
+// "1- Your answer must be useful, brief, and clear with a meaning that achieves what is intended from the question."
+// "2- The answers must be limited to the topic of health care for mothers and children and any topic related to mothers and their children. You must also be careful not to answer any other questions that are not within the topic. If there are questions, you must apologize for not being able to respond, and that you are only assigned to any topic related to Health care for children."
+// " 3- You must not repeat any symbols or shapes other than the alphabet. "
+// "4- You must not add any other text or words that are not related to the answer to the question. "
+// "5- It is strictly forbidden to answer or respond to topics related to politics, the economy, sports, sex, insults, religion, and other topics that have nothing to do with mothers’ care for children, for which an apology must be made. "
+// "You must adhere to and abide by the five previous conditions in every answer."
+
+"docs":'''
+Assalamu Alaikum: May the peace, mercy, and blessings of Allah be upon you. Hello! How may I help you today?
+Tell me about yourself: I am a virtual assistant trained to provide assistance and information about infant and maternal healthcare
+What is your specialty?: My specialty is infant and maternal healthcare
+Where do you work?: I work as a virtual assistant for Moms Care, an app dedicated to infant and maternal healthcare
+What do you offer?: I provide advice and guidance about infant and maternal healthcare''',
+
+"GenerateTextRules":'''
+You should avoid answering questions that fall within the following areas (politics, duality, wars, human rights, military, sex, pornography).
+Your answer should be useful, brief, clear and meaningful, achieving the desired goal of the question in a concise manner.
+You should not repeat any symbols or other forms.
+You should not add any text or other words that are not related to the specified topic.
+Only the answer should be completely in English.
+''',
 };
 const Map<String, String> en_days = {
   "monday": "Monday",
@@ -145,31 +171,45 @@ const Map<String, String> en_labels = {
   "Do you really want to delete the current diagnostic process":"Do you really want to delete the current diagnostic process",
   "The process was completed successfully":"The process was completed successfully",
 };
+const Map<String, String> en_messages = {
+
+  'Added successfully':'Added successfully',
+
+  'The input field cannot be empty':'The input field cannot be empty',
+  'Modified successfully':"Modified successfully",
+  'Deleted successfully':"Deleted successfully",
+  "Do you really want to log out":"Do you really want to log out?",
+  "Login successful":"Login successfully",
+  "Register successful":"Account created successfully",
+  "Empty":"No content",
+  "EmptyPost": "You have no posts",
+  "EmptyBabies":"You have no babies are registered ",
+  "The current request will be cancelled. Are you ok with that?":  "The current request will be cancelled. Are you ok with that?",
+  "The current item will be deleted. Do you agree with that?":"The current item will be deleted. Do you agree with that?",
+  "The process was completed successfully":"The process was completed successfully",
+  "Do you want to cancel the current order already":"Do you want to cancel the current order already?",
+};
 const Map<String, String> en_errors = {
 
-"You have no lectures today":"You have no lectures today",
-  "The password must contain at least 8 characters, uppercase and lowercase letters, and symbols":"The password must contain at least 8 characters, uppercase and lowercase letters, and symbols",
-  "no connection":"no connection",
-  "No Internet connection": "There is no network. Check the Internet connection!!",
-  "Empty": "Empty, no content",
-  "Field is Empty":"You cannot leave the input field blank",
-  "Email is invalid":"Email is invalid",
-  "name is invalid":"name is invalid",
-  "student id is invalid":"student id is invalid",
+  "Password verification message":"The password must contain at least 8 characters, uppercase and lowercase letters, and symbols",
+  "no internet connection" : "No network Check your internet connection!!",
+  "no connection": "No connection",
+  "Field is Empty":"You cannot leave the input field empty",
+  "Email is invalid":"Invalid email",
   "Login failed":"Login failed",
-  "Login successful":"Login successful",
-  "Register successful":"Register successful",
-  "Register failed":"Register failed",
+  "Register failed":"Create account failed!",
   "Password does not match":"Password does not match",
-  "Password is inValid":"Password is inValid",
-  "Password is not Valid": "The password must contain uppercase and lowercase letters, numbers and symbols, and must not be less than 6 characters.",
+  "Password is not Valid":"The password must contain uppercase and lowercase letters, numbers, and symbols and must not be less than 6 characters",
+  "Password is inValid":"Invalid password",
+  "name is invalid":"Invalid name",
   "unexpected error":"An unexpected error occurred, please try again",
-  "Failed operation": "The operation failed, please try again.",
-  "Different password": "The new password is identical to the current password. You must use a different password.",
-  "Different email": "You must use a different email from the previous email.",
-  "No Text Found":"No text was found in the image, use another image",
-  "The image content is invalid":"NThe image content is invalid",
-  "Diagnosis was invalid":"The diagnostic process was invalid. Please repeat the diagnosis again.",
+  "Failed operation":"Operation failed, please try again",
+  "Different email": "You must use a different email address than the previous one.",
+  "Different password":"The new password matches the current password. You must use a different password.",
+  "The image content is invalid":"The image content is invalid",
+  'No Text Found': "No text found",
+  "You have no lectures today":"You have no lectures today",
+
 };
 const Map<String, String> en_aboute= {
 
@@ -181,28 +221,15 @@ const Map<String, String> en_aboute= {
 "Options to copy diagnosis result as text and share": "Browse the academic schedules for the departments",
 'We value your input and are here to help. If you have any questions, feedback, or need assistance, please contact us':"We value your input and are here to help. If you have any questions, comments or need assistance, please contact us.",
 };
-const Map<String, String> en_schedule = {
-  "School schedule":"School schedule",
-  "School year":"School year",
-  "Section":"Section",
-  "Schools schedules": "Schools schedules",
-  "Daily Schedule":"Daily Schedule",
-  "Other":"Other",
-  "Starting date":"Starting date",
-  "Expiry date":"Expiry date",
-  "Day":"Day",
-  "Material":"Material",
-  "Teacher":"The teacher",
-  "Time":"Time",
-};
 Map<String, String> get en {
   return {}
     ..addAll(_en)
+    ..addAll(en_messages)
     ..addAll(en_errors)
     ..addAll(en_aboute)
     ..addAll(en_labels)
     ..addAll(en_days)
-    ..addAll(en_schedule)
+    ..addAll(en_text_generate_rules)
     ..addAll(en_pages)
     ..addAll(en_roles)
     ..addAll(en_languages);

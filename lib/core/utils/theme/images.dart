@@ -4,6 +4,9 @@ class AppImage {
   static const String WALLET_MINUS = "assets/icons/wallet-minus.png";
 
   static const String TIMER2 = "assets/icons/timer2.png";
+  static const String LOGO1 = "assets/icons/logo1.png";
+  static const String LOGO2 = "assets/icons/logo2.png";
+  static const String SPLASH3_IMG = "assets/images/img1.png";
 
   static const String CALENDER_DATES = "assets/icons/calendar-dates.png";
 
@@ -45,7 +48,12 @@ class AppImage {
 
   static const String USER_PL = "assets/icons/profile-colors.png";
 
-  static const String USER_GREEN = "assets/icons/user.png";
+  static const String USER_GREEN = "assets/icons/logo1.png";
+
+  static const String BABY_COLOR = "assets/icons/baby_color.png";
+  static const String BABY = "assets/icons/baby.png";
+  static const String BABY_GIRL_COLOR = "assets/icons/baby-girl_color.png";
+  static const String BABY_GIRL = "assets/icons/baby_girl.png";
 
   static const String PNONE_GREEN = "assets/icons/phone.png";
 
@@ -119,7 +127,7 @@ class TypeImage {
 
   static const String ERROR = "assets/icons/cross-circle.png";
 
-  static const String LOGO_COLORS = "assets/icons/logo-color.png";
+  static const String LOGO_COLORS = "assets/icons/logo1.png";
 
   static const String  WALK_THEME_IMG1="assets/icons/logo-color.png";
   static const String  WALK_THEME_IMG2="assets/icons/logo-color.png";

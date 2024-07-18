@@ -7,7 +7,7 @@ import '../../../core/utils/theme/text_style.dart';
 import '../../../core/widget/image/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../helpers/public_infromation.dart';
+import 'package:moms_care/core/helpers/public_infromation.dart';
 import '../../constants/api_servers.dart';
 
 class UpdateImageWidget extends StatefulWidget {
@@ -95,7 +95,7 @@ class UpdateImageWidgetState extends State<UpdateImageWidget> {
                         padding: const EdgeInsets.all(5),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: ImageWiget(
+                          child: ImageWidget(
                             urlImage: uploadedImageUrls[index],
                             height: 80,
                             width: 80,

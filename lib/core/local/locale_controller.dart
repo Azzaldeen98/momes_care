@@ -2,7 +2,8 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:moms_care/core/constants/cached/cached_name.dart';
 
-import '../../helpers/cache_helper.dart';
+import 'package:moms_care/core/helpers/cache_helper.dart';
+import '../constants/enam/gender.dart';
 
 
 
@@ -28,10 +29,14 @@ class LocaleController extends GetxController {
   }
 
   void chingeLanguage({required String languageCode}) {
-    print("object:"+languageCode);
+    // print("object:"+languageCode);
     Locale locale = Locale(languageCode);
     this.languageCode = languageCode;
     CacheHelper.setString(LANGUAGE_TYPE_CACHED, languageCode);
     Get.updateLocale(locale);
+  }
+
+ static String getCurrentLanguageCode(){
+    return CacheHelper.getString(LANGUAGE_TYPE_CACHED)??LanguageCode.AR.code;
   }
 }

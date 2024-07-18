@@ -3,18 +3,17 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/features/forum/presentation/pages/post/posts_page.dart';
+import 'package:moms_care/features/home/persention/pages/home_page.dart';
+import 'package:moms_care/features/profile/persention/pages/baby/baby_details.dart';
+
 import '../../../../config/theme/text_style.dart';
-import '../../../../core/constants/cached/cached_name.dart';
-import '../../../../core/constants/enam/user_roles.dart';
-import '../../../../core/utils/theme/images.dart';
-import '../../../../helpers/cache_helper.dart';
-import '../../../../helpers/public_infromation.dart';
+import 'package:moms_care/core/constants/cached/cached_name.dart';
+import 'package:moms_care/core/constants/enam/user_roles.dart';
+import 'package:moms_care/core/utils/theme/images.dart';
+import 'package:moms_care/core/helpers/cache_helper.dart';
+import 'package:moms_care/core/helpers/public_infromation.dart';
 import '../../../auth/domain/entities/auth.dart';
-import '../../../auth/persention/page/auth_view.dart';
-import '../../../../core/widget/bottom_sheets/DemoCWActionSheetScreen.dart';
-import '../../../home/persention/pages/home_page.dart';
-import '../../../home/persention/pages/home_view.dart';
+import '../../../profile/persention/pages/profile_page.dart';
 import '../on_boarding_screen.dart';
 
 
@@ -28,10 +27,13 @@ class SplashViewBody extends StatefulWidget {
 
 class SplashViewBodyState extends State<SplashViewBody>
     with SingleTickerProviderStateMixin {
+
+
   @override
   void initState() {
     super.initState();
     _goToNextView();
+ 
   }
 
   @override
@@ -46,7 +48,7 @@ class SplashViewBodyState extends State<SplashViewBody>
             height: 250,
             width: 250,
             child: Image.asset(
-              TypeImage.LOGO_COLORS,
+              AppImage.LOGO1,
               height: 250,
               width: 250,
             ),
@@ -72,7 +74,8 @@ class SplashViewBodyState extends State<SplashViewBody>
           Helper.auth = Auth.fromJson(decodeJson);
           Helper.isAdmin = Helper.auth?.userInfo != null &&
               Helper.auth?.userInfo?.role == UserRoles.ADMIN;
-          Get.offAll(() =>  HomePage()); // DemoCWActionSheetScreen()
+          // Get.offAll(() => BabyDetailsPage());
+          Get.offAll(() => const HomePage()); // DemoCWActionSheetScreen()
 
       }
       else

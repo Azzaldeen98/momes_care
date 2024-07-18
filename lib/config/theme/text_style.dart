@@ -20,6 +20,7 @@ mixin AppTextStyles {
       fontFamily: FontFamilyNames.shamelBook,
       fontWeight: fontWeight,
       fontSize: fontSize,
+      decoration: TextDecoration.none,
       color: _color,
     );
   }

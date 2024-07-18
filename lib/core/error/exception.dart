@@ -2,6 +2,7 @@ class OfflineExecption implements Exception {}
 
 class ServerExecption implements Exception {}
 
+
 class EmptyCacheException implements Exception {}
 
 class InvalidEmailOrPasswordExecption implements Exception {}
@@ -11,6 +12,8 @@ class OTPNotValiedExecption implements Exception {}
 class SigOutExecption implements Exception {}
 
 class DioException implements Exception {}
+
+class AuthenticationException implements Exception {}
 
 class AuthorizeException implements Exception {}
 

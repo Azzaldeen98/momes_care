@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/constants/enam/user_roles.dart';
-import '../../../../core/error/faiture.dart';
+import 'package:moms_care/core/constants/enam/user_roles.dart';
+import 'package:moms_care/core/error/faiture.dart';
 import '../entities/auth.dart';
 import '../repositories/auth_repostitorise.dart';
 import '../repositories/firebase/firebase_auth_repo.dart';

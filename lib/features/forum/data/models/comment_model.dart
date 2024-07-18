@@ -3,7 +3,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:moms_care/core/data/models/author_model.dart';
 import 'package:moms_care/features/forum/domain/entities/Comment.dart';
-import 'package:moms_care/features/moms_care/presentation/bloc/local/speech/commands.dart';
 
 import '../../domain/entities/Post.dart';
 
@@ -17,6 +16,7 @@ class CommentModel extends Comment{
     super.contant,
     super.createdAt,
     super.likes,
+    super.postId,
     super.author});
 
   factory CommentModel.fromJson(Map<String, dynamic> json) => CommentModel(
@@ -50,6 +50,7 @@ class CommentModel extends Comment{
       contant: comment.contant ?? "",
       createdAt: comment.createdAt ?? DateTime.now(),
       likes: comment.likes ?? 0,
+      postId: comment.postId ??0,
     );
   }
 

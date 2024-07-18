@@ -28,17 +28,19 @@ class CardAuthorWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: 40,
-            width: 40,
+            padding: EdgeInsets.all(2),
+            height: 50,
+            width: 50,
             decoration: BoxDecoration(
+                  
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
                 border: Border.all(color: AppColors.grayThreeColor)),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
-              child: ImageWiget(
+              child: ImageWidget(
                 //(author.image==null || author.image!.isEmpty) ? AppImage.USER_GREEN :
-                urlImage: author!.image ?? AppImage.USER_GREEN,
+                urlImage: AppImage.USER_GREEN,// author!.image!=null ||author!.image!.isNotEmpty  ?author!.image! : AppImage.USER_GREEN,
               ),
             ),
           ),

@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../../../../../core/constants/api_servers.dart';
-import '../../../../../core/data/models/base_response.dart';
-import '../../../../../core/error/exception.dart';
-import '../../../../../core/remote/api_service.dart';
-import '../../../../../core/server/header_server.dart';
+import 'package:moms_care/core/constants/api_servers.dart';
+import 'package:moms_care/core/data/models/base_response.dart';
+import 'package:moms_care/core/error/exception.dart';
+import 'package:moms_care/core/remote/api_service.dart';
+import 'package:moms_care/core/remote/gemini_ai_server/gemini_api_client.dart';
+import 'package:moms_care/core/server/header_server.dart';
 
 abstract class SpeechRemoteDataSource {
   Future<String> askAi(String text);
@@ -12,23 +13,14 @@ abstract class SpeechRemoteDataSource {
 
 class SpeechRemoteDataSourceImpl extends SpeechRemoteDataSource {
 
-  String? baseUrl;
-  final RemoteDioService? remoteDioService ;
-  SpeechRemoteDataSourceImpl({this.remoteDioService,this.baseUrl}){
-    baseUrl ??= BASE_URL;
-    baseUrl='${baseUrl}api/v1/Speech';
-  }
+  SpeechRemoteDataSourceImpl({required this.geminiApiClient});
+
+  final GeminiApiClient? geminiApiClient ;
+
   @override
   Future<String> askAi(String text) async{
-    final _json = await remoteDioService?.executeWithToken((dio) =>
-        dio.post('${baseUrl}/askAi', data: jsonEncode({"text":text,})),
-    );
-    var response = BaseResponse.fromJson(_json!);
-    if(response !=null && response.isSuccess){
-      return response.result;
-    }
-    else
-      throw ServerExecption();
+    print(text);
+    return await geminiApiClient!.generateText(text);
   }
 
 

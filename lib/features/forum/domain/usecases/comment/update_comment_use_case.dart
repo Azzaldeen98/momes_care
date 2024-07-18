@@ -1,14 +1,15 @@
  import 'package:dartz/dartz.dart';
 
 
-import '../../../../../core/error/faiture.dart';
+import 'package:moms_care/core/error/faiture.dart';
 import '../../entities/Comment.dart';
 import '../../repository/Comment_repository.dart';
+import '../../repository/post_repository.dart';
 
 
 class UpdateCommentUseCase { //implements UseCase<Either<Failure,List<Post>>,void>{
 
-  final CommentRepository _commentRepository;
+  final PostRepository _commentRepository;
   UpdateCommentUseCase(this._commentRepository);
 
   @override

@@ -1,22 +1,12 @@
 
 
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:moms_care/config/theme/color_app.dart';
 import 'package:moms_care/config/theme/font_manager.dart';
-import 'package:moms_care/core/data/entities/author.dart';
-import 'package:moms_care/helpers/public_infromation.dart';
+import 'package:moms_care/config/theme/text_style.dart';
 
-import '../../../../config/theme/color_app.dart';
-import '../../../../config/theme/text_style.dart';
-import '../../../../core/data/view_models/date_time_view_model.dart';
-import '../../../../core/widget/card/card_author_widget.dart';
-import '../../../../core/widget/image/image_widget.dart';
-import '../../../../core/widget/label/text_newprice_widget.dart';
-import '../../../../core/widget/label/text_widget.dart';
-import '../../domain/entities/Comment.dart';
-import '../../domain/entities/Post.dart';
 
 
 class BodyWidget  extends StatelessWidget {
@@ -48,27 +38,6 @@ class BodyWidget  extends StatelessWidget {
                   style: AppTextStyles.getMediumStyle(
                       fontSize: 14, color: AppColors.grayTwoColor),),
               ),
-              // Container(
-              //   padding: EdgeInsets.all(5),
-              //   alignment: Alignment.centerRight,
-              //   width: double.maxFinite,
-              //   decoration: BoxDecoration(border: Border(bottom:BorderSide(width: 0.1))),
-              //  Text(title ?? "----",style: AppTextStyles.getTitleStyle(
-              //      color: AppColors.grayOneColor,fontSize: FontSizeManager.s16),textAlign: TextAlign.justify,),
-              // const SizedBox(height:10),
-              //
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Text(
-              //         content ?? "---",
-              //         textAlign: TextAlign.justify,
-              //         style: AppTextStyles.getMediumStyle(
-              //             fontSize: 14, color: AppColors.grayTwoColor),
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           )),
 

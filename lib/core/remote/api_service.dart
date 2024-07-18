@@ -8,7 +8,7 @@ import 'package:moms_care/core/constants/cached/cached_name.dart';
 import 'package:moms_care/core/error/exception.dart';
 import 'package:moms_care/core/server/header_server.dart';
 
-import '../../helpers/cache_helper.dart';
+import 'package:moms_care/core/helpers/cache_helper.dart';
 
 class RemoteDioService {
 
@@ -33,6 +33,8 @@ class RemoteDioService {
         // } else {
         //   return json.encode(response?.data!); // Convert Map to JSON string
         // }
+      } else if(response.statusCode == 401) {
+        throw AuthenticationException();
       } else {
         printError(info: 'Request failed with status: ${response.statusCode}');
         throw ServerExecption();

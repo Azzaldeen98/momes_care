@@ -74,7 +74,8 @@ class DemoCWActionMoreOptionSheetScreenState extends State<DemoCWActionMoreOptio
 
 class DemoCWActionEditDeleteSheetScreen extends StatefulWidget {
 
-  const DemoCWActionEditDeleteSheetScreen({required this.onEdited,required this.onDeleted});
+  const DemoCWActionEditDeleteSheetScreen({
+    required this.onEdited,required this.onDeleted});
   final Function(BuildContext context ) onDeleted;
   final Function(BuildContext context ) onEdited;
   // ValueCallback sd;

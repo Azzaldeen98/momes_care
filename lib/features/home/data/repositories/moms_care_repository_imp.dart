@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/controller/work_on_servers/remote_task.dart';
-import '../../../../core/error/exception.dart';
-import '../../../../core/error/faiture.dart';
-import '../../../../core/controller/work_on_servers/network/network_info.dart';
+import 'package:moms_care/core/controller/work_on_servers/remote_task.dart';
+import 'package:moms_care/core/error/exception.dart';
+import 'package:moms_care/core/error/faiture.dart';
+import 'package:moms_care/core/controller/work_on_servers/network/network_info.dart';
 import '../../domain/repositories/moms_care_repository.dart';
 
 import '../data_sourse/moms_care_datasourse.dart';

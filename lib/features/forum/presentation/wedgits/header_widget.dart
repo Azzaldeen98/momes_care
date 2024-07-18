@@ -1,35 +1,20 @@
 
 
-import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:moms_care/config/theme/font_manager.dart';
-import 'package:moms_care/core/constants/cached/cached_name.dart';
 import 'package:moms_care/core/data/entities/author.dart';
-import 'package:moms_care/helpers/cache_helper.dart';
-import 'package:moms_care/helpers/public_infromation.dart';
-
-import '../../../../config/theme/app_color.dart';
-import '../../../../config/theme/color_app.dart';
-import '../../../../config/theme/text_style.dart';
-import '../../../../core/data/view_models/date_time_view_model.dart';
-import '../../../../core/widget/card/card_author_widget.dart';
-import '../../../../core/widget/image/image_widget.dart';
-import '../../../../core/widget/label/text_newprice_widget.dart';
-import '../../../../core/widget/label/text_widget.dart';
-import '../../domain/entities/Comment.dart';
-import '../../domain/entities/Post.dart';
+import 'package:moms_care/core/widget/card/card_author_widget.dart';
 
 
 class HeaderWidget  extends StatelessWidget {
 
   const HeaderWidget({super.key,
-    this.author,
+   required this.author,
     this.onClickMoreOptions});
 
-  final Author? author;
+  final Author author;
   // final DateTime? createdAt;
   final Function()? onClickMoreOptions;
 
@@ -54,9 +39,11 @@ class HeaderWidget  extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
 
-          Expanded(child: CardAuthorWidget(author: author!,)),
+          Expanded(
+              child: CardAuthorWidget(author: author!,)
+          ),
           const SizedBox(width: 10),
-          (FirebaseAuth.instance.currentUser!.uid== author!.id)?
+          (FirebaseAuth.instance!.currentUser !=null && FirebaseAuth.instance.currentUser!.uid== author!.id!)?
               IconButton(onPressed: onClickMoreOptions, icon: Icon(Icons.more_vert_sharp))
               :SizedBox(),
 
@@ -66,12 +53,4 @@ class HeaderWidget  extends StatelessWidget {
     );
   }
 
-  Widget  _buildControllButtons({BuildContext? context}){ //,Function()? onDeleted,Function()? onEdit}){
-    return Row(
-      children: [
-
-        // IconButton(onPressed: onEdit, icon: Icon(Icons.edit)),
-      ],
-    );
-  }
 }

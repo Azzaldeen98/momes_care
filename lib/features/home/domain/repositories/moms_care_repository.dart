@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/faiture.dart';
+import 'package:moms_care/core/error/faiture.dart';
 
 abstract class MomsCareRepository{
 

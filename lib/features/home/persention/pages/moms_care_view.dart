@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/widget/state/loading_widget.dart';
+import 'package:moms_care/core/widget/state/loading_widget.dart';
 
-import '../../../../core/Animation/animation_scale_widget.dart';
+import 'package:moms_care/core/Animation/animation_scale_widget.dart';
 import '../bloc/moms_care/moms_care_bloc.dart';
 import '../widget/appber/home_widget.dart';
 import '../widget/state_home_widget.dart';

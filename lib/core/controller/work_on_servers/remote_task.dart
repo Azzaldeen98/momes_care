@@ -35,6 +35,8 @@ import '../../error/faiture.dart';
     on OfflineExecption{return Left(OfflineFailure());}
     on EmptyCacheException{return Left(EmptyCacheFailure());}
     on AuthorizeException{return Left(AuthorizeFailure());}
+    on AuthenticationException{return Left(AuthenticationFailure());}
+    on Exception{return Left(ErrorFailure());}
 
   }else{
     return Left(OfflineFailure());

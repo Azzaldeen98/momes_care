@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../core/utils/theme/color_app.dart';
-import '../../../../core/widget/label/text_widget.dart';
+import 'package:moms_care/core/utils/theme/color_app.dart';
+import 'package:moms_care/core/widget/label/text_widget.dart';
 
 class ErrorHomeWidget extends StatelessWidget {
   const ErrorHomeWidget({super.key, required this.error});

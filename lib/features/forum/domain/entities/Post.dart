@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:moms_care/features/forum/domain/entities/Comment.dart';
 
-import '../../../../core/data/entities/author.dart';
+import 'package:moms_care/core/data/entities/author.dart';
 
 
 class Post extends Equatable{

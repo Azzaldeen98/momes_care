@@ -1,37 +1,20 @@
 
 
-import 'dart:convert';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/font_manager.dart';
 import 'package:moms_care/core/data/entities/author.dart';
-import 'package:moms_care/core/utils/dailog/message/message_box.dart';
-import 'package:moms_care/features/forum/domain/usecases/post/like_unlike_post_use_case.dart';
+import 'package:moms_care/core/utils/dailog/message/dssd.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/body_widget.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/footer_widget.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/header_widget.dart';
-import 'package:moms_care/helpers/public_infromation.dart';
-// import 'package:nb_utils/nb_utils.dart';
-
-import '../../../../../config/theme/app_color.dart';
-import '../../../../../config/theme/color_app.dart';
-import '../../../../../config/theme/text_style.dart';
-import '../../../../../core/constants/enam/DemoCWActionSheetType.dart';
-import '../../../../../core/constants/enam/input_model_type.dart';
-import '../../../../../core/data/view_models/date_time_view_model.dart';
-import '../../../../../core/utils/dailog/message/messagebox_dialog_widget.dart';
-import '../../../../../core/widget/bottom_sheets/DemoCWActionSheetScreen.dart';
-import '../../../../../core/widget/bottom_sheets/bottom_sheet.dart';
-import '../../../../../core/widget/card/card_author_widget.dart';
-import '../../../../../core/widget/image/image_widget.dart';
-import '../../../../../core/widget/label/text_newprice_widget.dart';
-import '../../../../../core/widget/label/text_widget.dart';
-import '../../../domain/entities/Comment.dart';
+import 'package:moms_care/core/constants/messages.dart';
+import 'package:moms_care/core/widget/bottom_sheets/DemoCWActionSheetScreen.dart';
 import '../../../domain/entities/Post.dart';
 import '../../bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
 import '../../bloc/add_delete_update_post/add_delete_update_post_event.dart';
@@ -41,14 +24,15 @@ import '../date_time_widget.dart';
 
 class PostWidget  extends StatelessWidget {
   const PostWidget({super.key, this.onDelete, required this.post});
-  final Post post;
+  final Post? post;
   final VoidCallback? onDelete;
   @override
+
   Widget build(BuildContext context) {
-
-    final dateTimeVM = DateTimeViewModel(dateTime: post.publishedAt!);
-
     final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+    if(post==null)
+      return SizedBox();
+
     return Container(
       child: Column(
         children: [
@@ -65,69 +49,22 @@ class PostWidget  extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         HeaderWidget(
-                          author:post!.author ,
-                            onClickMoreOptions:(){
-                              showCupertinoModalPopup(context: context, builder: (BuildContext context) =>
-                                  DemoCWActionEditDeleteSheetScreen(
-                                    onEdited:(_context) async{
-                                      // toasty(context, "onEdited7777");
-                                      // showCustomBottomSheet(context: context,child:
-                                       Get.to(AddUpdatePostPage(post: post, isUpdatePost: true,));
-
-                                      //   onClickSaved:(title,content) async{
-                                      //
-                                      //     final _newPost=post.copyWith(title: title,body: content);
-                                      //     // if(title!=post.title || content!=post.body)
-                                      //     BlocProvider.of<PostBloc>(context).add(UpdatePostEvent(post:_newPost));
-                                      //
-                                      //   },onCreatedOrUpdatedIsSuccess: (){
-                                      //   print("onCreatedOrUpdatedIsSuccess");
-                                      //   WidgetsBinding.instance.addPostFrameCallback((_) {
-                                      //     _refreshIndicatorKey.currentState?.show();
-                                      //   });
-                                      //   // Get.back();
-                                      // },baseContext: context,));
-                                      // // BlocProvider.of<PostBloc>(context).add(UpdatePostEvent(post: post));
-                                      //  //
-                                    } ,
-                                    onDeleted: (_context) async{
-                                      // toasty(context, "onDeleted7777");
-                                       BlocProvider.of<AddDeleteUpdatePostBloc>(context).add(DeletePostEvent(postId:post.id!));
-                                       // MessageBox.showSuccess(context,  "onDeleted");
-
-                                          // toast("Accept Delete");
-                                          // _showDeleteDialog(_context);
-                                          //  MessageBoxDialogWidget(message: "Do you really want to delete the current diagnostic process".tr,onAccenpt: () {
-                                      //
-                                      // },);
-                                      // checkDeletedBox(context: context,onChangeOk: (){
-                                      //
-                                      // });
-
-                                      // MessageBox.showDialog(context, textBody: "onDeleted");
-                                    },
-                                  ));
-
-                              // MessageBox.showDialog(context, textBody: "onClickMoreOptions");
-                            }),
+                          author:post!.author!,
+                            onClickMoreOptions:()=>onMoreOptions(context)),
                         Divider(height: 20,thickness: 0.5),
-                        BodyWidget(title:post?.title ,content: post?.body),
+                        BodyWidget(title:post?.title ??"" ,content: post?.body??""),
                         SizedBox(height: 10,),
                         Divider(height: 10,thickness: 0.3,),
-                        DateTimeWidget(dateTime: post!.publishedAt,),
+                        DateTimeWidget(dateTime: post!.publishedAt?? DateTime.now(),),
                         Divider(height: 10,),
                         FooterWidget(
-                            onLiked:(){
-                              BlocProvider.of<PostBloc>(context).add((LikeUnLikePostEvent(postId:post.id!)));
-                            },
-                            onComments:(){
-                                 BlocProvider.of<PostBloc>(context).add(DetailsPostEvent(post: post));
-                              },
-                            onReply:onPressedReply,
-                            likes: post?.likes,
-                            comments: post?.commentsCount,
+                            onLiked:()=>onPressLiked(context),
+                            onComments:()=>onPressComments(context),
+                            onReply:()=>onPressReply(context),
+                            likes: post?.likes??0,
+                            comments: post?.commentsCount??0,
                             isPost: true,
-                            userLiked: post!.userLiked!,
+                            userLiked: post!.userLiked??false,
                         ),
                         const SizedBox(width: 20),
                       ],
@@ -139,43 +76,45 @@ class PostWidget  extends StatelessWidget {
     );
   }
 
-
-  void _showDeleteDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('تنبيه'),
-          content: Text("هل تريد حقًا حذف العملية التشخيصية الحالية؟".tr),
-          actions: [
-            TextButton(
-              child: Text('إلغاء'.tr),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('موافق'.tr),
-              onPressed: () {
-                // تنفيذ عملية الحذف هنا
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+  void onMoreOptions(BuildContext context) async{
+    showCupertinoModalPopup(context: context, builder: (BuildContext base_context) =>
+        DemoCWActionEditDeleteSheetScreen(
+          onEdited:(_)=>onPressEdit(context),
+          onDeleted:(_)=>onPressDelete(context),
+        ));
   }
-  void checkDeletedBox({required BuildContext context,required Function() onChangeOk}) {
-    MessageBoxDialogWidget(message: "Do you really want to delete the current diagnostic process".tr,onAccenpt: () {
-      onChangeOk();
-    },);
-    }
+  void onPressLiked(BuildContext context) async{
+    if(post!=null)
+      BlocProvider.of<PostBloc>(context).add((LikeUnLikePostEvent(postId:post!.id??0)));
+  }
+  void onPressComments(BuildContext context) async{
+    if(post!=null)
+       BlocProvider.of<PostBloc>(context).add(DetailsPostEvent(post: post!));
+  }
+  void onPressReply(BuildContext context) async{}
+  void onPressEdit(BuildContext context)async {
+    if(post!=null)
+        Get.to(AddUpdatePostPage(post: post ?? Post(), isUpdatePost: true,));
+  }
+  void onPressDelete(BuildContext context) {
+    ShowAwesomeDialogBox(context:context ,message: DELETE_CONSENT_MESSAGE,onAccept:() async{
+      Get.back();
+      if(post!=null)
+        BlocProvider.of<AddDeleteUpdatePostBloc>(context).add(DeletePostEvent(postId:post!.id??0));
+    } );
+
+  }
 
 
 
 
-  // Widget _buildHeaderCard(Author? author,DateTime? dateTime){
+
+
+
+
+
+
+// Widget _buildHeaderCard(Author? author,DateTime? dateTime){
   //
   //   final dateTimeVM = DateTimeViewModel(dateTime: dateTime!);
   //   return  Container(
@@ -258,11 +197,5 @@ class PostWidget  extends StatelessWidget {
   //     ),);
   // }
 
-  void onPressedLike(BuildContext context){
 
-  }
-
-  void onPressedReply(){
-
-  }
 }

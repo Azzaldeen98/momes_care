@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moms_care/config/theme/app_color.dart';
 import 'package:moms_care/features/forum/presentation/pages/post/posts_page.dart';
-import 'package:moms_care/features/moms_care/presentation/pages/home/home_page.dart';
 import 'package:motion_tab_bar/MotionBadgeWidget.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:motion_tab_bar/MotionTabBarController.dart';
@@ -44,8 +43,8 @@ class _BottomNavigationWidgetState extends  State<BottomNavigationWidget>  with 
 
       controller: _motionTabBarController, // ADD THIS if you need to change your tab programmatically
       initialSelectedTab: "Home".tr,
-      labels:  [ "Home".tr,"Forum".tr, "Profile".tr, "Settings".tr],
-      icons: const [ Icons.home,Icons.forum, Icons.people_alt, Icons.settings],
+      labels:  [ "Home".tr,"Forum".tr, "Speech".tr, "Profile".tr],
+      icons: const [ Icons.home,Icons.forum, Icons.mic, Icons.people_alt],
 
       // optional badges, length must be same with labels
       badges: [

@@ -2,7 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 
-import '../../../../../core/constants/enam/forum_pages.dart';
+import 'package:moms_care/core/constants/enam/forum_pages.dart';
 import '../../../domain/entities/Comment.dart';
 
 abstract class CommentState extends Equatable {

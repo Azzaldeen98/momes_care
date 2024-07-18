@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import '../../../../helpers/cache_helper.dart';
+import 'package:moms_care/core/helpers/cache_helper.dart';
 import '../../../config/theme/app_color.dart';
 import '../../../config/theme/text_style.dart';
 
@@ -19,6 +19,7 @@ class CustomButton extends StatelessWidget {
   final double widthPercent;
   final double raduis;
   final TextStyle? textStyle;
+  final Border? border;
 
 
   CustomButton({super.key,
@@ -28,6 +29,7 @@ class CustomButton extends StatelessWidget {
     this.bgColor=AppColor.primaryColor,
     this.raduis=12,
     this.textStyle,
+    this.border,
     this.widthPercent=double.maxFinite,});
 
   @override
@@ -42,6 +44,7 @@ class CustomButton extends StatelessWidget {
       // margin: EdgeInsets.only(right: 20,left:50),
       padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(color:this.bgColor,
+      border: border ?? null,
       borderRadius: BorderRadius.circular(raduis)),
       child: FloatingActionButton.extended(
         onPressed:onPressed!,

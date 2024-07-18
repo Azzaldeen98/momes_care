@@ -7,17 +7,25 @@ const Map<String, String> ar_pages ={
   'Home':'الرئيسية',
   'Speech Recognition':'التعرف على الكلام',
   'Text Copied to Clipboard':'تم نسخ النص إلى الحافظة',
-  'Click button to start recording':'انقر فوق الزر لبدء التسجيل',
+  "My posts":'منشوراتي',
+  "Aboute": "من نحن",
+  "Profile": "الملف الشخصي",
+  "Edit profile": "تعديل الملف الشخصي",
+  'Posts':  'المنشورات',
+  'Forum':  'المنتدى',
+  'Voice Chat':  'الدردشة الصوتية',
+
 };
 const Map<String, String> _ar = {
   "AppName":"Mom's Care",
   "Arabic":"العربية",
   "English":"الانجليزية",
-  "AppDescribe":"العناية بالامهات",
+  "AppDescribe":"ارشاد الامهات بطرق الرعاية الصحيحة للعناية بالاطفال",
   "Schedule": "الجدول",
   "Departments": "الاقسام",
   "Home": "الرئيسية",
   "Name": "الأسم",
+  "Gender":"الجنس",
   'Contact Us': "تواصل معنا",
   'View hall information': "عرض معلومات القاعة ",
   "Class":"القاعة الدراسية",
@@ -25,7 +33,6 @@ const Map<String, String> _ar = {
   "Aboute": "من نحن",
   "Profile": "الملف الشخصي",
   "Edit personal name": "تعديل الاسم الشخصي",
-  "EditU": "الملف الشخصي",
   "LevelId": "رقم المستوى الدراسي",
   "Level": " المستوى الدراسي",
   "Colleges": "الكليات",
@@ -58,6 +65,7 @@ const Map<String, String> _ar = {
   "ُError": "خطاء !",
   "Ok": "حسنا ",
   "Cancel": "إلغاء ",
+  "Age":"العمر",
   "Edit": "تعــديل",
   "Delete": "حــذف",
   "Email": "البريد الالكتروني ",
@@ -79,51 +87,38 @@ const Map<String, String> _ar = {
   "Reset Password":  "إعادة تعيين كلمة المرور",
   'Enter your email':  'ادخل البريد الالكتروني',
   'Send':  'ارســال',
+  'Start':  'ابــداء',
+  'Next':  'التالي',
+  'Done':  'إكمال',
+  'Comments':  'التعليقات',
+  'Likes Received':  'معجبون',
+  'Likes Given':  'معجب بهم',
+  'Babies':  'أطفالي',
+  'Menu':  'قائمة الاعدادات',
+  'Skip':  'تخطي',
   'Alert':  'تنـبيه !',
   "List of healthy foods":"قائمة الاطعمة الصحية",
   "List of harmful foods":"  قائمة الأطعمة الضارة",
   "loading":" جــاري التحمـيل ... ",
   "please wait":"يرجى الانتظار",
   "no content":"لايوجد  بيانات",
-  "Your medical analysis is now diagnosed":"يتم الان تشخيص تحليلك الطبي ",
-  "A list of healthy foods is now being brought":"يتم الان جلب قائمة بالاطعمة الصحية",
-  "A list of unhealthy foods is now being brought":"يتم الان جلب  قائمة بالاطعمة الغير صحية",
-  "A list of medical advice and instructions is now being brought":"يتم الان جلب قائمة  النصائح والارشادات  الطبية",
-  "wait The medical report is diagnosing":" جاري تشخيص التقرير الطبي  انتظر حتى اكتمال  العملية . ",
-  "Wait until the diagnostic process is finished":"انتظر حتى انتهاء عملية التشخيص. ",
-  "Tips and instructions medical":" النصائح والارشادات الطبية",
+  'Click button to start recording':'انقر فوق الزر لبدء التسجيل',
   "Choose how to upload the analysis image":"قم برفع صورة التحليل الطبي اما من خلال الكاميرا  او باختيار صورة له من ذاكرة التخزين ",
 
 
 };
 const Map<String, String> ar_aboute= {
-  "Aboute App":"عبارة عن تطبيق يتيح لطلاب الكلية الجامعية بالخرمة الاطلاع على الجداول والدراسية  ومعلومات المحاضرات اليومية وموقع القاعات الدراسية  للمحاضرات  ",
+  "Aboute App":"تطبيق يساعد الامهات  على العناية بالاطفال من خلال تقديم النصائح والارشادات  وجدولة المواعيد ومشاركة الاستفسارات مع منتدى الامهات ",
+  "About2": "منتدى رعاية متكامل للامهات",
   "Features":"المميزات",
-  "Diagnosis and medical tests": " عرض الجدول الدراسي ",
-  "Suggesting advice and instructions according to the patient’s health condition": "عرض المحاضرات اليومية لطالب ",
-  "Proposing a list of harmful and beneficial foods according to the patient’s health condition": "عرض الاقسام الاكاديمية ",
-  "Options to copy diagnosis result as text and share": "تصفح الجداول الدراسية للأقسام",
-  'We value your input and are here to help. If you have any questions, feedback, or need assistance, please contact us': "نحن نقدر مدخلاتك ونحن هنا للمساعدة. إذا كان لديك أي أسئلة أو تعليقات أو كنت بحاجة إلى مساعدة، يرجى الاتصال بنا.",
+  "Feature1": "تقديم مجموعة من الدروس والنصائح حول طرق العناية الصحيحة بالاطفال",
+  "Feature2":"يقدم التطبيق منتدى يتيح للمستخدمين نشر الاستفسارات والرد عليها ومشاركة المعلومات فيما بينهم",
+  "Feature3":"يسمح التطبيق للمستخدمين تصفح المنشورات في المنتدى والرد عليهم من خلال اضافة تعليق ",
+  "Feature4":"يتيح التطبيق الاعجاب او الغاء الاعجاب بالمنشورات والتعليقات ",
 
 
 };
-const Map<String, String> ar_schedule = {
-  "School year":"العام الدراسي",
-  "School schedule":"الجدول الدراسي",
-  "Schools schedules":"الجداول الدراسية",
-  "Daily Schedule":"الجدول اليومي",
-  "Other":"أخرى",
-  "Section":"القسم",
-  "Department": "القسم",
-  "StartDate": "بداية المستوى",
-  "EndtDate": "نهاية المستوى",
-  "Starting date":"تاريخ البدء",
-  "Expiry date":"تاريخ الانتهاء",
-  "Day":"اليوم",
-  "Material":"المادة",
-  "Teacher":"المدرس",
-  "Time":"الوقت",
-};
+
 const Map<String, String> ar_days = {
   "monday": "الإثنين",
   "tuesday": "الثلاثاء",
@@ -133,32 +128,61 @@ const Map<String, String> ar_days = {
   "saturday": "السبت",
   "sunday": "الأحد"
 };
+const Map<String, String> ar_text_generate_rules = {
+  "Hello! How can I help you today?":"مرحبًا! كيف يمكنني مساعدتك اليوم؟",
+"UserQuestion:": "سؤال المستخدم",
+  "Gemini_Model_Specialization": "الرعاية الصحية للأطفال الرضع والأمهات",
+  "docs":'''
+  السلام عليكم : وعايكم السلام ورحمة الله وبركاتة مرحبًا! كيف يمكنني مساعدتك اليوم؟
+   اخبرني عن نفسك : أنا مساعد افتراضي تم تدريبي لتقديم المساعدة والمعلومات حول الرعاية الصحية للأطفال الرضع والأمهات
+    ما هو تخصصك ؟: تخصصي هو مجال الرعاية الصحية للأطفال الرضع والأمهات
+    أين تعمل؟ : أعمل كمساعد افتراضي  في تطبيق Moms Care مخصص للرعاية الصحية للأطفال الرضع والأمهات
+    ماذا تقدم؟ : أقدم نصائح وإرشادات  حول الرعاية الصحية للأطفال الرضع والأمهات
+    ''',
+  // "GenerateTextRules":"اولا يجب ان تعرف بأنك تخصصك في المحادثة هو مجال الرعاية الصحية للأطفال الرضع والأمهات  . "
+  //     "يجب عليك الالتزام بالشروط والقواعد  التالية عند الاجابة على اسئلة المستخدم : "
+  //     "- يجب ان تكون اجابتك  مفيدة ومختصرة وواضحة ذات معنى يحقق المطلوب المراد من السؤال."
+  //     // "2- يجب ان الاجابات مقتصرة على موضوع الرعاية الصحية للأمهات والاطفال واي موضوع له علاقة باللأمهات واطفالهن كما يجب عليك الحذر من  الاجابة عن اي اسئلة اخرى ليست ضمن الموضوع وفي حال كانت هناك اسئلة يجب عليك الاعتذار  بعدم القدرة على الرد وانك مخصص فقط لاي موضوع يتعلق بالرعاية الصحية للاطفال .   "
+  //     " - يجب عدم إعادة اي رموز او اشكال اخرى غير الحروف الهجائية . "
+  //     "- ويجب عدم اضافة اي نص او كلام اخر لايتعلق بالموضوع المحدد ."
+  //     "5- يمنع منعا باتاً الاجابة او الرد عن المواضيع المتعلقة بالسياسية , الاقتصاد , الرياضة , الجنس , السب والشتم والدين والثقافة الجنسية والعسكرية , وغيرها من المواضيع التي ليس لها اي علاقة بموضوع الرعاية الصحية للأطفال الرضع والأمهات ويجب  الاعتذار عن الرد عن اي سؤال خارج عن هذا الموضوع ."
+  //     "يجب عليك الالتزام والتقيد بالشروط  السابقة في كل اجابة ويستثنى من تلك الشروط التحية والسؤال عن الحال والتطمينات والتعريف بنفس والتحدث عن وظيفتك واي مواضيع اخرى ليست مخالفة لشروط  "
+  //     "يجب ان لايتم الاجابة حتى يطلب منك ذلك ",
+  "GenerateTextRules":'''يجب تجنب الاجابة عن الاسئة التي تقع ضمن المجالات التالية (السياسة,الازدواجية,الحروب,حقوق الانسان,الجانب العسكري, السكس ,الاباحية).
+  يجب ان تكون اجابتك  مفيدة ومختصرة وواضحة ذات معنى يحقق المطلوب المراد من السؤال بشكل مختصر.
+   يجب عدم إعادة اي رموز او اشكال اخرى
+   يجب عدم اضافة اي نص او كلام اخر لايتعلق بالموضوع المحدد
+  .فقط يجب ان تكون الاجابة بشكل كامل بالعربي       
+   ''',
+
+};
 const Map<String, String> ar_labels = {
+  "Edit name":"تعــديل الاسم",
+  "Edit email":"تعــديل البريد الالكتروني",
+  "Edit password":"تعــديل كلمة السر",
   "Camera":"كاميراء",
-  "Diagnostic result":"نتيجة التشخيص",
-  "Previous analyses":"التحاليل السابقة",
-  "Diagnosis analyses":"التشخيصات السابقة",
-  "Diagnosis":"التشخيصات ",
+  "Male":"ذكر",
+  "Female":"انثى",
+  "Height":"الطول",
+  "Baby details":"معلومات الطفل",
+  "Add Baby":"إضافة طفل",
+  "Enter Number":"ادخل الرقم",
+  "Enter height (gram)":"ادخل وزن الطفل (كيلوا جرام)",
+  "Enter baby name":"ادخل اسم الطفل",
+  "Enter height (cm)":"ادخل طول الطفل (سـم)",
+  "Update Baby":"تعديل بيانات الطفل",
+  "Edit Baby":"تعديل بيانات الطفل",
+  "Number of Responsible Doctor":"رقم هاتف الطبيب المسؤول",
+  "Weight":"الــوزن",
+  "Back":"رجـــوع",
+  "Comments":"التعليقات",
+  "Add":"إضــافة",
+  "ُEdit":"تعديل",
+  "Date of Birth":"تاريخ الميلاد",
+  "Select the Date of Birth":'اختر تاريخ ميلادك',
   "Gallery":"معرض الصور",
-  "Healthy foods":"الاطعمة الصحية",
-  "Harmful foods":"الاطعمة الضارة",
   "Tips and instructions":"النصائح والارشادات",
   "Choose the image source":"اختر مصدر الصورة",
-  "Analysis results":"نتائج التحليل",
-  "Evaluation and diagnosis":"التقييم والتشخيص",
-  "SeeYourDoctor":"زيارة الطبيب",
-  "Natural":"طبيعي",
-  "NeedsHealthCare":"يحتاج رعاية صحية",
-  'Take a picture for medical analysis':'التقاط صورة لتحليل الطبي',
-  'Upload medical analysis image':'تحميل  صورة لتحليل الطبي',
-  'No Text Found':  "لم يتم العثور على نص",
-  "No text was found in the image, use another medical analysis image":"لم يتم العثور على نص في الصورة ، استخدم صورة  تحليل طبي اخرى  ",
-  "The current diagnosis request will be cancelled. Are you ok with that":"سيتم الغاء طلب التشخيص الحالي هل انت موافق على ذلك ؟",
-  "Do you really want to delete the current diagnostic process":"هل تريد حذف عملية التشخيص الحالية حقاً ؟",
-  "The process was completed successfully":"تمة العملية بنجاح",
-  "Do you want to cancel the current order already":"هل تريد الغاء الطلب الحالي بالفعل ؟",
-  "List of previous diagnoses":"قائمة  التشخيصات السابقة",
-  "The diagnostics you previously performed are now loaded":"يتم الان تحميل التشخيصات التي قمت بها مسبقاً",
 
 };
 const Map<String, String> ar_languages = {
@@ -166,33 +190,42 @@ const Map<String, String> ar_languages = {
   "English":"الانجليزية",
 
 };
-const Map<String, String> ar_errors = {
+const Map<String, String> ar_messages = {
 
-  "You have no lectures today":"لايوجد لديك محاضرات اليوم",
-  "The password must contain at least 8 characters, uppercase and lowercase letters, and symbols":"يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل وعلى حروف كبيرة   وصغيرة ورموز",
+  'The input field cannot be empty':'لا يمكن أن يكون حقل الإدخال فارغًا',
+  'Added successfully':'تم الاضافة بنجاح',
+  'Modified successfully':"تم التعديل بنجاح",
+  'Deleted successfully':"تم الحذف بنجاح",
+  "Do you really want to log out":"هل تريد تسجيل الخروج حقاً ؟",
+  "Login successful":"تم تسجيل الدخول بنجاح",
+  "Register successful":"تم انشاء حساب بنجاح",
+  "Empty":"فارغ لايوجد محتوى ",
+  "EmptyPost":"لا يوجد لديك اي منشورات ",
+  "EmptyBabies":"لا يوجد لديك  أطفال مسجلين  ",
+  "The current  request will be cancelled. Are you ok with that":"سيتم الغاء الطلب  الحالي هل انت موافق على ذلك ؟",
+  "The current item will be deleted. Do you agree with that?":"سيتم حذف العنصر الحالي هل انت موافق على ذلك  ؟",
+  "The process was completed successfully":"تمة العملية بنجاح",
+  "Do you want to cancel the current order already":"هل تريد الغاء الطلب الحالي بالفعل ؟",
+};
+const Map<String, String> ar_errors= {
+
+"Password verification message":"يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل وعلى حروف كبيرة   وصغيرة ورموز",
 "no internet connection" : " لايوجد شبكة تحقق من الاتصال  بالانترنت  !! ",
 "no connection": "لا يوجد اتصال",
-"Empty":"فارغ لايوجد محتوى ",
 "Field is Empty":"لايمكنك ترك حقل الادخال فارغ",
 "Email is invalid":"البريد الإلكتروني غير صالح",
 "Login failed":"فشل عملية تسجيل الدخول",
-"Do you really want to log out":"هل تريد تسجيل الخروج حقاً ؟",
-"Login successful":"تم تسجيل الدخول بنجاح",
-"Register successful":"تم انشاء حساب بنجاح",
 "Register failed":" فشل عملية انشاء حساب!",
 "Password does not match":"كلمة السر غير مطابقة",
 "Password is not Valid":" يجب ان تحتوي كلمة المرور على حروف كبيرة وصغيرة وارقام ورموز وان لاتقل عن 6 احرف",
  "Password is inValid":"كلمة السر غير صالحة",
 "name is invalid":" الاسم غير صالح",
-"student id is invalid":"رقم الطالب الاكاديمي غير صالح",
 "unexpected error":"حدث خطاء غير متوقع , الرجاء المحاولة مرة اخرى ",
 "Failed operation":"عملية فاشلة   , الرجاء المحاولة مرة اخرى ",
 "Different email": " يجب عليك استخدام بريد الكتروني مختلف عن البريد الالكتروني السابق .",
 "Different password":"كلمة السر الجديدة مطابقة لكملة السر الحالية يجب استخدام كلمة سر مختلفة ",
-"Diagnosis was invalid":"عملية التشخيص غير صالحة الرجاء اعادة  التشخيص مره اخرى ",
-"No Text Found":"لم يتم العثور على نص في  الصورة ، استخدم صورة  آخرى",
 "The image content is invalid":"محتوى الصورة غير صالح",
-
+'No Text Found':  "لم يتم العثور على نص",
 };
 
 
@@ -200,11 +233,12 @@ const Map<String, String> ar_errors = {
 Map<String, String> get ar {
   return {}
     ..addAll(_ar)
+    ..addAll(ar_messages)
     ..addAll(ar_errors)
     ..addAll(ar_labels)
     ..addAll(ar_aboute)
+    ..addAll(ar_text_generate_rules)
     ..addAll(ar_days)
-    ..addAll(ar_schedule)
     ..addAll(ar_pages)
     ..addAll(ar_roles)
     ..addAll(ar_languages);

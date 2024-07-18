@@ -60,8 +60,18 @@ class IconBottomApp extends StatelessWidget {
   final void Function(int) chingeScreen;
   final int currentIndex;
   final ButtonInfo buttonInfo;
+
+
+
+
   @override
   Widget build(BuildContext context) {
+
+    late  Color? styleColor= check ? AppColors.secondaryOneColor : AppColors.grayForeColor;
+    Icon? buttonIcon = this.buttonInfo!.icon==null? null
+        : Icon(this.buttonInfo.icon!.icon!,color: styleColor,);
+
+
     return InkWell(
       onTap: () => chingeScreen(currentIndex),
       child: Column(
@@ -77,14 +87,16 @@ class IconBottomApp extends StatelessWidget {
           const SizedBox(height: 5),
           // Construct and pass in a widget builder per screen type
           ScreenTypeLayout.builder(
-            mobile: (BuildContext context) =>(this.buttonInfo.icon!=null)? this.buttonInfo.icon! : Image.asset(
+            mobile: (BuildContext context) =>(buttonIcon!=null)?
+            buttonIcon : Image.asset(
                 check ? buttonInfo.activeIcon! : buttonInfo.name,
-                color: check ? AppColors.secondaryOneColor : Colors.grey,
+                color: styleColor,
                 width: 22,
                 height: 22),
-            tablet: (BuildContext context) =>(this.buttonInfo.icon!=null)? this.buttonInfo.icon! : Image.asset(
+            tablet: (BuildContext context) =>(buttonIcon!=null)?
+            buttonIcon! : Image.asset(
                 check ? buttonInfo.activeIcon! : buttonInfo.name,
-                color: check ? AppColors.secondaryOneColor : Colors.grey,
+                color: styleColor,
                 width: 32,
                 height: 32),
           ),
@@ -98,9 +110,7 @@ class IconBottomApp extends StatelessWidget {
                     tablet: 18,
                   ),
                   fontWeight: FontWeight.w400,
-                  color: check
-                      ? AppColors.secondaryOneColor
-                      : AppColors.grayForeColor,
+                  color: styleColor,
                   fontFamily: FontFamilyNames.dINNEXTLTARABICLIGHT)),
           const SizedBox(height: 5),
         ],
@@ -120,37 +130,41 @@ Widget _numberCart(int numberProduct) {
 }
 
 enum ButtonInfo {
-  order(
-    "Forum",
-    AppImage.SHOP_CART_GREY,
-    AppImage.SHOP_CART_GREY,
-    false,
-    true,
-    icon: Icon(Icons.forum),
-  ),
   home(
     "Home",
     AppImage.HOME_GREY,
     AppImage.HOME_GREY,
     false,
     false,
+    icon: Icon(Icons.home_outlined),
+  ),
+  order(
+    "Forum",
+    AppImage.SHOP_CART_GREY,
+    AppImage.SHOP_CART_GREY,
+    false,
+    true,
+    icon: Icon(Icons.forum_outlined),
   ),
 
-  profile(
-    "Profile",
-    AppImage.USER_GREY,
-    AppImage.USER_GREY,
-    false,
-    false,
 
-  ),
+
   settings(
-    "Settings",
+    "Voice Chat",
     AppImage.USER_GREY,
     AppImage.USER_GREY,
     false,
     false,
+    icon: Icon(Icons.mic_outlined)
 
+  ),
+  profile(
+  "Profile",
+  AppImage.USER_GREY,
+  AppImage.USER_GREY,
+  false,
+  false,
+    icon: Icon(Icons.person_outline),
   );
 
 

@@ -10,7 +10,7 @@ abstract class CommentEvent extends Equatable {
   List<Object> get props => [];
 }
 
- class GetAllCommentsEvent extends CommentEvent{}
+class GetAllCommentsEvent extends CommentEvent{}
 
 class RefreshCommentsEvent extends CommentEvent{}
 

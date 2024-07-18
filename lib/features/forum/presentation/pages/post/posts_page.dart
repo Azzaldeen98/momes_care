@@ -5,21 +5,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:moms_care/config/theme/text_style.dart';
-import 'package:moms_care/core/constants/enam/forum_pages.dart';
+import 'package:moms_care/core/widget/empty_widget.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
-import 'package:moms_care/features/forum/presentation/wedgits/pages/add_update_comment_widget.dart';
-// import 'package:nb_utils/nb_utils.dart';
 import '../../../../../config/theme/app_color.dart';
-import '../../../../../config/theme/color_app.dart';
-import '../../../../../config/theme/font_manager.dart';
-import '../../../../../core/utils/dailog/message/message_box.dart';
-import '../../../../../core/widget/bottom_sheets/bottom_sheet.dart';
-import '../../../../../core/widget/label/text_widget.dart';
-import '../../../../../core/widget/navigation_bar/bottom_navigation_bar.dart';
-import '../../../../../helpers/public_infromation.dart';
+import 'package:moms_care/core/utils/dailog/message/message_box.dart';
+import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
+import 'package:moms_care/core/helpers/public_infromation.dart';
 import '../../../domain/entities/Post.dart';
+import '../../bloc/add_delete_update_post/add_delete_update_post_state.dart';
 import '../../bloc/posts/post_state.dart';
 import '../../wedgits/pages/add_update_post_widget.dart';
 import '../../wedgits/posts/post_widget.dart';
@@ -51,44 +45,66 @@ class _PostsPageState extends State<PostsPage> {
     return  MultiBlocProvider(providers: [
       BlocProvider(create: (context) => di.sl<PostBloc>()..add(GetAllPostsEvent())),
     ],
-      child: SafeArea(
-        child: Scaffold(
-          // bottomNavigationBar: Helper.buttonNavigation ,
-          backgroundColor: const Color.fromRGBO(215, 212, 212, 1.0),
-          floatingActionButton: AvatarGlow(
-          endRadius: 80,
-          // animate: isListening,
-          glowColor: Colors.teal,
-            child: FloatingActionButton(
-            child: Icon(Icons.add ,color: AppColor.whiteColor, size: 35,),
-            backgroundColor: AppColor.primaryColor,
-           onPressed: () async{
-              // MessageBox.showDialog(context,textBody: "message");
-             await Get.to(const AddUpdatePostPage(isUpdatePost: false,));
-           }),
-            // showCustomBottomSheet(context: context,child: AddUpdatePostPage(
-            //   isUpdatePost: false,
-          //     onClickSaved:(title,content) async{
-          //       BlocProvider.of<PostBloc>(context).add(AddPostEvent(title: title,content:content));
-          //     },onCreatedOrUpdatedIsSuccess: (){
-          //     print("onCreatedOrUpdatedIsSuccess");
-          //     WidgetsBinding.instance.addPostFrameCallback((_) {
-          //       _refreshIndicatorKey.currentState?.show();
-          //     });
-          //         // MessageBox.showSuccess(context, " succussfly ");
-          //         // Get.back();
-          //   },baseContext: context,));
-          // },
-
-        // ),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
-          body: BlocConsumer<PostBloc, PostState>(
-            builder: _builderPostsPageBlocState,
-            listener: _listenerPostsPageBlocState,
-          ),
+      child: Scaffold(
+        appBar: AppBarPageWidget(pageName: "Forum".tr,),
+        bottomNavigationBar: Helper.buttonNavigation ,
+        backgroundColor: const Color.fromRGBO(215, 212, 212, 1.0),
+        floatingActionButton: _buildAvatarGlow(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+        body: BlocConsumer<PostBloc, PostState>(
+          builder: _builderPostsPageBlocState,
+          listener: _listenerPostsPageBlocState,
         ),
       ),
+    );
+  }
+  Widget _builderPostsPageBlocState(BuildContext context, PostState state) {
+
+    if (state is LoadingPostsState) {
+      return const Center(child: CupertinoActivityIndicator());
+    }
+    if (state is LoadedPostsState) {
+
+      if(state.posts!=null)
+          _listPost=state.posts;
+
+      return   _buildRefreshIndicatorWidget(context);
+
+    }
+    if (state is LikeUnLikePostSuccessState) {
+      return _buildRefreshIndicatorWidget(context);
+    }
+    return   _buildRefreshIndicatorWidget(context);
+  }
+  Widget _buildRefreshIndicatorWidget(BuildContext context){
+
+    if(_listPost==null)
+      _listPost=List<Post>.empty();
+
+    return (_listPost==null) ?  EmptyWidget(explanatoryText:"EmptyPosts".tr,)
+        :  RefreshIndicator(
+            key: _refreshIndicatorKey ,
+            onRefresh: () async  {
+              BlocProvider.of<PostBloc>(context).add(GetAllPostsEvent());
+            },
+            child: ListView.builder(
+              itemBuilder: (context,index){
+                print("POST:::${_listPost![index]}");
+                return PostWidget(post: _listPost![index],onDelete: (){},);
+              },
+              itemCount:_listPost!.length,
+            ),
+    );
+  }
+  Widget _buildAvatarGlow(){
+    return AvatarGlow(
+      endRadius: 80,
+      // animate: isListening,
+      glowColor: Colors.teal,
+      child: FloatingActionButton(
+          child: Icon(Icons.add ,color: AppColor.whiteColor, size: 35,),
+          backgroundColor: AppColor.primaryColor,
+          onPressed:onAddPost),
     );
   }
   void _listenerPostsPageBlocState(BuildContext context, PostState state) {
@@ -99,59 +115,23 @@ class _PostsPageState extends State<PostsPage> {
     if(state is ErrorPostsState){
       Get.back();
       MessageBox.showError(context, state.message);
-    }else  if(state is LoadedPostsState){
+    }
+    else if(state is LoadedPostsState){
       Get.back();
       _listPost=state.posts;
       //
-    } else if (state is DeletedPostSuccessState) {
-        print("DeletedPostSuccessState 878");
-      // toast("Delete Post is Successfully !! ");
     }
-   else  if (state is AddPostSuccessState) {
-
+    else if (state is AddDeleteUpdateSuccessState) {
       MessageBox.showSuccess(context, "add succussfly");
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _refreshIndicatorKey.currentState?.show();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _refreshIndicatorKey.currentState?.show();
       });
-
     }
-  }
-  Widget _builderPostsPageBlocState(BuildContext context, PostState state) {
-
-    if (state is LoadingPostsState) {
-      print("LoadedPostsState");
-      return const Center(child: CupertinoActivityIndicator());
-    }
-    if (state is LoadedPostsState) {
-      if(_listPost==null)
-          _listPost=state.posts;
-      return   _buildRefreshIndicatorWidget(context);
-
-    }
-    if (state is LikeUnLikePostSuccessState) {
-      return _buildRefreshIndicatorWidget(context);
-    }
-
-    return   _buildRefreshIndicatorWidget(context);
 
   }
-  Widget _buildRefreshIndicatorWidget(BuildContext context){
-    return (_listPost==null) ?  Center(child: Container(child: Text("Empty Posts !!",
-      style: AppTextStyles.getTitleStyle(color: Colors.black),),))
-        :  RefreshIndicator(
-            key: _refreshIndicatorKey ,
-            onRefresh: () async  {
-              BlocProvider.of<PostBloc>(context).add(GetAllPostsEvent());
-            },
-            child: ListView.builder(
-              itemBuilder: (context,index){
-                return PostWidget(post: _listPost![index]);
-              },
-              itemCount: _listPost!.length,
-            ),
-    );
-  }
-
+  void onAddPost()async{
+  await Get.to(const AddUpdatePostPage(isUpdatePost: false,));
+}
 
 }
 
