@@ -82,7 +82,7 @@ class _FormCommentWidgetState  extends  State<FormCommentWidget> {
             CustomButton(
                 widthPercent: 80,
                 raduis: 10,
-                labelText: widget.isUpdate?"Upadte".tr:"Add".tr,
+                labelText: widget.isUpdate?"Update".tr:"Add".tr,
                 icon: Icon(Icons.start,color: AppColor.primaryIconColor,) ,
                 bgColor: AppColor.PrimaryButtonLightColor,
                 onPressed:() async{

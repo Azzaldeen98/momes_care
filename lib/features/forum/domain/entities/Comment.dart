@@ -9,7 +9,7 @@ import 'Post.dart';
 class Comment extends Equatable{
 
   final int? id;
-  final String? contant;
+   final String? contant;
   final DateTime ? createdAt;
   final int? likes;
   final Author? author;

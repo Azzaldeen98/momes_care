@@ -1,7 +1,14 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:moms_care/core/constants/cached/cached_name.dart';
+import 'package:moms_care/core/helpers/cache_helper.dart';
+import 'package:moms_care/core/helpers/public_infromation.dart';
+import 'package:moms_care/core/remote/firebase/firebase_storage_actions.dart';
 import 'package:moms_care/features/forum/data/models/post_model.dart';
 import 'package:moms_care/features/profile/data/models/profile_model.dart';
 import 'package:retrofit/http.dart';
@@ -30,14 +37,19 @@ abstract class ProfileRemoteDataSource{
   Future<Unit> updateName(@Query("name") String ? name);
 
   @PUT('/updateEmail')
-  Future<Unit> updateEmail(@Query("email") String ? email);
+  Future<Unit> updateEmail(@Query("newEmail") String ? newEmail);
 
+  @PUT('/updateImage')
+  Future<Unit> updateImage(@Query("urlImage") String  urlImage);
 
-  @PUT('/updatePassword')
-  Future<Unit> updatePassword({
+  @PUT('/changePassword')
+  Future<Unit> changePassword({
     @Query("currentPassword") String ? currentPassword,
     @Query("newPassword") String ? newPassword,
 });
+
+
+  Future<String> uploadImageToStorage(File image,String? oldUrl);
 
 }
 

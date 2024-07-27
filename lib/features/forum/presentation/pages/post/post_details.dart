@@ -49,17 +49,17 @@ class _PostsDetailsState extends State<PostsDetails> {
     //     child:
 
     return  SafeArea(
-        child: Scaffold(
-          bottomNavigationBar: Helper.buttonNavigation ,
-          appBar: AppBarPageWidget(pageName: "Comments".tr,),
-          floatingActionButton: _buildAvatarGlow(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-          body:_buildBody(),
-          // BlocConsumer<PostBloc, PostState>(
-          //   builder:_builderDetailsPostBlocState,
-          //   listener:_listenerDetailsPostBlocState,
-          // ),
-        ),
+      child: Scaffold(
+        bottomNavigationBar: Helper.buttonNavigation ,
+        appBar: AppBarPageWidget(pageName: "Comments".tr,),
+        floatingActionButton: _buildAvatarGlow(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+        body:_buildBody(),
+        // BlocConsumer<PostBloc, PostState>(
+        //   builder:_builderDetailsPostBlocState,
+        //   listener:_listenerDetailsPostBlocState,
+        // ),
+      ),
       // ),
     );
   }
@@ -75,9 +75,9 @@ class _PostsDetailsState extends State<PostsDetails> {
     else if (state is LoadedDetailsPostState) {
       Get.back();
       // if(_post==null){
-         setState(() {
-           _post=state.post;
-         });
+      setState(() {
+        _post=state.post;
+      });
       // }
 
       return   _buildRefreshIndicatorWidget(context);
@@ -94,11 +94,11 @@ class _PostsDetailsState extends State<PostsDetails> {
 
   Widget _buildRefreshIndicatorWidget(BuildContext context){
     if (_post==null) {
-        return Center(
-                 child: Container(
-                   child: Text("No Thing!!".tr,
-                      style: AppTextStyles.getTitleStyle(color: Colors.black),),
-            ));
+      return Center(
+          child: Container(
+            child: Text("No Thing!!".tr,
+              style: AppTextStyles.getTitleStyle(color: Colors.black),),
+          ));
     }else {
       return RefreshIndicator(
         key: _refreshIndicatorKey,
@@ -154,7 +154,7 @@ class _PostsDetailsState extends State<PostsDetails> {
         ),
       ),
     );
-    
+
   }
 
   void _listenerDetailsPostBlocState(BuildContext context, PostState state) {
@@ -180,7 +180,7 @@ class _PostsDetailsState extends State<PostsDetails> {
     await Get.to(AddUpdateCommentPage(
         isUpdate: false,
         comment:Comment(postId:_post!.id),
-        onComplated: (_context){
+        onComplated: (_context,content){
           // SnackBarBuilder.ShowSuccess(context: context ,message:"state.message");
         }
     ));

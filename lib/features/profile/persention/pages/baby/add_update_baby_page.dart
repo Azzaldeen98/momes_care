@@ -4,8 +4,11 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
+import 'package:moms_care/core/constants/cached/cached_name.dart';
 import 'package:moms_care/core/constants/enam/app_pages.dart';
+import 'package:moms_care/core/constants/enam/app_refresh_data.dart';
 import 'package:moms_care/core/constants/messages.dart';
+import 'package:moms_care/core/helpers/cache_helper.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 import 'package:moms_care/core/utils/dailog/message/message_snack_bar.dart';
 import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
@@ -80,8 +83,9 @@ class AddUpdateBabyPage extends StatelessWidget{
         Get.back();
         MessageBox.showError( context, state.message);
     }
-    else  if(state is AddUpdateDeleteBabySuccessState){
+    else  if(state is AddUpdateDeleteBabySuccessState) {
       Get.back();
+      CacheHelper.removeAt(PROFILE_INFO_CACHED);
       SnackBarBuilder.ShowSuccess(context: context,message: state.message);
       Get.offAll(HomePage(numberScreen: AppPages.PROFILE.index,));
     }

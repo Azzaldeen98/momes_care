@@ -3,10 +3,10 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:moms_care/core/constants/enam/forum_pages.dart';
+import 'package:moms_care/features/forum/presentation/bloc/posts/post_state.dart';
 import '../../../domain/entities/Post.dart';
 
-abstract class AddDeleteUpdateState extends Equatable {
-
+abstract class AddDeleteUpdateState extends PostState {
   const AddDeleteUpdateState();
   @override
   List<Object> get props => [];
@@ -25,7 +25,7 @@ class LikeUnLikeState extends AddDeleteUpdateState{
 }
 class AddDeleteUpdateSuccessState extends AddDeleteUpdateState{
   final String message;
-  const AddDeleteUpdateSuccessState({required this.message}) ;
+  const AddDeleteUpdateSuccessState({required this.message});
   @override
   List<Object> get props => [message];
 }

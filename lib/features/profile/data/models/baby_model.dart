@@ -7,12 +7,9 @@ import '../../domain/entities/baby_entity.dart';
 
 class BabyModel extends Baby {
 
-
-
-
   BabyModel({
     super.id,
-    super.image = "",
+    super.urlImage = "",
     super.name,
     super.age,
     super.height,
@@ -26,7 +23,7 @@ class BabyModel extends Baby {
   factory BabyModel.fromJson(Map<String, dynamic> json) {
     return BabyModel(
       id: json['id'],
-      image: json['image'],// == null? null : json['image'] ,
+      urlImage: json['urlImage'],// == null? null : json['urlImage'] ,
       name: json['name'] ,
       age: json['age'] ,
       height: (json['height'] as num?)?.toDouble(),
@@ -41,10 +38,11 @@ class BabyModel extends Baby {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'image': image,
+      'urlImage': urlImage,
       'name': name,
       'height': height,
       'weight': weight,
+      'age': age,
       'numberOfResponsibleDoctor': numberOfResponsibleDoctor,
       'gender': gender!.index,
       'birthDay': birthDay?.toIso8601String(),
@@ -65,7 +63,7 @@ class BabyModel extends Baby {
   factory BabyModel.fromEntity(Baby entity) {
     return BabyModel(
       id: entity.id,
-      image: entity.image ?? "",
+      urlImage: entity.urlImage ?? "",
       name: entity.name,
       height: entity.height,
       weight: entity.weight,
@@ -78,7 +76,7 @@ class BabyModel extends Baby {
   Baby toEntity() {
     return Baby(
       id: id,
-      image: image,
+      urlImage: urlImage,
       name: name,
       age: age,
       height: height,

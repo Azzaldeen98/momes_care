@@ -21,7 +21,7 @@ class DailyNews extends StatelessWidget {
       alignment: Alignment.topLeft,  // and bottomLeft
       child: SafeArea(
         child: Scaffold(
-          appBar: _buildAppbar(context),
+          // appBar: _buildAppbar(context),
           body: _buildBody() ,
         ),
       ),
@@ -33,7 +33,7 @@ class DailyNews extends StatelessWidget {
       alignment: Alignment.topLeft,  // and bottomLeft
       child: SafeArea(
         child: Scaffold(
-          appBar: _buildAppbar(context),
+          // appBar: _buildAppbar(context),
           body: _buildBody() ,
         ),
       ),

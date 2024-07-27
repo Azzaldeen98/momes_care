@@ -16,8 +16,9 @@ import 'package:moms_care/core/widget/button/custom_button.dart';
 import 'package:moms_care/core/widget/text_field/text_field_widget.dart';
 
 class FormEditUserNameWidget extends StatefulWidget{
-  const FormEditUserNameWidget({required this.name,}) ;
+  const FormEditUserNameWidget({required this.name,required this.onUpdate}) ;
   final String name;
+  final Function(String) onUpdate;
 
   @override
   State<FormEditUserNameWidget> createState() => _FormEditUserNameWidgetState();
@@ -62,7 +63,7 @@ class _FormEditUserNameWidgetState  extends State<FormEditUserNameWidget>{
           CustomButton(
               widthPercent: 90,
               raduis: 10,
-              labelText:"Upadte".tr,
+              labelText:"Update".tr,
               icon: Icon(Icons.start,color: AppColor.primaryIconColor,) ,
               bgColor: AppColor.PrimaryButtonLightColor,
               onPressed:() async{
@@ -74,9 +75,9 @@ class _FormEditUserNameWidgetState  extends State<FormEditUserNameWidget>{
   }
 
   void validateFormThenUpdateOrAddPost() async{
-    bool isValid=_formKey.currentState!.validate();
-    if(isValid){
-        BlocProvider.of<ProfileBloc>(context).add(UpdateUserNameEvent(name: controller!.text));
+
+    if(_formKey.currentState!.validate()){
+     await widget.onUpdate!(controller!.text!);
       }
     }
 

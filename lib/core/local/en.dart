@@ -105,6 +105,10 @@ const Map<String, String> _en = {
   "No text was found in the image, use another medical analysis image":  "No text was found in the image, use another medical analysis image",
   'Text Copied to Clipboard':'Text copied to clipboard',
   'Click button to start recording':'Click button to start recording',
+  'Pick a file': 'Pick a file',
+  'Yes':'Yes',
+  'No':'No',
+
 };
 const Map<String, String> en_languages = {
   "Arabic":"Arabic",
@@ -112,7 +116,6 @@ const Map<String, String> en_languages = {
 
 
 };
-
 const Map<String, String> en_text_generate_rules = {
 "UserQuestion":"User Question:",
 "Gemini_Model_Specialization": "Health care for infants and mothers",
@@ -130,7 +133,10 @@ Assalamu Alaikum: May the peace, mercy, and blessings of Allah be upon you. Hell
 Tell me about yourself: I am a virtual assistant trained to provide assistance and information about infant and maternal healthcare
 What is your specialty?: My specialty is infant and maternal healthcare
 Where do you work?: I work as a virtual assistant for Moms Care, an app dedicated to infant and maternal healthcare
-What do you offer?: I provide advice and guidance about infant and maternal healthcare''',
+What do you offer?: I provide advice and guidance about infant and maternal healthcare
+Your answer must be in English.
+Any other signs or symbols that are not letters or numbers must be deleted.
+''',
 
 "GenerateTextRules":'''
 You should avoid answering questions that fall within the following areas (politics, duality, wars, human rights, military, sex, pornography).
@@ -150,6 +156,8 @@ const Map<String, String> en_days = {
   "sunday": "Sunday"
 };
 const Map<String, String> en_labels = {
+  "Image uploaded successfully":"Image uploaded successfully",
+  "File uploaded successfully":"File uploaded successfully",
   "Camera":"Camera",
   "Diagnostic result":"Diagnostic result",
   "Previous analyses": "Previous analyses",
@@ -174,7 +182,6 @@ const Map<String, String> en_labels = {
 const Map<String, String> en_messages = {
 
   'Added successfully':'Added successfully',
-
   'The input field cannot be empty':'The input field cannot be empty',
   'Modified successfully':"Modified successfully",
   'Deleted successfully':"Deleted successfully",
@@ -188,6 +195,7 @@ const Map<String, String> en_messages = {
   "The current item will be deleted. Do you agree with that?":"The current item will be deleted. Do you agree with that?",
   "The process was completed successfully":"The process was completed successfully",
   "Do you want to cancel the current order already":"Do you want to cancel the current order already?",
+  "INPUT_FIELD_PHONE_NUMBER_ERROR_MESSAGE":"The phone number field must not be empty and must be 9 digits",
 };
 const Map<String, String> en_errors = {
 

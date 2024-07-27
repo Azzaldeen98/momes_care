@@ -1,11 +1,16 @@
 
 
+
+
 enum AppPages{
 
-      HOME,
+      // HOME,
+      COURSES,
       FORUM,
       SPEECH,
-      PROFILE
+      BROADCASTLIVE,
+      PROFILE,
+
 
     // final int value;
     // const AppPages(this.value);

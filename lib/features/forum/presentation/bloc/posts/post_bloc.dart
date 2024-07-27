@@ -13,6 +13,7 @@ import 'package:moms_care/features/forum/domain/usecases/post/like_unlike_post_u
 import 'package:moms_care/features/forum/domain/usecases/post/update_post_use_case.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_state.dart';
+import 'package:moms_care/features/forum/presentation/pages/comment/comments_page.dart';
 import 'package:moms_care/features/home/persention/pages/moms_care_view.dart';
 // import 'package:nb_utils/nb_utils.dart';
 
@@ -46,19 +47,18 @@ class PostBloc extends Bloc<PostEvent,PostState>{
 
   }
  FutureOr<void> _getPost(GetPostEvent event, Emitter<PostState> emit) async {
-   emit(LoadingPostsState());
+   emit(const LoadingDetailsPostState());
    final failureOrPosts=await getPostUseCase(event.postId);
    failureOrPosts.fold(
            (failure){
          emit(ErrorPostCommentState(message: mapFailureToMessage(failure)));
-         // Get.back();
        },
-           (_post){
+       (_post){
          emit(LoadedDetailsPostState(post:_post));
        });
  }
  Future<void> _getAllPosts(GetAllPostsEvent event, Emitter<PostState> emit) async{
-    emit(LoadingPostsState());
+    emit(const LoadingPostsState());
      final failureOrPosts=await getAllPostsUseCase();
     failureOrPosts.fold(
         (failure){
@@ -76,8 +76,6 @@ class PostBloc extends Bloc<PostEvent,PostState>{
    emit(LoadingLikeUnLikePostState());
 
    final failureOrsuccess=await likeUnLikePostUseCase(event!.postId);
-
-
    failureOrsuccess.fold(
            (failure){
          emit(ErrorPostsState(message: mapFailureToMessage(failure)));
@@ -92,14 +90,14 @@ class PostBloc extends Bloc<PostEvent,PostState>{
 
  Future<void>  _detailsPost(DetailsPostEvent event, Emitter<PostState> emit) async{
 
-   emit(LoadingDetailsPostsState());
+   emit(const LoadingDetailsPostState());
    // emit(LoadedDetailsPostState(post: event.post));
-   Get.to(PostsDetails(post: event.post,));
+   Get.off(CommentsPage(post: event.post,));
 
  }
  FutureOr<void> _likeUnLikeComment(LikeUnLikeCommentEvent event, Emitter<PostState> emit)async {
 
-    emit(LoadingLikeUnLikeState());
+    emit(const LoadingLikeUnLikeState());
    final failureOrsuccess= await likeUnLikeCommentUseCase(event.commentId);
    failureOrsuccess.fold(
            (failure){

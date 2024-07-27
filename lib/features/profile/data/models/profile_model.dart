@@ -47,7 +47,7 @@ class Profile  extends Equatable{
 
 class ProfileModel extends Profile {
 
-// final  List<BabyModel>? babies;
+ final  List<BabyModel>? babies;
 
   ProfileModel({
          super.displayName,
@@ -57,8 +57,7 @@ class ProfileModel extends Profile {
          super.likesReceived,
          super.likesGiven,
          super.comments,
-        super.babies,
-    });
+         this.babies }):super(babies:babies);
 
   // fromJson
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
@@ -86,7 +85,7 @@ class ProfileModel extends Profile {
       'likesReceived': likesReceived,
       'likesGiven': likesGiven,
       'comments': comments,
-      // 'babies': babies!.map((baby) => baby!.toJson()).toList(),
+       'babies': babies!.map((baby) => baby!.toJson()).toList(),
     };
   }
 
@@ -114,7 +113,7 @@ class ProfileModel extends Profile {
       likesReceived: likesReceived,
       likesGiven: likesGiven,
       comments: comments,
-      babies:(babies!=null)?  babies!.map((baby) => baby).toList()
+      babies:(babies!=null)?  babies!.map((baby) => baby.toEntity()).toList()
       : null,
     );
   }

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:moms_care/config/theme/app_color.dart';
 import 'package:moms_care/core/constants/enam/profile_pages.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
+import 'package:moms_care/core/widget/image/image_widget.dart';
 import 'package:moms_care/features/profile/data/models/profile_model.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_bloc.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_event.dart';
@@ -24,17 +25,24 @@ class ProfileUserInfoWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 10),
-          ImageProfileWidget(urlImage: profile.image ?? ""),
-          // _buildPictureUserWidget(),
-          const SizedBox(height: 10),
-          _buildUserInfoWidget(context),
-          const SizedBox(height: 20),
-        ],
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 0,
+                child: _buildUserInfoWidget(context)),
+            Expanded(
+              flex: 1,
+              child: ImageProfileWidget(urlImage: profile!.image ?? "",onUploadingFile: (img,urlImage) async{
+                 BlocProvider.of<ProfileBloc>(context).add(UploadProfileImageEvent(image: img,oldUrl: urlImage));
+              }),
+            ),
+            // _buildPictureUserWidget(),
+          ],
+        ),
       );
 
   }
@@ -46,8 +54,6 @@ class ProfileUserInfoWidget extends StatelessWidget{
       children: [
         Container(
           padding: EdgeInsets.zero,
-          height: 40,
-          width: 40,
           margin: EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(border: Border.all(),borderRadius: BorderRadius.circular(12)),
           child: IconButton(
@@ -78,7 +84,10 @@ class ProfileUserInfoWidget extends StatelessWidget{
                 borderRadius: BorderRadius.circular(50),),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
-                  child: const Image(image: AssetImage(AppImage.RECEIPT))),
+                  child:ImageWidget(
+                    urlImage:  (profile!.image==null || profile!.image!.isEmpty) ? AppImage.USER_GREEN :
+                    profile!.image! )),// author!.image!=null ||author!.image!.isNotEmpty  ?author!.image! : AppImage.USER_GREEN,
+                 // const Image(image: AssetImage(AppImage.RECEIPT))),
             ),
           ),
           Positioned(

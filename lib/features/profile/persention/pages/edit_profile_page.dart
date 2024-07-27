@@ -2,10 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
 import 'package:moms_care/features/profile/data/models/profile_model.dart';
+import 'package:moms_care/features/profile/persention/bloc/profile_bloc.dart';
+import 'package:moms_care/features/profile/persention/bloc/profile_event.dart';
 import 'package:moms_care/features/profile/persention/widget/form_edit_user_email_widget.dart';
 import 'package:moms_care/features/profile/persention/widget/form_edit_user_name_widget.dart';
 import 'package:moms_care/features/profile/persention/widget/form_EDIT_USER_PASSWORD_widget.dart';
@@ -28,9 +31,19 @@ class _EditProfilePageState  extends State<EditProfilePage>{
   TextEditingController nameController=TextEditingController();
   TextEditingController emailController=TextEditingController();
   ProfilePage profilePage=ProfilePage.EDIT_PROFILE;
+  KeyboardVisibilityController keyboardVisibilityController=KeyboardVisibilityController();
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
    return KeyboardVisibilityBuilder(
+  controller:keyboardVisibilityController ,
        builder: (context, isKeyboardVisible) {
            return Scaffold(
              appBar: AppBarPageWidget(pageName: "Edit profile".tr,),
@@ -51,11 +64,13 @@ class _EditProfilePageState  extends State<EditProfilePage>{
         children: [
           _buildProfileEditWidget(),
           _buildProfileEditViewWidget(ProfilePage.EDIT_USER_NAME,
-              FormEditUserNameWidget(name: widget.profile!.displayName!,)),
+              FormEditUserNameWidget(name: widget.profile!.displayName!,
+                onUpdate: onUpdateName,)),
           _buildProfileEditViewWidget(ProfilePage.EDIT_USER_EMAIL,
-              FormEditUserEmailWidget(email: widget.profile!.email!,)),
+              FormEditUserEmailWidget(email: widget.profile!.email!,onUpdate: onUpdateEmail,)),
           _buildProfileEditViewWidget(ProfilePage.EDIT_USER_PASSWORD,
-              FormEditUserPasswordWidget()),
+              FormEditUserPasswordWidget(onUpdate:(cPass,nPass)=>
+                  onChangedPassword(currentPass: cPass,newPass: nPass))),
         ],
       ),
     );
@@ -119,5 +134,17 @@ class _EditProfilePageState  extends State<EditProfilePage>{
   void onEditPassword() async{
     setState(()=>profilePage=ProfilePage.EDIT_USER_PASSWORD);
     // BlocProvider.of<ProfileBloc>(context).add(GoToProfilePageEvent(page:ProfilePage.EDIT_USER_PASSWORD));
+  }
+
+  onUpdateName(String name) async{
+    BlocProvider.of<ProfileBloc>(context).add(UpdateUserNameEvent(name:name));
+  }
+
+  onUpdateEmail(String email,String pass) async{
+    BlocProvider.of<ProfileBloc>(context!).add(UpdateUserEmailEvent(currentPass: pass,email: email));
+  }
+
+  onChangedPassword({String? currentPass,String? newPass}) async{
+    BlocProvider.of<ProfileBloc>(context!).add(UpdateUserPasswordEvent(currentPassword: currentPass!,newPassword: newPass!));
   }
 }

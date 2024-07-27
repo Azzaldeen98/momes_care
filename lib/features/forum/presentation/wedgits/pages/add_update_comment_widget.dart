@@ -38,7 +38,7 @@ const AddUpdateCommentPage({Key? key,
 
   final bool isUpdate;
   final Comment? comment;
-  final Function(BuildContext context) onComplated;
+  final Function(BuildContext context,String content) onComplated;
   // final String? body;
 
 
@@ -81,7 +81,7 @@ class _AAddUpdateCommentPageState extends State<AddUpdateCommentPage> {
     } else if (state is AddDeleteUpdateSuccessState) {
       contentController.clear();
       SnackBarBuilder.ShowSuccess(context: context ,message:state.message!);
-      widget.onComplated(context);
+      widget.onComplated(context,contentController!.text);
       Get.back();
       Get.back();
 

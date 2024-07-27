@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
   final Icon? icon;
   final Function()? onPressed;
   final Color? bgColor;
-  final double widthPercent;
+  final double? widthPercent,height;
   final double raduis;
   final TextStyle? textStyle;
   final Border? border;
@@ -26,24 +26,27 @@ class CustomButton extends StatelessWidget {
     required this.labelText,
     required this.icon,
     required this.onPressed,
-    this.bgColor=AppColor.primaryColor,
+    this.bgColor=Colors.transparent,
     this.raduis=12,
     this.textStyle,
     this.border,
-    this.widthPercent=double.maxFinite,});
+    this.widthPercent,
+    this.height,
+  });
 
   @override
   Widget build(BuildContext context) {
 
     final screenSize = MediaQuery.of(context).size;
-    final buttonWidth = screenSize.width * widthPercent / 100;
+    final buttonWidth = widthPercent==null? null : screenSize.width * widthPercent! / 100;
 
     return  Container(
       width:buttonWidth,
+      height: height,
       // alignment: Alignment.center,
       // margin: EdgeInsets.only(right: 20,left:50),
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(color:this.bgColor,
+      // padding: EdgeInsets.symmetric(horizontal: 15),
+      decoration: BoxDecoration(color:bgColor,
       border: border ?? null,
       borderRadius: BorderRadius.circular(raduis)),
       child: FloatingActionButton.extended(

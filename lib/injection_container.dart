@@ -4,10 +4,32 @@ import 'package:dio/dio.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:moms_care/core/constants/constants.dart';
 import 'package:moms_care/features/auth/data/repositories/firebase/firebase_auth_repo_imp.dart';
+import 'package:moms_care/features/auth/domain/usecases/refresh_fcm_token_use_case.dart';
+import 'package:moms_care/features/broadcast_live/domain/usecases/stop_broadcast_live_use_case.dart';
+import 'package:moms_care/features/courses/data/data_sourse/remote/courses_datasourse.dart';
+import 'package:moms_care/features/courses/data/repositories/courses_repository_imp.dart';
+import 'package:moms_care/features/courses/domain/repositories/courses_repository.dart';
+import 'package:moms_care/features/courses/domain/usecases/add_course_item_usecase.dart';
+import 'package:moms_care/features/courses/domain/usecases/add_course_usecase.dart';
+import 'package:moms_care/features/courses/domain/usecases/delete_course_item_usecase.dart';
+import 'package:moms_care/features/courses/domain/usecases/get_all_course_items_usecase.dart';
+import 'package:moms_care/features/courses/domain/usecases/get_all_courses_usecase.dart';
+import 'package:moms_care/features/courses/domain/usecases/update_course_item_usecase.dart';
+import 'package:moms_care/features/courses/domain/usecases/upload_file_course_usecase.dart';
+import 'package:moms_care/features/courses/persention/bloc/course_bloc.dart';
 import 'package:moms_care/features/daily_news/data/repository/article_repository_impl.dart';
 import 'package:moms_care/features/daily_news/domain/repository/article_repository.dart';
 import 'package:moms_care/features/daily_news/domain/usecases/get_article.dart';
 import 'package:moms_care/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
+import 'package:moms_care/features/broadcast_live/data/data_sourse/remote/broadcast_live_datasourse.dart';
+import 'package:moms_care/features/broadcast_live/data/repositories/broadcast_live_repository_imp.dart';
+import 'package:moms_care/features/broadcast_live/domain/UseCases/get_my_broadcast_live_UseCase.dart';
+import 'package:moms_care/features/broadcast_live/domain/entities/broadcast_live.dart';
+import 'package:moms_care/features/broadcast_live/domain/repositories/broadcast_live_repository.dart';
+import 'package:moms_care/features/broadcast_live/domain/usecases/add_broadcast_live_usecase.dart';
+import 'package:moms_care/features/broadcast_live/domain/usecases/delete_broadcast_live_use_case.dart';
+import 'package:moms_care/features/broadcast_live/domain/usecases/update_broadcast_live_usecase.dart';
+import 'package:moms_care/features/broadcast_live/persention/bloc/broadcast_live_bloc.dart';
 import 'package:moms_care/features/forum/data/dataSource/remote/post/posts_remote_data_source.dart';
 import 'package:moms_care/features/forum/domain/repository/post_repository.dart';
 import 'package:moms_care/features/forum/domain/usecases/Comment/like_unlike_Comment_use_case.dart';
@@ -31,9 +53,11 @@ import 'package:moms_care/features/profile/domain/usecases/baby/delete_baby_use_
 import 'package:moms_care/features/profile/domain/usecases/baby/update_baby_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/get_my_posts_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/get_profile_info_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/refresh_profile_info_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/update_user_email_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/update_user_name_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/update_user_password_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/upload_profile_image_use_case.dart';
 import 'package:moms_care/features/profile/persention/bloc/baby/baby_bloc.dart';
 import 'package:moms_care/features/speech/data/dataSourse/remote/speech_remote_datasourse.dart';
 import 'package:moms_care/features/speech/domain/usecases/ask_gemini_ai_use_case.dart';
@@ -56,12 +80,15 @@ import 'features/auth/domain/usecases/firebase_sigup_usescases.dart';
 import 'features/auth/domain/usecases/register_usescases.dart';
 import 'features/auth/domain/usecases/sigin_usescases.dart';
 import 'features/auth/persention/bloc/auth_bloc/auth_bloc.dart';
+import 'features/courses/domain/usecases/delete_course_usecase.dart';
+import 'features/courses/domain/usecases/update_course_usecase.dart';
 import 'features/daily_news/data/data_sources/local/app_database.dart';
 import 'features/daily_news/data/data_sources/remote/news_api_service.dart';
 import 'features/daily_news/domain/usecases/get_saved_article.dart';
 import 'features/daily_news/domain/usecases/remove_article.dart';
 import 'features/daily_news/domain/usecases/save_article.dart';
 import 'features/daily_news/presentation/bloc/article/local/local_article_bloc.dart';
+import 'features/broadcast_live/domain/usecases/get_active_broadcast_live_usecase.dart';
 import 'features/forum/data/dataSource/remote/comment/comments_remote_data_source.dart';
 import 'features/forum/data/repository/comment_repository_impl.dart';
 import 'features/forum/data/repository/post_repository_impl.dart';
@@ -138,7 +165,9 @@ Future<void> init() async {
   //? SpeechRepository
   sl.registerLazySingleton<SpeechRepository>(() => SpeechRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   //? MomsCareRepository
-  sl.registerLazySingleton<MomsCareRepository>(() => MomsCareRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  sl.registerLazySingleton<CoursesRepository>(() => CoursesRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  //? BroadcastLiveRepository
+  sl.registerLazySingleton<BroadcastLivesRepository>(() => BroadcastLivesRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
 
 
 
@@ -153,13 +182,16 @@ Future<void> init() async {
     registerDoctorUseCases: sl(),
     firebaseSignInUseCases: sl(),
     firebaseSignUpUseCases: sl(),
+    refreshFcmTokenUseCase: sl()
   ));
   //Profile
   sl.registerFactory(() => ProfileBloc(
     getProfileInfoUseCase: sl(),
+    refreshProfileInfoUseCase: sl(),
     updateUserEmailUseCase: sl(),
     updateUserNameUseCase: sl(),
-    updateUserPasswordUseCase: sl()
+    updateUserPasswordUseCase: sl(),
+      uploadProfileImageUseCase: sl(),
     // getMyPostsUseCase: sl(),
   ));
 
@@ -205,6 +237,28 @@ Future<void> init() async {
   //Speech
   sl.registerFactory(() => SpeechBloc());
   sl.registerFactory(() => GeminiBloc( askGeminiAiUseCase: sl()));
+  //Course
+  sl.registerFactory(() => CourseBloc(
+          getAllCoursesUseCase: sl(),
+          getAllCourseItemsUseCase: sl(),
+          uploadFileCourseUseCase: sl(),
+          addCourseUsecase: sl(),
+          updateCourseUsecase: sl(),
+          deleteCourseUsecase: sl(),
+          addCourseItemUseCase: sl(),
+          deleteCourseItemUseSase: sl(),
+          updateCourseItemUseCase: sl(),
+
+  ));
+  //BroadcastLives
+  sl.registerFactory(() => BroadcastLiveBloc(
+          getMyBroadcastLiveUseCase: sl(),
+          stopBroadcastLiveUseCase: sl(),
+          getActivesBroadcastLiveUseCase: sl(),
+          addBroadcastLiveUseCase: sl(),
+          updateBroadcastLiveUseCase: sl(),
+          deleteBroadcastLiveUseCase: sl(),
+  ));
 
 //? *********************************
 //? UseCase
@@ -218,14 +272,17 @@ Future<void> init() async {
   sl.registerLazySingleton(() => RegisterDoctorUseCases(sl()));
   sl.registerLazySingleton(() => FirebaseSignInUseCases(sl()));
   sl.registerLazySingleton(() => FirebaseSignUpUseCases(sl()));
+  sl.registerLazySingleton(() => RefreshFcmTokenUseCase(sl()));
   //-----------------
   //Profile
   //-----------------
   sl.registerLazySingleton(() => GetMyPostsUseCase(sl()));
+  sl.registerLazySingleton(() => RefreshProfileInfoUseCase(sl()));
   sl.registerLazySingleton(() => GetProfileInfoUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserNameUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserEmailUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserPasswordUseCase(sl()));
+  sl.registerLazySingleton(() => UploadProfileImageUseCase(sl()));
   //-----------------
   //Baby
   //-----------------
@@ -262,8 +319,27 @@ Future<void> init() async {
   //-----------------
   sl.registerLazySingleton(() => AskGeminiAiUseCase(sl()));
 
-
-
+  //-----------------
+  // Courses
+  //-----------------
+  sl.registerLazySingleton(() => GetAllCoursesUseCase(sl()));
+  sl.registerLazySingleton(() => GetAllCourseItemsUseCase(sl()));
+  sl.registerLazySingleton(() => UploadFileCourseUseCase(sl()));
+  sl.registerLazySingleton(() => AddCourseUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateCourseUsecase(sl()));
+  sl.registerLazySingleton(() => DeleteCourseUsecase(sl()));
+  sl.registerLazySingleton(() => AddCourseItemUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateCourseItemUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteCourseItemUseSase(sl()));
+  //-----------------
+  // BroadcastLives
+  //-----------------
+  sl.registerLazySingleton(() => GetMyBroadcastLiveUseCase(sl()));
+  sl.registerLazySingleton(() => GetActivesBroadcastLiveUseCase(sl()));
+  sl.registerLazySingleton(() => AddBroadcastLiveUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateBroadcastLiveUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteBroadcastLiveUseCase(sl()));
+  sl.registerLazySingleton(() => StopBroadcastLiveUseCase(sl()));
 
 
   //? DataSources
@@ -282,6 +358,10 @@ Future<void> init() async {
   sl.registerLazySingleton<MomsCareRemoteDataSource>(() => MomsCareRemoteDataSourceImpl(remoteDioService: sl(),baseUrl:BASE_URL));
   //Speech
   sl.registerLazySingleton<SpeechRemoteDataSource>(() => SpeechRemoteDataSourceImpl(geminiApiClient:sl()));
+  //Course
+  sl.registerLazySingleton<CourseRemoteDataSource>(() => CourseRemoteDataSourceImpl(remoteDioService:sl(),baseUrl:BASE_URL));
+  //BroadcastLive
+  sl.registerLazySingleton<BroadcastLiveRemoteDataSource>(() => BroadcastLiveRemoteDataSourceImpl(remoteDioService:sl(),baseUrl:BASE_URL));
 
 
 

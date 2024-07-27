@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:moms_care/features/auth/persention/widget/password_filde_widget.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_bloc.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_event.dart';
 
@@ -16,9 +17,9 @@ import 'package:moms_care/core/widget/button/custom_button.dart';
 import 'package:moms_care/core/widget/text_field/text_field_widget.dart';
 
 class FormEditUserEmailWidget extends StatefulWidget{
-  const FormEditUserEmailWidget({required this.email,}) ;
+  const FormEditUserEmailWidget({required this.email,required this.onUpdate,}) ;
   final String email;
-
+  final Function(String,String) onUpdate;
   @override
   State<FormEditUserEmailWidget> createState() => _FormEditUserEmailWidgetState();
 }
@@ -26,11 +27,12 @@ class FormEditUserEmailWidget extends StatefulWidget{
 class _FormEditUserEmailWidgetState  extends State<FormEditUserEmailWidget>{
 
   final _formKey= GlobalKey<FormState>();
-  TextEditingController controller=TextEditingController();
+  TextEditingController emailController=TextEditingController();
+  TextEditingController passController=TextEditingController();
 
   @override
   void initState() {
-    controller.text=widget.email!;
+    emailController.text=widget.email!;
     super.initState();
   }
 
@@ -51,7 +53,7 @@ class _FormEditUserEmailWidgetState  extends State<FormEditUserEmailWidget>{
               SizedBox(height: 80),
 
               TextFieldWidget(
-                  controller:controller,
+                  controller:emailController,
                   multiLines:false,
                   name:"Email".tr ,
                   validator: (val)=> val!.isEmpty ? INPUT_FIELD_NOT_BE_EMPTY : null,
@@ -59,12 +61,16 @@ class _FormEditUserEmailWidgetState  extends State<FormEditUserEmailWidget>{
                   radius: 12,
                   padding: 0,
                   hintText: "Enter Email".tr),
+              SizedBox(height: 20,),
+              PasswordFieldWidget(name: "Password".tr,
+                controller: passController,
+                validator: (val)=> val!.isEmpty ? INPUT_FIELD_NOT_BE_EMPTY : null ,),
               SizedBox(height: 50,),
                 CustomButton(
                     widthPercent: 90,
                     raduis: 10,
-                    labelText:"Upadte".tr,
-                    icon: Icon(Icons.start,color: AppColor.primaryIconColor,) ,
+                    labelText:"Update".tr,
+                    icon:const Icon(Icons.start,color: AppColor.primaryIconColor,) ,
                     bgColor: AppColor.PrimaryButtonLightColor,
                     onPressed:() async{
                       validateFormThenUpdateOrAddPost();
@@ -79,7 +85,8 @@ class _FormEditUserEmailWidgetState  extends State<FormEditUserEmailWidget>{
   void validateFormThenUpdateOrAddPost() async{
     bool isValid=_formKey.currentState!.validate();
     if(isValid){
-        BlocProvider.of<ProfileBloc>(context).add(UpdateUserEmailEvent(email: controller!.text));
+     await widget.onUpdate!(emailController!.text,passController!.text);
+        // BlocProvider.of<ProfileBloc>(context).add(UpdateUserEmailEvent(email: controller!.text));
       }
     }
 

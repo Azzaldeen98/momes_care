@@ -17,8 +17,9 @@ import '../bottom_sheets/DemoCWActionSheetScreen.dart';
 class AppBarPageWidget extends StatelessWidget implements PreferredSizeWidget{
 
  final String? pageName;
+ final List<Widget>? actions;
 
- const AppBarPageWidget({this.pageName});
+ const AppBarPageWidget({this.pageName,this.actions});
 
 
   @override
@@ -33,7 +34,9 @@ class AppBarPageWidget extends StatelessWidget implements PreferredSizeWidget{
           onPressed:()=>onClickMoreOptions(context),
           icon: const Icon(Icons.more_vert, color: Colors.white,),
         ),
-
+        // if(actions!=null)
+          for(var action in actions??[])
+              action,
       ],
     );
   }

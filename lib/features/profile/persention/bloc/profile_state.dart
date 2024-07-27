@@ -53,8 +53,9 @@ class LoadedBabiesState extends ProfileState{
 }
 
 class UpdateProfileUserInfoSuccessState extends ProfileState{
-  const UpdateProfileUserInfoSuccessState( {required this.message});
+  const UpdateProfileUserInfoSuccessState( {required this.message,this.requiredSignOut=false});
   final String message;
+  final bool requiredSignOut;
   @override
   List<Object> get props => [message];
 }

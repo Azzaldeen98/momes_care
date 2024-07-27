@@ -1,0 +1,7 @@
+enum AppRefreshData{
+
+  REFRESH_POST,
+  REFRESH_COMMENT,
+  REFRESH_PROFILE,
+  REFRESH_BABIES,
+}

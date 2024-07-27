@@ -4,17 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 void ShowAwesomeDialogBox({
-
   required BuildContext context,
   required String message,
-  required Function() onAccept}){
+  required Function() onAccept,
+   DialogType? dialogType=DialogType.noHeader,
+  String? title="",}){
 
    AwesomeDialog(
     context: context,
-    dialogType: DialogType.warning,
-    title: 'Warning'.tr,
+    dialogType: dialogType!,
+    title: title,
     desc: message,
-    btnCancelText: 'Cancel'.tr,
+    btnCancelText: 'No'.tr,
     btnOkText: 'Yes'.tr,
     btnCancelOnPress: () {},
     btnOkOnPress: () {

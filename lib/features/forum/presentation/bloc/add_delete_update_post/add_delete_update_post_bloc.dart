@@ -50,7 +50,7 @@ class AddDeleteUpdatePostBloc extends Bloc<AddDeleteUpdatePostEvent,AddDeleteUpd
 
  Future<void> _addPost(AddPostEvent event, Emitter<AddDeleteUpdateState> emit) async{
 
-   emit(LoadingAddDeleteUpdateState());
+   emit(const LoadingAddDeleteUpdateState());
 
    final failureOrsuccess= await addPostUseCase(event.post);
    _getFailureOrSuccess(failureOrsuccess,ADD_SUCCESS_MESSAGE);
@@ -58,7 +58,7 @@ class AddDeleteUpdatePostBloc extends Bloc<AddDeleteUpdatePostEvent,AddDeleteUpd
  }
  Future<void> _updatePost(UpdatePostEvent event, Emitter<AddDeleteUpdateState> emit) async{
    print("_updatePost@@");
-   emit(LoadingAddDeleteUpdateState());
+   emit(const LoadingAddDeleteUpdateState());
 
    final failureOrsuccess= await updatePostUseCase(event.post);
    _getFailureOrSuccess(failureOrsuccess,UPDATE_SUCCESS_MESSAGE);
@@ -67,7 +67,7 @@ class AddDeleteUpdatePostBloc extends Bloc<AddDeleteUpdatePostEvent,AddDeleteUpd
  Future<void> _deletePost(DeletePostEvent event, Emitter<AddDeleteUpdateState> emit) async{
    print("_deletePost@@");
 
-   emit(LoadingAddDeleteUpdateState());
+   emit(const LoadingAddDeleteUpdateState());
    final failureOrsuccess= await deletePostUseCase(event.postId);
    _getFailureOrSuccess(failureOrsuccess,DELETE_SUCCESS_MESSAGE);
 
@@ -75,7 +75,7 @@ class AddDeleteUpdatePostBloc extends Bloc<AddDeleteUpdatePostEvent,AddDeleteUpd
 
  Future<void> _addComment(AddCommentEvent event, Emitter<AddDeleteUpdateState> emit) async{
    print("_addPostComment@@");
-   emit(LoadingAddDeleteUpdateState());
+   emit(const LoadingAddDeleteUpdateState());
 
    final failureOrsuccess= await addCommentUseCase(event.comment);
    _getFailureOrSuccess(failureOrsuccess,ADD_SUCCESS_MESSAGE);
@@ -83,9 +83,9 @@ class AddDeleteUpdatePostBloc extends Bloc<AddDeleteUpdatePostEvent,AddDeleteUpd
  }
  Future<void> _updateComment(UpdateCommentEvent event, Emitter<AddDeleteUpdateState> emit) async{
    print("_updateComment@@");
-   emit(LoadingAddDeleteUpdateState());
+   emit(const LoadingAddDeleteUpdateState());
 
-   final failureOrsuccess= await updateCommentUseCase(event.comment);
+   final failureOrsuccess = await updateCommentUseCase(event.comment);
    _getFailureOrSuccess(failureOrsuccess,UPDATE_SUCCESS_MESSAGE);
 
  }
@@ -101,7 +101,6 @@ class AddDeleteUpdatePostBloc extends Bloc<AddDeleteUpdatePostEvent,AddDeleteUpd
  void _getFailureOrSuccess(Either<Failure,Unit> failureOrSuccess,String message ){
    failureOrSuccess.fold(
            (failure){
-         Get.back();
          emit(ErrorAddDeleteUpdateState(message: mapFailureToMessage(failure)));
        }, (_){
      emit(AddDeleteUpdateSuccessState(message: message));

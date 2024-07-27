@@ -158,6 +158,14 @@ enum ButtonInfo {
     icon: Icon(Icons.mic_outlined)
 
   ),
+  broadcastLive(
+      "Broadcast Live",
+      AppImage.LIVE,
+      AppImage.LIVE,
+      false,
+      false,
+  ),
+
   profile(
   "Profile",
   AppImage.USER_GREY,

@@ -7,7 +7,7 @@ import 'package:moms_care/core/constants/enam/gender.dart';
 class Baby extends Equatable {
 
  final int? id;
- final String? image;
+ final String? urlImage;
  final String? name;
  final int? age;
  final double? height;
@@ -18,7 +18,7 @@ class Baby extends Equatable {
 
   Baby({
      this.id,
-     this.image = "",
+     this.urlImage = "",
      this.name,
      this.age,
      this.height,
@@ -31,7 +31,7 @@ class Baby extends Equatable {
  Baby  copyWith({
     int? id,
     String? name,
-    String? image,
+    String? urlImage,
     double? height,
     double? weight,
     String? numResponseDoctor,
@@ -39,7 +39,7 @@ class Baby extends Equatable {
     DateTime?  birthDay
 })=> Baby(
     id: id ?? this.id ,
-    image: image ?? this.image,
+    urlImage: urlImage ?? this.urlImage,
     name: name ?? this.name,
     numberOfResponsibleDoctor: numResponseDoctor ?? this.numberOfResponsibleDoctor,
     gender:  gender ?? this.gender,
@@ -51,7 +51,7 @@ class Baby extends Equatable {
  @override
  List<Object?> get props => [
   id,
-  image,
+  urlImage,
   name,
   age,
   height,

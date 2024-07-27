@@ -6,6 +6,7 @@ import 'package:moms_care/config/theme/text_style.dart';
 import 'package:moms_care/core/constants/enam/gender.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
+import 'package:moms_care/core/widget/button/floating_action_button.dart';
 import 'package:moms_care/features/profile/domain/entities/baby_entity.dart';
 
 import 'package:moms_care/core/widget/empty_widget.dart';
@@ -35,23 +36,25 @@ class BabiesWidget extends StatelessWidget{
   }
 
   Widget _buildFixedButtonAddBabyWidget(){
-    return  Positioned(
-      top: 16.0, // المسافة من أسفل الشاشة
-      left: 10.0, // المسافة من يمين الشاشة
-      child: FloatingActionButton(
-        onPressed:onClickAddBaby,
-        child: Icon(Icons.add),
-      ),
-      // Container(
-      //   decoration: BoxDecoration(
-      //       color: AppColor.primaryColor,
-      //       borderRadius: BorderRadius.circular(10)
-      //   ),
-      //   child: TextButton.icon(onPressed: ()=>onClickAddBaby(context),
-      //       label:  Text("Baby".tr,style:AppTextStyles.getButtonTextStyle(),),
-      //       icon: Icon(Icons.add,color: AppColor.whiteColor,)),
-      // ) ,
-    );
+    return FloatingActionButtonWidget(icon: Icons.add,top: 16.0,left: 10.0,onPressed:onClickAddBaby,);
+
+    //   Positioned(
+    //   top: 16.0, // المسافة من أسفل الشاشة
+    //   left: 10.0, // المسافة من يمين الشاشة
+    //   child: FloatingActionButton(
+    //     onPressed:onClickAddBaby,
+    //     child: Icon(Icons.add),
+    //   ),
+    //   // Container(
+    //   //   decoration: BoxDecoration(
+    //   //       color: AppColor.primaryColor,
+    //   //       borderRadius: BorderRadius.circular(10)
+    //   //   ),
+    //   //   child: TextButton.icon(onPressed: ()=>onClickAddBaby(context),
+    //   //       label:  Text("Baby".tr,style:AppTextStyles.getButtonTextStyle(),),
+    //   //       icon: Icon(Icons.add,color: AppColor.whiteColor,)),
+    //   // ) ,
+    // );
   }
   Widget _buildBabiesBodyWidget(BuildContext context){
 
@@ -87,7 +90,7 @@ class BabiesWidget extends StatelessWidget{
   }
   Widget _buildBabyItemWidget(Baby baby){
 
-    String imgUrl=(baby.image!.isNotEmpty)? baby.image!: getBabyIconByGender(baby.gender!);
+    String imgUrl=(baby.urlImage!.isNotEmpty)? baby.urlImage!: getBabyIconByGender(baby.gender!);
     return    Container(
         child: Row(
           children: [

@@ -49,7 +49,7 @@ class BabyDetailsPage extends StatelessWidget{
   }
   Widget _builderBabyDetailsWidgetBlocState(BuildContext context, BabyState state) {
 
-    String imgUrl=(baby?.image!=null && baby?.image!="")? baby?.image!
+    String imgUrl=(baby?.urlImage!=null && baby?.urlImage!="")? baby?.urlImage!
         : getBabyIconByGender(baby?.gender!);;
 
     return   Scaffold(

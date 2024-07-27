@@ -15,13 +15,14 @@ class AppColor {
   /// Light
   static const primaryColor =Color(0xFF050505);
   static const primaryColor2 =Color(0xFAD3595A);
-  static const secondColor =Color(0xFFFCC6C6);
+  static const secondColor =Color(0x24858282);
   static const PrimaryButtonLightColor =Color(0xFF333232);
   static const scaffoldBackgroundColor = Color(0xFFC5C5C5);
   static const opacitybgCololr = const Color.fromRGBO(180, 178, 178, 1.0);
   static const Color primaryAppBarColor = AppBaseColor.black;// Color(0xFF1B4A8C);
   static const Color primaryTextColor = AppBaseColor.black;
-  static const Color secondaryTextColor = AppBaseColor.black;
+  static const Color titleTextColor =   Color.fromRGBO(0, 0, 0, 0.6);
+  static const Color secondaryTextColor = AppBaseColor.white;
   static const Color secondaryIconColor = AppBaseColor.black;
   static const Color primaryLightIconColor = AppBaseColor.black;
   static const Color primaryIconColor = AppBaseColor.white;
@@ -50,6 +51,7 @@ class AppColor {
   /// Basic Buttons  Colors
   static const Color buttonPrimaryColor = AppBaseColor.baseColor;
   static const Color buttonSecondaryColor = secondDarkColor;
+  static const Color deleteButtonColor = AppBaseColor.red;
   /// Buttons Icon - Colors
   static const Color buttonIconColor = primaryColor;
   /// Buttons Text - Colors

@@ -2,7 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:moms_care/core/remote/firebase/firebase_message_actions.dart';
+import 'package:moms_care/features/auth/persention/bloc/auth_bloc/auth_bloc.dart';
+import 'package:moms_care/features/broadcast_live/persention/pages/broadcast_live_page.dart';
 import 'package:moms_care/features/home/persention/pages/home_page.dart';
 import 'package:moms_care/features/profile/persention/pages/baby/baby_details.dart';
 
@@ -38,7 +42,13 @@ class SplashViewBodyState extends State<SplashViewBody>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return BlocConsumer<AuthBloc,AuthState>(
+        builder: _builderBodyByAuthBloc,
+        listener: _listenerBodyByAuthBloc);
+  }
+
+  Widget _builderBodyByAuthBloc(BuildContext context, AuthState state) {
+    return  SizedBox(
       width: Get.width,
       height: Get.height,
       child: Column(
@@ -63,24 +73,36 @@ class SplashViewBodyState extends State<SplashViewBody>
     );
   }
 
+  void _listenerBodyByAuthBloc(BuildContext context, AuthState state) {
+  }
+
   void _goToNextView() {
     Future.delayed(const Duration(seconds: 5), () async {
 
       if (Helper.isAuth) {
+
         String infoAccount = CacheHelper.getString(INFO_ACCOUNT_CACHED) ?? "";
         print("infoAccount: $infoAccount");
+        final decodeJson = json.decode(infoAccount);
+        Helper.auth = Auth.fromJson(decodeJson);
+        // Helper.isAdmin = CacheHelper.getInt(AUTH_ROLE_CACHED)==UserRoles.ADMIN.index;
+        Helper.isAdmin = Helper.auth?.userInfo != null && Helper.auth?.userInfo?.role == UserRoles.ADMIN;
 
-          final decodeJson = json.decode(infoAccount);
-          Helper.auth = Auth.fromJson(decodeJson);
-          Helper.isAdmin = Helper.auth?.userInfo != null &&
-              Helper.auth?.userInfo?.role == UserRoles.ADMIN;
-          // Get.offAll(() => BabyDetailsPage());
-          Get.offAll(() => const HomePage()); // DemoCWActionSheetScreen()
+        FirebaseMessageActions.listenFCMToken(onRefreshFcmToken: (fcmToken) async{
+          if(fcmToken!=null && fcmToken.isNotEmpty) {
+            print("Splash-Response-FCM-Token: ${fcmToken!}");
+            BlocProvider.of<AuthBloc>(context).add(RefreshFCMTokenEvent(fcmTocken: fcmToken));
+          }
+        });
+        Get.offAll(() => const HomePage()); // DemoCWActionSheetScreen()
 
       }
-      else
+      else {
         Get.offAll(() => const OnBoardingScreen());
+      }
 
     });
   }
+
+
 }

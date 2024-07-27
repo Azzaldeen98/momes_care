@@ -10,6 +10,7 @@ import '../entities/Post.dart';
 abstract  class PostRepository {
 
   Future<Either<Failure,List<Post>>> getAllPosts();
+  Future<Either<Failure,List<Post>>> getRefreshPosts();
   Future<Either<Failure,Unit>> addPost(Post post);
   Future<Either<Failure,bool>> likeUnLikePost(int postId);
   Future<Either<Failure,Unit>> updatePost(Post post);

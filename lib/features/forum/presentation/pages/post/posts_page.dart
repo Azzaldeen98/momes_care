@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:moms_care/core/constants/messages.dart';
+import 'package:moms_care/core/utils/dailog/message/message_snack_bar.dart';
 import 'package:moms_care/core/widget/empty_widget.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
@@ -108,9 +110,10 @@ class _PostsPageState extends State<PostsPage> {
     );
   }
   void _listenerPostsPageBlocState(BuildContext context, PostState state) {
+
     if(state is LoadingPostsState){
       print("LoadedPostsState99");
-      // MessageBox.showProgress(context, "wait..");
+       // MessageBox.showProgress(context, "wait..");
     }
     if(state is ErrorPostsState){
       Get.back();
@@ -122,7 +125,7 @@ class _PostsPageState extends State<PostsPage> {
       //
     }
     else if (state is AddDeleteUpdateSuccessState) {
-      MessageBox.showSuccess(context, "add succussfly");
+      SnackBarBuilder.ShowSuccess(context: context, message: state.message);
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _refreshIndicatorKey.currentState?.show();
       });

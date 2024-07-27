@@ -28,6 +28,9 @@ abstract class AuthRemoteDataSource {
   Future<Auth> signIn(@Body() Map<String, dynamic> model);
   @POST('/SignUp')
   Future<Unit> signUp(@Body() Map<String, dynamic> model);
+
+  @POST('/initializeFCMToken')
+  Future<Unit> refreshFCMToken(String fcmToken);
 }
 
 

@@ -30,8 +30,8 @@ class LoadingLikeUnLikeState extends PostState{
   const LoadingLikeUnLikeState();
 }
 
-class LoadingDetailsPostsState extends PostState{
-  const LoadingDetailsPostsState();
+class LoadingDetailsPostState extends PostState{
+  const LoadingDetailsPostState();
 
 }
 class LoadingAddPostState extends PostState{

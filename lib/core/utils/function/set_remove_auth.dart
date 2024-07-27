@@ -19,6 +19,7 @@ void setAuth(Auth auth) {
 
 Future<void> removeAuth() async {
   try {
+    await CacheHelper.removeAt(PROFILE_INFO_CACHED);
     await CacheHelper.removeAt(IS_AUTH);
     await CacheHelper.removeAt(AUTH_TOKEN_CACHED);
     await CacheHelper.removeAt(AUTH_USERID_CACHED);

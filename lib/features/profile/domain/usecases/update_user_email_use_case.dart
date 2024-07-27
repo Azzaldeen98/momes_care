@@ -10,8 +10,8 @@ import '../repository/profile_repository.dart';
    UpdateUserEmailUseCase(this._postRepository);
 
    @override
-   Future<Either<Failure,Unit>> call(String email) async {
-     return  await _postRepository.updateEmail(email);
+   Future<Either<Failure,Unit>> call({required String pass,required String email}) async {
+     return  await _postRepository.updateEmail(pass,email);
    }
 
  }

@@ -13,20 +13,24 @@
   String? baseUrl;
   final RemoteDioService? remoteDioService ;
 
+
   @override
   Future<ProfileModel> getInfo() async{
 
-    final _json = await remoteDioService?.executeWithToken((dio) => dio.get('${baseUrl}/getInfo'));
+     try {
 
-    print("_json77: ${_json.toString()}");
-    var response = BaseResponse.fromJson(_json!);
-    if(response !=null && response.isSuccess){
-      print("jsonMap: ${response.result.toString()}");
-      // List<dynamic> jsonList = json.decode(response.result!);
-      return ProfileModel.fromJson(response.result) ;
-    }
-    else
-      throw ServerExecption();
+       final json = await remoteDioService?.executeWithToken((dio) => dio.get('${baseUrl}/getInfo'));
+       var response = BaseResponse.fromJson(json!);
+       if(response !=null && response.isSuccess){
+         return ProfileModel.fromJson(response.result) ;
+       }
+       else {
+         throw ServerExecption();
+       }
+
+     }catch(e){
+       throw Exception(e);
+     }
 
   }
 
@@ -47,8 +51,8 @@
   @override
   Future<Unit> updateEmail(String? email) async {
 
-    final json = await remoteDioService?.executeWithToken((dio) => dio.post('${baseUrl}/updateEmail',
-        data: jsonEncode({"email":email,})
+    final json = await remoteDioService?.executeWithToken((dio) => dio.put('${baseUrl}/updateEmail',
+        data: jsonEncode({"newEmail":email,})
     ),);
     return _getUpdateResponseMessage(json);
   }
@@ -57,7 +61,7 @@
   Future<Unit> updateName(String? name) async{
 
     final json = await remoteDioService?.executeWithToken((dio) =>
-        dio.post('${baseUrl}/updateName',
+        dio.put('${baseUrl}/updateName',
         data: jsonEncode({"name":name,})
     ),);
     return _getUpdateResponseMessage(json);
@@ -66,16 +70,57 @@
 
 
   @override
-  Future<Unit> updatePassword({String? currentPassword, String? newPassword}) async {
+  Future<Unit> changePassword({String? currentPassword, String? newPassword}) async {
     final json = await remoteDioService?.executeWithToken((dio) =>
-        dio.post('${baseUrl}/updatePassword',
+        dio.put('${baseUrl}/changePassword',
             data: jsonEncode({
-            "currentPassword":currentPassword,
-            "newPassword":newPassword,
+            "currentPassword": currentPassword,
+            "newPassword": newPassword
             })
         ),);
     return _getUpdateResponseMessage(json);
   }
+   Future<void> _deleteFileFromFirebaseStorage(String oldUrlMedia) async{
+
+   }
+  @override
+  Future<String> uploadImageToStorage(File image,String? oldUrl) async{
+    try {
+      if(oldUrl!=null) {
+        await FirebaseStorageActions.deleteFile(fileUrl: oldUrl!);
+      }
+
+      return  await FirebaseStorageActions.uploadFile(file:image ,folder:PROFILE_ID);
+
+    } on FirebaseException catch(e){
+        throw FirebaseException(plugin: e.plugin,message: e.message);
+    } catch(e){
+      throw Exception(e);
+    }
+
+
+      // Reference ref;
+      // String dynamicImage = DateTime.now().toIso8601String();
+      // String userId = FirebaseAuth.instance.currentUser?.uid ?? "";// Helper.auth?.userInfo?.email ?? "";
+      // var imageName = '$ID_IMAGE_PROFILE${userId}_$dynamicImage';
+      // ref = FirebaseStorage.instance.ref("images").child(imageName);
+      // await ref.putFile(image);
+      // var urlImage = await ref.getDownloadURL();
+      // return urlImage;
+  }
+
+  @override
+  Future<Unit> updateImage(String urlImage) async{
+    final json = await remoteDioService?.executeWithToken((dio) =>
+        dio.put('${baseUrl}/updateImage',
+            data: jsonEncode({
+              "id": 0,
+              "urlImage": urlImage
+            })
+        ),);
+    return _getUpdateResponseMessage(json);
+  }
+
 
    Unit _getUpdateResponseMessage(dynamic json){
 
@@ -85,7 +130,7 @@
      if(response !=null && response.isSuccess){
        return unit;
      } else
-       throw ServerExecption();
+        throw ServerExecption();
    }
 
 }

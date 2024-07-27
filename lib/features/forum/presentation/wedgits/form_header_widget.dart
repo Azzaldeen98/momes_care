@@ -23,6 +23,9 @@ const FormHeaderWidget({this.title,this.iconData});
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(title!,
+            softWrap: true,
+            overflow: TextOverflow.visible,
+            textAlign: TextAlign.justify,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight:
             FontWeight.bold),),
           SizedBox(width: 20,),

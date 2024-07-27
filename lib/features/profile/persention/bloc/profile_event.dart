@@ -1,6 +1,8 @@
 
 
 
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
 import 'package:moms_care/core/constants/enam/profile_pages.dart';
@@ -14,13 +16,17 @@ abstract class ProfileEvent extends Equatable {
 class GetProfileInfoEvent extends ProfileEvent{
    const GetProfileInfoEvent();
  }
+ class RefreshProfileInfoEvent extends ProfileEvent{
+   const RefreshProfileInfoEvent();
+ }
 class UpdateUserNameEvent extends ProfileEvent{
   final String name;
   const UpdateUserNameEvent({required this.name});
 }
 class UpdateUserEmailEvent extends ProfileEvent{
   final String email;
-  const UpdateUserEmailEvent({required this.email});
+  final String currentPass;
+  const UpdateUserEmailEvent({required this.email,required this.currentPass});
 }
 class UpdateUserPasswordEvent extends ProfileEvent{
   final String currentPassword;
@@ -29,6 +35,12 @@ class UpdateUserPasswordEvent extends ProfileEvent{
   const UpdateUserPasswordEvent({
     required this.currentPassword,
     required this.newPassword});
+}
+
+class UploadProfileImageEvent extends ProfileEvent{
+  final String oldUrl;
+  final File image;
+  const UploadProfileImageEvent({required this.image, this.oldUrl=""});
 }
 
 

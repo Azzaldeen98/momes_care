@@ -1,6 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
 class AppImage {
+
+
+  static const String LIVE = "assets/icons/live.png";
   static const String WALLET_MINUS = "assets/icons/wallet-minus.png";
 
   static const String TIMER2 = "assets/icons/timer2.png";

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moms_care/core/constants/cached/cached_name.dart';
+import 'package:moms_care/core/constants/enam/gender.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import 'package:moms_care/core/helpers/cache_helper.dart';
@@ -23,9 +24,9 @@ class Speech {
 
     if (isAvailable) {
 
-      String langCode=CacheHelper.getString(LANGUAGE_TYPE_CACHED)??'en';
+      // String langCode=LanguageCode.EN.code;//CacheHelper.getString(LANGUAGE_TYPE_CACHED)??'en';
       _speech.listen(
-          localeId:langCode,
+          localeId:LanguageCode.EN.code,
           onResult: (value) => onResult(value.recognizedWords));
     }
 
@@ -36,9 +37,9 @@ class Speech {
     if (_speech!=null && _speech.isListening==false) {
       if (isAvailable) {
 
-        String langCode=CacheHelper.getString(LANGUAGE_TYPE_CACHED)??'en';
+        // String langCode=CacheHelper.getString(LANGUAGE_TYPE_CACHED)??'en';
         _speech.listen(
-            localeId:langCode,
+            localeId:LanguageCode.EN.code,
             onResult: (value) => onResult(value.recognizedWords));
       }
     }

@@ -6,7 +6,8 @@ import '../../error/exception.dart';
 import '../../error/faiture.dart';
 
 
- Future<Either<Failure,T>> safeExecuteTaskWithNetworkCheck<T>(NetworkInfo networkInfo,Future<T> Function()  callback) async{
+ Future<Either<Failure,T>> safeExecuteTaskWithNetworkCheck<T>(NetworkInfo networkInfo,
+     Future<T> Function()  callback,{  Function()?  onNotConnected}) async{
 
   if(await networkInfo.isConnected){
     try{
@@ -20,9 +21,6 @@ import '../../error/faiture.dart';
         print("safeExecuteTaskWithNetworkCheck : Response");
         return Right(response);
       }
-
-
-
     }
     on ServerExecption{ return Left(ServerFailure());}
     on InvalidEmailOrPasswordExecption{return Left(InvalidEmailOrPasswordFailure());}
@@ -39,6 +37,10 @@ import '../../error/faiture.dart';
     on Exception{return Left(ErrorFailure());}
 
   }else{
+    if(onNotConnected!=null) {
+      final response = await onNotConnected();
+      return Right(response);
+    }
     return Left(OfflineFailure());
   }
 

@@ -12,15 +12,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   // final Dio _dio;
   String? baseUrl;
-   final RemoteDioService? remoteDioService ;
+  final RemoteDioService? remoteDioService ;
 
   AuthRemoteDataSourceImpl({ this.remoteDioService, this.baseUrl}) {
     baseUrl ??='${BASE_URL}';
     baseUrl='${baseUrl}api/v1/Auth';
   }
-
-
-
   @override
   Future<Auth> signIn(Map<String, dynamic> model) async {
 
@@ -34,33 +31,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
     else
        throw ServerExecption();
-
-    // final _extra = <String, dynamic>{};
-    // final queryParameters = <String, dynamic>{};
-    // final _headers = <String, dynamic>{};
-    // final _data = <String, dynamic>{};
-    // _data.addAll(model);
-    // final _result =
-    //     await _dio.fetch<Map<String, dynamic>>(_setStreamType<Auth>(Options(
-    //   method: 'POST',
-    //   headers: _headers,
-    //   extra: _extra,
-    // )
-    //         .compose(
-    //           _dio.options,
-    //           '/SignIn',
-    //           queryParameters: queryParameters,
-    //           data: _data,
-    //         )
-    //         .copyWith(
-    //             baseUrl: _combineBaseUrls(
-    //           _dio.options.baseUrl,
-    //           baseUrl,
-    //         ))));
-  //   final _value = Auth.fromJson(_result.data!);
-  //   return _value;
   }
-
   @override
   Future<Unit> signUp(Map<String, dynamic> model) async {
 
@@ -74,59 +45,21 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }else
       throw ServerExecption();
 
-    // final _extra = <String, dynamic>{};
-    // final queryParameters = <String, dynamic>{};
-    // final _headers = <String, dynamic>{};
-    // final _data = <String, dynamic>{};
-    // _data.addAll(model);
-    // final _result =
-    //     await _dio.fetch<Map<String, dynamic>>(_setStreamType<Auth>(Options(
-    //   method: 'POST',
-    //   headers: _headers,
-    //   extra: _extra,
-    // )
-    //         .compose(
-    //           _dio.options,
-    //           '/SignUp',
-    //           queryParameters: queryParameters,
-    //           data: _data,
-    //         )
-    //         .copyWith(
-    //             baseUrl: _combineBaseUrls(
-    //           _dio.options.baseUrl,
-    //           baseUrl,
-    //         ))));
-    // final _value = Auth.fromJson(_result.data!);
-    // return _value;
   }
+  @override
+  Future<Unit> refreshFCMToken(String fcmToken) async{
 
-  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
-    if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes ||
-            requestOptions.responseType == ResponseType.stream)) {
-      if (T == String) {
-        requestOptions.responseType = ResponseType.plain;
-      } else {
-        requestOptions.responseType = ResponseType.json;
-      }
+    final json = await remoteDioService?.executeWithToken((dio) =>
+        dio.post('${baseUrl}/initializeFCMToken',
+        data: jsonEncode({
+          "Token":fcmToken,
+        })));
+
+    var response = BaseResponse.fromJson(json);
+    if(response !=null && response.isSuccess! ){
+      return Future.value(unit);
+    }else {
+      throw ServerExecption();
     }
-    return requestOptions;
-  }
-
-  String _combineBaseUrls(
-    String dioBaseUrl,
-    String? baseUrl,
-  ) {
-    if (baseUrl == null || baseUrl.trim().isEmpty) {
-      return dioBaseUrl;
-    }
-
-    final url = Uri.parse(baseUrl);
-
-    if (url.isAbsolute) {
-      return url.toString();
-    }
-
-    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

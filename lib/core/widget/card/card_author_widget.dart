@@ -39,8 +39,8 @@ class CardAuthorWidget extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
               child: ImageWidget(
-                //(author.image==null || author.image!.isEmpty) ? AppImage.USER_GREEN :
-                urlImage: AppImage.USER_GREEN,// author!.image!=null ||author!.image!.isNotEmpty  ?author!.image! : AppImage.USER_GREEN,
+                urlImage:  (author!.image==null || author!.image!.isEmpty) ? AppImage.USER_GREEN :
+                author!.image!,// author!.image!=null ||author!.image!.isNotEmpty  ?author!.image! : AppImage.USER_GREEN,
               ),
             ),
           ),

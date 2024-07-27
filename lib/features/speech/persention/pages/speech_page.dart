@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:moms_care/config/theme/app_color.dart';
 import 'package:moms_care/config/theme/font_manager.dart';
 import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/constants/enam/gender.dart';
+import 'package:moms_care/core/helpers/helpers.dart';
 import 'package:moms_care/core/local/locale_controller.dart';
 import 'package:moms_care/core/remote/gemini_ai_server/gemini_api_client.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
@@ -70,28 +72,7 @@ class _SpeechPageState extends State<SpeechPage> {
         reverse: true,
         child: Column(
           children: [
-
             SizedBox(height: 30,),
-            Center(
-              child: SizedBox(
-                width: 250,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          btn_name=(!flag)?"English":"Arabic";
-                        });
-                        LocaleController().chingeLanguage(languageCode: (flag)?'en':'ar');
-                        flag=!flag;
-                      },
-                      child: Text(btn_name),
-                    ),
-                  ],
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.all(20.0).copyWith(bottom: 140),
               child: Column(
@@ -135,12 +116,33 @@ class _SpeechPageState extends State<SpeechPage> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Text(textResult,
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.getLabelStyle()),
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.getLabelStyle()),
                   ),
                 ],
               ),
             ),
+            // Center(
+            //   child: SizedBox(
+            //     width: 250,
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       children: <Widget>[
+            //         ElevatedButton(
+            //           onPressed: () {
+            //             setState(() {
+            //               btn_name=(!flag)?"English":"Arabic";
+            //             });
+            //             LocaleController().chingeLanguage(languageCode: (flag)?'en':'ar');
+            //             flag=!flag;
+            //           },
+            //           child: Text(btn_name),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+
           ],
         ));
   }
@@ -179,23 +181,29 @@ class _SpeechPageState extends State<SpeechPage> {
     }
   }
   void _startSpeaking(String text) async {
-    await flutterTts!.setLanguage("en");
-    await flutterTts!.setPitch(1.0);
-    await flutterTts!.speak(text);
+    // if(LocaleController.getCurrentLanguageCode()==LanguageCode.EN.code){
+      await flutterTts!.setLanguage("en");
+      await flutterTts!.setPitch(1.0);
+      await flutterTts!.speak(text);
+    // }
+ 
   }
   void _startTyping(String result) async {
     setState(() {
       textResult="";
     });
     for (int i = 0; i < result.length; i++) {
-      await Future.delayed(Duration(milliseconds: 100));
-      if(result[i]!='*')
-          setState(() =>textResult += result[i]);
+      await Future.delayed(const Duration(milliseconds: 100));
+      if(result[i]!='*' && result[i]!='!'&& result[i]!='@'&& result[i]!='#') {
+        setState(() =>textResult += result[i]);
+      }
+
     }
   }
   Future toggleRecording() => Speech.toggleRecording(
 
       onResult: (String text) async{
+        text = text.replaceAll('-', '');
         setState(() {textSample = text;});
       },
       onListening: (bool isListening) async{
@@ -206,19 +214,10 @@ class _SpeechPageState extends State<SpeechPage> {
           Future.delayed(const Duration(milliseconds: 5000), () async {
 
             BlocProvider.of<GeminiBloc>(_context!).add(AskGeminiEvent(inputText: textSample));
-            Utils.scanVoicedText(textSample);
+            // Utils.scanVoicedText(textSample);
           });
         }
       });
 
-  // Future<void> _speak(String text) async {
-  //   await flutterTts!.setLanguage("ar_DZ");
-  //   var languages=await flutterTts!.getLanguages;
-  //   // print("Languages: ${jsonEncode(languages.toString())}");
-  //   var rts= await flutterTts!.isLanguageInstalled("ar_DZ");
-  //   // print("isLanguageAvailable: ${jsonEncode(rts)}");
-  //   await flutterTts!.setPitch(1.0);
-  //   await flutterTts!.speak(text);
-  // }
 }
 

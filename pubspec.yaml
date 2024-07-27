@@ -137,6 +137,11 @@ dependencies:
   google_generative_ai: ^0.4.3
   flutter_tts: ^4.0.2
   image_cropper: ^7.1.0
+  firebase_app_check: ^0.3.0+3
+  file_picker: ^8.0.6
+  video_player: ^2.9.1
+  youtube_player_flutter: ^8.1.2
+  webview_flutter: ^4.8.0
 #  restart_app: ^1.2.1
 #  nb_utils: ^7.0.3
 
@@ -156,6 +161,7 @@ dev_dependencies:
   retrofit_generator: ^8.1.0
   floor_generator: ^1.5.0
   build_runner: ^2.4.11
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
