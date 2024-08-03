@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/enam/broadcast_live_status.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/data/entities/author.dart';
@@ -23,8 +23,8 @@ import 'package:moms_care/features/broadcast_live/persention/bloc/broadcast_live
 import 'package:moms_care/features/courses/domain/entities/Course.dart';
 import 'package:moms_care/features/broadcast_live/domain/entities/broadcast_live.dart';
 import 'package:retrofit/http.dart';
-
-import '../../../../config/theme/color_app.dart';
+  import 'package:url_launcher/url_launcher.dart';
+import 'package:moms_care/core/utils/theme/color_app.dart';
 
 
 
@@ -52,9 +52,7 @@ class BroadcastLiveWidget extends StatelessWidget {
       onTap: _onTap,
       child: Container(
         padding:const EdgeInsets.all(10),
-
-          child:
-              Column(
+          child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -133,16 +131,20 @@ class BroadcastLiveWidget extends StatelessWidget {
                         link:broadcastLive?.link ??"" ,
                         icon:const Icon(Icons.join_inner,color: AppColor.primaryIconColor,) ,
                         bgColor:Colors.redAccent ,
-                        textStyle:AppTextStyles.getBoldStyle(color: Colors.white,fontSize: 16) ,)
+                        textStyle:AppTextStyles.getBoldStyle(color: Colors.white,fontSize: 16) ,
+                    onPressed: () async{
+                      if (broadcastLive!=null && broadcastLive!.link !=null &&
+                          await canLaunch(broadcastLive!.link!)) {
+                          await launch(broadcastLive!.link!);
+                      } else {
+                        throw 'Could not launch ${broadcastLive!.link!}';
+                      }
+                    },)
                   ]
                     ],
                     ),
-
-
                 ],
               ),
-
-
       ),
     );
   }

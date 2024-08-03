@@ -15,8 +15,8 @@ import 'package:moms_care/features/forum/presentation/pages/comment/comment_cont
 import 'package:moms_care/features/forum/presentation/wedgits/pages/add_update_comment_widget.dart';
 import 'package:moms_care/features/home/persention/pages/home_page.dart';
 
-import '../../../../../config/theme/app_color.dart';
-import '../../../../../config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';

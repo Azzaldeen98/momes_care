@@ -217,6 +217,7 @@ const Map<String, String> en_errors = {
   "The image content is invalid":"The image content is invalid",
   'No Text Found': "No text found",
   "You have no lectures today":"You have no lectures today",
+  "NOT_ALLOW_OPENING_BROADCAST_LIVE_MESSAGE":"you have one broadcast live is active you can not open more one broadcast live as the time",
 
 };
 const Map<String, String> en_aboute= {

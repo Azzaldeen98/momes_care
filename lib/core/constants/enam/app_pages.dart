@@ -1,15 +1,22 @@
 
 
 
-
+enum AppAdminPages{
+      COURSES,
+      FORUM,
+      DASHBOARD,
+      BROADCASTLIVE,
+      PROFILE,
+}
 enum AppPages{
 
-      // HOME,
-      COURSES,
+      HOME,
       FORUM,
       SPEECH,
       BROADCASTLIVE,
       PROFILE,
+      DASHBOARD,
+      COURSES,
 
 
     // final int value;

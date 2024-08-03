@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moms_care/core/widget/image/image_widget.dart';
 
-import '../../../core/utils/theme/images.dart';
+import 'package:moms_care/core/utils/theme/images.dart';
 
 
 class DisplayImageView extends StatelessWidget {

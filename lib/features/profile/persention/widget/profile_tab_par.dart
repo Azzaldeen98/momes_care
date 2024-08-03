@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/features/profile/data/models/profile_model.dart';
 import 'package:moms_care/features/profile/persention/pages/pages_view/babies_widget.dart';
 import 'package:moms_care/features/profile/persention/pages/pages_view/profile_settings_widget.dart';

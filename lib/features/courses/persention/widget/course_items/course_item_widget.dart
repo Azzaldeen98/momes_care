@@ -1,23 +1,17 @@
-  import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
-import 'package:moms_care/core/utils/theme/images.dart';
-import 'package:moms_care/core/widget/image/image_widget.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/widget/app_view_media_widget.dart';
 import 'package:moms_care/core/widget/label/custom_text_widget.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
-
-
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 
 
 class CourseItemWidget extends StatelessWidget {
-  final CourseMedia ? courseItem;
+  final CourseItem ? courseItem;
   final int ? courseId;
   final bool ? isRemovable;
-  final void Function(CourseMedia) ? onRemove;
-  final void Function(CourseMedia) ? onCourseItemPressed;
+  final void Function(CourseItem) ? onRemove;
+  final void Function(CourseItem) ? onCourseItemPressed;
 
   const CourseItemWidget({
     Key ? key,

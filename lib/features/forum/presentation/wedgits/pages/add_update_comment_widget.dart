@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/features/forum/presentation/bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
 

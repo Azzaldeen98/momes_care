@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/enam/app_pages.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
@@ -78,7 +78,7 @@ class _AddUpdateBroadcastLivePageState extends State<AddUpdateBroadcastLivePage>
       return const ErrorPageWidget();//Center(child: Text(state.message,style: AppTextStyles.getErrorStyle(),),);
     }
     else if(state is LoadedBroadcastLivesState){
-      setState(() {});
+      // setState(() {});
       return _buildBodyWidget(context);
     }
     return _buildBodyWidget(context);

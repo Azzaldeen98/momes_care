@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moms_care/core/utils/draw/triangle_clipper.dart';
-import '../../../../config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
 import '../../../utils/function/choose_name_langauge.dart';
 import '../../../utils/theme/color_app.dart';

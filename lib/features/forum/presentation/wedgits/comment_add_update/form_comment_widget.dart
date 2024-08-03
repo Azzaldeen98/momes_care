@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:moms_care/features/forum/presentation/bloc/add_delete_update_comment/add_delete_update_comment_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
 
-import '../../../../../config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/core/widget/button/custom_button.dart';
 import 'package:moms_care/core/widget/text_field/text_field_widget.dart';
 import '../../../domain/entities/Comment.dart';

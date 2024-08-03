@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 
 import 'package:moms_care/core/helpers/cache_helper.dart';
-import '../../../config/theme/font_manager.dart';
+import 'package:moms_care/core/utils/theme/font_manager.dart';
 
 
 class TextEntryField extends StatefulWidget {

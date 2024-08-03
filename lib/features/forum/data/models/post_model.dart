@@ -1,16 +1,16 @@
 
 
 
-import 'package:json_annotation/json_annotation.dart';
+
 import 'package:moms_care/core/data/models/author_model.dart';
 import '../../domain/entities/Post.dart';
 import 'comment_model.dart';
 
-@JsonSerializable()
 
 
 
-@JsonSerializable()
+
+
 class PostModel extends Post{
 
   // final AuthorModel? author;

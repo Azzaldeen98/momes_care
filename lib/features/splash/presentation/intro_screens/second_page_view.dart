@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/font_manager.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/font_manager.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 
-import '../../../../config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
 
 class SecondPageView extends StatelessWidget {

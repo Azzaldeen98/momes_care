@@ -9,8 +9,8 @@ import 'package:moms_care/features/auth/persention/widget/password_filde_widget.
 import 'package:moms_care/features/profile/persention/bloc/profile_bloc.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_event.dart';
 
-import '../../../../config/theme/app_color.dart';
-import '../../../../config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
 import 'package:moms_care/core/widget/button/custom_button.dart';

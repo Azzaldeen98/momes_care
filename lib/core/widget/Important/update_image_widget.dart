@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import '../../../core/utils/theme/color_app.dart';
-import '../../../core/utils/theme/images.dart';
-import '../../../core/utils/theme/text_style.dart';
-import '../../../core/widget/image/image_widget.dart';
+import '../../utils/theme/color_app.dart';
+import 'package:moms_care/core/utils/theme/images.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
+import 'package:moms_care/core/widget/image/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';

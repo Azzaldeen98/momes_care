@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
-import 'package:image_cropper/image_cropper.dart';
+// import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:moms_care/core/view/display_image_view.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_bloc.dart';
@@ -14,11 +14,11 @@ import 'package:moms_care/features/profile/persention/bloc/profile_event.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_state.dart';
 import 'package:moms_care/features/profile/persention/pages/profile_page.dart';
 import 'package:moms_care/features/profile/persention/widget/choose_type_image_button_widget.dart';
-import '../../../../../core/utils/style/border_radius.dart';
-import '../../../../../core/utils/theme/color_app.dart';
-import '../../../../../core/utils/theme/images.dart';
-import '../../../../../core/widget/button_sheet/line_button_sheet_widget.dart';
-import '../../../../../core/widget/image/image_widget.dart';
+import 'package:moms_care/core/utils/style/border_radius.dart';
+import 'package:moms_care/core/utils/theme/color_app.dart';
+import 'package:moms_care/core/utils/theme/images.dart';
+import 'package:moms_care/core/widget/button_sheet/line_button_sheet_widget.dart';
+import 'package:moms_care/core/widget/image/image_widget.dart';
 
 // ignore: must_be_immutable
 class ImageProfileWidget extends StatelessWidget {
@@ -179,21 +179,21 @@ class ImageProfileWidget extends StatelessWidget {
     }
   }
 
-  Future<File?> cropImage({required File imageFile}) async {
-    CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: imageFile.path,
-      // aspectRatio: [CropAspectRatio()],
-      uiSettings: [
-        AndroidUiSettings(
-            toolbarTitle: 'AppName'.tr,
-            toolbarColor: AppColors.mainOneColor,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.square,
-            lockAspectRatio: false),
-        IOSUiSettings(title: 'AppName'.tr),
-      ],
-    );
-    if (croppedFile == null) return null;
-    return File(croppedFile.path);
-  }
+  // Future<File?> cropImage({required File imageFile}) async {
+  //   CroppedFile? croppedFile = await ImageCropper().cropImage(
+  //     sourcePath: imageFile.path,
+  //     // aspectRatio: [CropAspectRatio()],
+  //     uiSettings: [
+  //       AndroidUiSettings(
+  //           toolbarTitle: 'AppName'.tr,
+  //           toolbarColor: AppColors.mainOneColor,
+  //           toolbarWidgetColor: Colors.white,
+  //           initAspectRatio: CropAspectRatioPreset.square,
+  //           lockAspectRatio: false),
+  //       IOSUiSettings(title: 'AppName'.tr),
+  //     ],
+  //   );
+  //   if (croppedFile == null) return null;
+  //   return File(croppedFile.path);
+  // }
 }

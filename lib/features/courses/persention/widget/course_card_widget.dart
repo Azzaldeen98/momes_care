@@ -1,8 +1,8 @@
   import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/helpers/helpers.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
@@ -14,11 +14,13 @@ import 'package:moms_care/features/courses/domain/entities/Course.dart';
 
 class CourseCardWidget extends StatelessWidget {
   final Course ? course;
+  final double? textPositionTop;
   final void Function(Course course) ? onCoursePressed;
   final  Function(Course course)? onEdit;
   const CourseCardWidget({
     Key ? key,
     this.course,
+    this.textPositionTop=70,
     this.onCoursePressed,
     this.onEdit
   }): super(key: key);
@@ -54,17 +56,18 @@ class CourseCardWidget extends StatelessWidget {
                   radius: 20,
                   urlImage: course!.urlImage!,
                   width: widthCard,
-                  fit: BoxFit.contain,),
+                  fit: BoxFit.cover,),
               ),
               Container(
                  width: widthCard,
+                // height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                     borderRadius: raduis,
-                    color: Color.fromRGBO(0, 0, 0, 0.3)
+                    color: const Color.fromRGBO(0, 0, 0, 0.3)
                 ),
               ),
               Positioned(
-                top: Helpers.getPercentValue(heightCard,70),
+                top: Helpers.getPercentValue(heightCard,textPositionTop!),
                 child: Column(
                   children: [
                     Container(
@@ -72,7 +75,7 @@ class CourseCardWidget extends StatelessWidget {
                       width:  MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           borderRadius: raduis,
-                          color: Color.fromRGBO(0, 0, 0, 0.5)
+                          color: const Color.fromRGBO(0, 0, 0, 0.5)
                       ),
                       child: Center(
                         child: Text(

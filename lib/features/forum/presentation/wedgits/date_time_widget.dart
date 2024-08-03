@@ -5,9 +5,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:moms_care/config/theme/font_manager.dart';
-import 'package:moms_care/config/theme/color_app.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/font_manager.dart';
+import 'package:moms_care/core/utils/theme/color_app.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/data/view_models/date_time_view_model.dart';
 
 

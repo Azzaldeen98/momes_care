@@ -7,22 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:moms_care/core/error/message_failure_message.dart';
-import 'package:moms_care/features/forum/domain/usecases/post/add_post_use_case.dart';
-import 'package:moms_care/features/forum/domain/usecases/post/delete_post_use_case.dart';
 import 'package:moms_care/features/forum/domain/usecases/post/like_unlike_post_use_case.dart';
-import 'package:moms_care/features/forum/domain/usecases/post/update_post_use_case.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_state.dart';
 import 'package:moms_care/features/forum/presentation/pages/comment/comments_page.dart';
-import 'package:moms_care/features/home/persention/pages/moms_care_view.dart';
-// import 'package:nb_utils/nb_utils.dart';
-
-import 'package:moms_care/core/utils/dailog/message/message_box.dart';
-import '../../../domain/entities/Post.dart';
 import '../../../domain/usecases/Comment/like_unlike_Comment_use_case.dart';
 import '../../../domain/usecases/post/get_all_posts_use_case.dart';
 import '../../../domain/usecases/post/get_post_use_case.dart';
-import '../../pages/post/post_details.dart';
 
 class PostBloc extends Bloc<PostEvent,PostState>{
 

@@ -21,7 +21,7 @@ import 'package:moms_care/features/profile/persention/pages/profile_page.dart';
 import 'package:moms_care/features/profile/persention/widget/baby/form_add_update_baby_widget.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
 
-import '../../../../../config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import '../../../domain/entities/baby_entity.dart';
 import '../../widget/back_button_widget.dart';
 import 'package:moms_care/injection_container.dart' as di;

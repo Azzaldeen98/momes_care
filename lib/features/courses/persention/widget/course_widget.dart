@@ -1,8 +1,8 @@
   import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/data/view_models/date_time_view_model.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
 import 'package:moms_care/core/widget/image/image_widget.dart';

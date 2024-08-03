@@ -1,12 +1,12 @@
 
-import 'package:json_annotation/json_annotation.dart';
+
 import 'package:moms_care/core/constants/enam/user_roles.dart';
 import 'package:moms_care/features/auth/domain/entities/signup_entity.dart';
 
 
 // part 'signup_model.g.dart';
 
-@JsonSerializable()
+
 class SignUpModel extends SignUpEntity{
 
   late String?  fullName;

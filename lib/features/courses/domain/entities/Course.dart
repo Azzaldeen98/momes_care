@@ -2,7 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:moms_care/core/constants/enam/course_types.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 
 
 class Course extends Equatable{
@@ -12,7 +12,7 @@ class Course extends Equatable{
   final CourseType? type;
   final String? urlImage;
   final DateTime? createdAt;
-  final List<CourseMedia>? courseMedias;
+  final List<CourseItem>? CourseItems;
 
  const Course({
     this.id,
@@ -20,7 +20,7 @@ class Course extends Equatable{
     this.descript,
     this.type,
     this.urlImage,
-    this.courseMedias,
+    this.CourseItems,
     this.createdAt});
 
    Course copyWith({int? id,
@@ -29,14 +29,14 @@ class Course extends Equatable{
                      CourseType? type,
                      String? urlImage,
                      DateTime? createdAt,
-   List<CourseMedia>? courseMedias})=>Course(
+   List<CourseItem>? CourseItems})=>Course(
     id: id ?? this.id ?? null,
     title: title  ?? this.title ??"",
     descript: descript ?? this.descript ??"",
     urlImage: urlImage ?? this.urlImage ??"",
     type: type ?? this.type ?? null,
     createdAt: createdAt ?? this.createdAt ?? null,
-    courseMedias:  courseMedias ?? this.courseMedias ?? [],
+    CourseItems:  CourseItems ?? this.CourseItems ?? [],
   );
 
 
@@ -48,7 +48,7 @@ class Course extends Equatable{
     descript,
      type,
     urlImage,
-    courseMedias,
+    CourseItems,
     createdAt
   ];
 

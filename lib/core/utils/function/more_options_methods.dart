@@ -17,15 +17,14 @@ void onClickMoreOptions(BuildContext context) async{
 
 Future<void> onLogOut() async{
       try {
-        if (FirebaseAuth.instance != null && FirebaseAuth.instance.currentUser != null)
+        if (FirebaseAuth.instance != null && FirebaseAuth.instance.currentUser != null) {
           await FirebaseAuth.instance.signOut();
-      }
-      finally{
-
+        }
+      } finally{
         if(Helper.isAuth) {
           await removeAuth();
         }
-        Get.offAll(AuthView());
+        Get.offAll(const AuthView());
       }
     }
 

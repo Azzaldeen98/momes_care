@@ -4,6 +4,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:moms_care/core/constants/enam/profile_pages.dart';
+import 'package:moms_care/features/dashboard/domain/entities/daily_care_times.dart';
 import 'package:moms_care/features/profile/domain/entities/baby_entity.dart';
 
 
@@ -22,6 +23,12 @@ class UpdateBabyEvent extends BabyEvent{
   final Baby  baby;
   const UpdateBabyEvent({required this.baby});
 }
+
+class GetBabyDailyCareTimesEvent extends BabyEvent{
+  final int babyId;
+  const GetBabyDailyCareTimesEvent({required this.babyId});
+}
+
 
 class DeleteBabyEvent extends BabyEvent{
   final int id;

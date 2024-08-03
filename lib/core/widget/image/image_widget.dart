@@ -34,39 +34,10 @@ class ImageWidget extends StatefulWidget {
 
 }
 class _ImageWidgetState extends State<ImageWidget> {
-  // const _ImageWidgetState(
-  //     {super.key,
-  //     required this.widget.urlImage,
-  //     this.widget.height,
-  //     this.widget.width,
-  //     this.errorWiget,
-  //     this.scaleX = false,
-  //     this.fit = BoxFit.cover});
-  //  String urlImage="";
-  //  double? height=0;
-  //   double? width=0;
-  //   bool scaleX=false;
-  //   Widget errorWiget=const SizedBox();
-  //   BoxFit fit=BoxFit.cover;
+
 
    @override
   void initState() {
-
-
-     // if(widget.urlImage!=null) {
-     //   urlImage=widget.urlImage;
-     // }
-     // height=widget.height??0;
-     // width=widget.width??0;
-     // scaleX=widget.scaleX??false;
-     //
-     // if(widget.errorWiget!=null) {
-     //   errorWiget=widget.errorWiget!;
-     // }
-     // if(widget.fit!=null) {
-     //   fit=widget.fit;
-     // }
-
     super.initState();
   }
   @override

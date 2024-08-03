@@ -17,10 +17,6 @@ import 'package:moms_care/features/courses/domain/usecases/get_all_courses_useca
 import 'package:moms_care/features/courses/domain/usecases/update_course_item_usecase.dart';
 import 'package:moms_care/features/courses/domain/usecases/upload_file_course_usecase.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_bloc.dart';
-import 'package:moms_care/features/daily_news/data/repository/article_repository_impl.dart';
-import 'package:moms_care/features/daily_news/domain/repository/article_repository.dart';
-import 'package:moms_care/features/daily_news/domain/usecases/get_article.dart';
-import 'package:moms_care/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:moms_care/features/broadcast_live/data/data_sourse/remote/broadcast_live_datasourse.dart';
 import 'package:moms_care/features/broadcast_live/data/repositories/broadcast_live_repository_imp.dart';
 import 'package:moms_care/features/broadcast_live/domain/UseCases/get_my_broadcast_live_UseCase.dart';
@@ -30,6 +26,37 @@ import 'package:moms_care/features/broadcast_live/domain/usecases/add_broadcast_
 import 'package:moms_care/features/broadcast_live/domain/usecases/delete_broadcast_live_use_case.dart';
 import 'package:moms_care/features/broadcast_live/domain/usecases/update_broadcast_live_usecase.dart';
 import 'package:moms_care/features/broadcast_live/persention/bloc/broadcast_live_bloc.dart';
+import 'package:moms_care/features/dashboard/data/dataSourse/remote/age_group_remote_datasourse.dart';
+import 'package:moms_care/features/dashboard/data/dataSourse/remote/care_type_remote_datasourse.dart';
+import 'package:moms_care/features/dashboard/data/dataSourse/remote/daily_care_times_remote_datasourse.dart';
+import 'package:moms_care/features/dashboard/data/repositories/age_group_repostitorese_imp.dart';
+import 'package:moms_care/features/dashboard/data/repositories/care_schedules_repository_impl.dart';
+import 'package:moms_care/features/dashboard/data/repositories/care_type_repostitorese_imp.dart';
+import 'package:moms_care/features/dashboard/data/repositories/daily_care_items_repostitorese_imp.dart';
+import 'package:moms_care/features/dashboard/domain/repositories/age_group_repozitorese.dart';
+import 'package:moms_care/features/dashboard/domain/repositories/care_schedules_repository.dart';
+import 'package:moms_care/features/dashboard/domain/repositories/care_type_repozitorese.dart';
+import 'package:moms_care/features/dashboard/domain/repositories/daily_care_times_repozitorese.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/age_group/create_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/age_group/delete_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/age_group/get_all_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/age_group/get_all_with_items_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/age_group/update_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/care_type/create_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/care_type/delete_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/care_type/get_all_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/care_type/get_all_with_items_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/care_type/update_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/daily_care_items/create_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/daily_care_items/delete_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/daily_care_items/get_all_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/daily_care_items/update_use_case.dart';
+import 'package:moms_care/features/dashboard/domain/usecases/get_all_ageGroups_careTypes_use_case.dart';
+import 'package:moms_care/features/dashboard/persention/bloc/dashboard/dashboard_bloc.dart';
+import 'package:moms_care/features/dashboard/persention/bloc/care_schedules/add_update_delete_care_schedules/add_update_delete_care_schedules_bloc.dart';
+import 'package:moms_care/features/dashboard/persention/bloc/care_schedules/care_schedules_bloc.dart';
+
+import 'package:moms_care/features/dashboard/persention/bloc/statistics/statistics_bloc.dart';
 import 'package:moms_care/features/forum/data/dataSource/remote/post/posts_remote_data_source.dart';
 import 'package:moms_care/features/forum/domain/repository/post_repository.dart';
 import 'package:moms_care/features/forum/domain/usecases/Comment/like_unlike_Comment_use_case.dart';
@@ -50,6 +77,7 @@ import 'package:moms_care/features/profile/domain/repository/profile_babies_repo
 import 'package:moms_care/features/profile/domain/repository/profile_repository.dart';
 import 'package:moms_care/features/profile/domain/usecases/baby/add_baby_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/baby/delete_baby_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/baby/get_baby_daily_care_times_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/baby/update_baby_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/get_my_posts_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/get_profile_info_use_case.dart';
@@ -82,12 +110,6 @@ import 'features/auth/domain/usecases/sigin_usescases.dart';
 import 'features/auth/persention/bloc/auth_bloc/auth_bloc.dart';
 import 'features/courses/domain/usecases/delete_course_usecase.dart';
 import 'features/courses/domain/usecases/update_course_usecase.dart';
-import 'features/daily_news/data/data_sources/local/app_database.dart';
-import 'features/daily_news/data/data_sources/remote/news_api_service.dart';
-import 'features/daily_news/domain/usecases/get_saved_article.dart';
-import 'features/daily_news/domain/usecases/remove_article.dart';
-import 'features/daily_news/domain/usecases/save_article.dart';
-import 'features/daily_news/presentation/bloc/article/local/local_article_bloc.dart';
 import 'features/broadcast_live/domain/usecases/get_active_broadcast_live_usecase.dart';
 import 'features/forum/data/dataSource/remote/comment/comments_remote_data_source.dart';
 import 'features/forum/data/repository/comment_repository_impl.dart';
@@ -133,9 +155,9 @@ Future<void> init() async {
   sl.registerSingleton<Dio>(Dio());
   //?ApiService
   sl.registerSingleton<RemoteDioService>(RemoteDioService(sl()));
-  //?  Database
-  final database = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
-  sl.registerSingleton<AppDatabase>(database);
+  // //?  Database
+  // final database = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+  // sl.registerSingleton<AppDatabase>(database);
 
 //? *********************************
 //!  --------- Core  ------------------
@@ -168,6 +190,15 @@ Future<void> init() async {
   sl.registerLazySingleton<CoursesRepository>(() => CoursesRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   //? BroadcastLiveRepository
   sl.registerLazySingleton<BroadcastLivesRepository>(() => BroadcastLivesRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+  //? AgeGroupRepository
+  sl.registerLazySingleton<AgeGroupRepository>(() => AgeGroupRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+//? CareTypeRepository
+  sl.registerLazySingleton<CareTypeRepository>(() => CareTypeRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+//? DailyCareTimesRepository
+  sl.registerLazySingleton<DailyCareTimesRepository>(() => DailyCareTimesRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
+//? CareSchedulesRepository
+  sl.registerLazySingleton<CareSchedulesRepository>(() => CareSchedulesRepositoryImpl(dailyCareTimesRemoteDataSource: sl(),
+      ageGroupRemoteDataSource: sl(), careTypeRemoteDataSource: sl(), networkInfo: sl()));
 
 
 
@@ -184,6 +215,32 @@ Future<void> init() async {
     firebaseSignUpUseCases: sl(),
     refreshFcmTokenUseCase: sl()
   ));
+  //Admin
+  sl.registerFactory(() => DashboardBloc(
+    getAllCoursesUseCase: sl(),
+  ));
+  sl.registerFactory(() => StatisticsBloc());
+
+  sl.registerFactory(() => CareSchedulesBloc(
+    getAllAgeGroupsUseCase: sl(),
+    getAllCareTypesUseCase: sl(),
+    getAllDailyCareTimesUseCase: sl(),
+  ));
+
+  sl.registerFactory(() => AddUpdateDeleteCareScheduleBloc(
+    getAllAgeGroupsAndCareTypesUseCase: sl(),
+    deleteDailyCareTimesUseCase: sl(),
+    deleteCareTypeUseCase: sl(),
+    deleteAgeGroupUseCase: sl(),
+    createAgeGroupUseCase: sl(),
+    createCareTypeUseCase: sl(),
+    createDailyCareTimesUseCase: sl(),
+    updateAgeGroupUseCase: sl(),
+    updateCareTypeUseCase: sl(),
+    updateDailyCareTimesUseCase: sl(),
+  ));
+
+
   //Profile
   sl.registerFactory(() => ProfileBloc(
     getProfileInfoUseCase: sl(),
@@ -200,6 +257,7 @@ Future<void> init() async {
     addBabyUseCase: sl(),
     updateBabyUseCase: sl(),
     deleteBabyUseCase: sl(),
+    getBabyDailyCareTimesUseCase: sl(),
   ));
   //ProfilePostBloc
   sl.registerFactory(() => ProfilePostBloc(
@@ -290,6 +348,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AddBabyUseCase(sl()));
   sl.registerLazySingleton(() => UpdateBabyUseCase(sl()));
   sl.registerLazySingleton(() => DeleteBabyUseCase(sl()));
+  sl.registerLazySingleton(() => GetBabyDailyCareTimesUseCase(sl()));
 
   //-----------------
   // Post
@@ -340,6 +399,33 @@ Future<void> init() async {
   sl.registerLazySingleton(() => UpdateBroadcastLiveUseCase(sl()));
   sl.registerLazySingleton(() => DeleteBroadcastLiveUseCase(sl()));
   sl.registerLazySingleton(() => StopBroadcastLiveUseCase(sl()));
+  //-----------------
+  // AgeGroup
+  //-----------------
+  sl.registerLazySingleton(() => UpdateAgeGroupUseCase(sl()));
+  sl.registerLazySingleton(() => CreateAgeGroupUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteAgeGroupUseCase(sl()));
+  sl.registerLazySingleton(() => GetAllAgeGroupsUseCase(sl()));
+  sl.registerLazySingleton(() => GetAllAgeGroupsWithItemsUseCase(sl()));
+  //-----------------
+  // CareType
+  //-----------------
+  sl.registerLazySingleton(() => UpdateCareTypeUseCase(sl()));
+  sl.registerLazySingleton(() => CreateCareTypeUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteCareTypeUseCase(sl()));
+  sl.registerLazySingleton(() => GetAllCareTypesUseCase(sl()));
+  sl.registerLazySingleton(() => GetAllCareTypesWithItemsUseCase(sl()));
+  //-----------------
+  // DailyCareTimes
+  //-----------------
+  sl.registerLazySingleton(() => UpdateDailyCareTimesUseCase(sl()));
+  sl.registerLazySingleton(() => CreateDailyCareTimesUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteDailyCareTimesUseCase(sl()));
+  sl.registerLazySingleton(() => GetAllDailyCareTimesUseCase(sl()));
+  //-----------------
+  // CareSchedules
+  //-----------------
+  sl.registerLazySingleton(() => GetAllAgeGroupsAndCareTypesUseCase(sl()));
 
 
   //? DataSources
@@ -362,43 +448,16 @@ Future<void> init() async {
   sl.registerLazySingleton<CourseRemoteDataSource>(() => CourseRemoteDataSourceImpl(remoteDioService:sl(),baseUrl:BASE_URL));
   //BroadcastLive
   sl.registerLazySingleton<BroadcastLiveRemoteDataSource>(() => BroadcastLiveRemoteDataSourceImpl(remoteDioService:sl(),baseUrl:BASE_URL));
+  //DailyCareTimes
+  sl.registerLazySingleton<DailyCareTimesRemoteDataSource>(() => DailyCareTimesRemoteDataSourceImpl(remoteDioService:sl(),baseUrl:BASE_URL));
+  //CareTypes
+  sl.registerLazySingleton<CareTypeRemoteDataSource>(() => CareTypeRemoteDataSourceImpl(remoteDioService:sl(),baseUrl:BASE_URL));
+  //AgeGroups
+  sl.registerLazySingleton<AgeGroupRemoteDataSource>(() => AgeGroupRemoteDataSourceImpl(remoteDioService:sl(),baseUrl:BASE_URL));
 
 
 
 
-  //==============================================================================================================
-  //? Dependencies
-  sl.registerSingleton<NewsApiService>(NewsApiService(sl()));
-
-  sl.registerSingleton<ArticleRepository>(
-    ArticleRepositoryImpl(sl(),sl())
-  );
-
-  //UseCases
-  sl.registerSingleton<GetArticleUseCase>(
-    GetArticleUseCase(sl())
-  );
-
-  sl.registerSingleton<GetSavedArticleUseCase>(
-    GetSavedArticleUseCase(sl())
-  );
-
-  sl.registerSingleton<SaveArticleUseCase>(
-    SaveArticleUseCase(sl())
-  );
-
-  sl.registerSingleton<RemoveArticleUseCase>(
-    RemoveArticleUseCase(sl())
-  );
-
-  //Blocs
-  sl.registerFactory<RemoteArticlesBloc>(
-    ()=> RemoteArticlesBloc(sl())
-  );
-
-  sl.registerFactory<LocalArticleBloc>(
-    ()=> LocalArticleBloc(sl(),sl(),sl())
-  );
 
 
 

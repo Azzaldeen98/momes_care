@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/enam/app_pages.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
@@ -17,7 +17,7 @@ import 'package:moms_care/core/widget/button/back_button_widget.dart';
 import 'package:moms_care/core/widget/state/error_page_widget.dart';
 import 'package:moms_care/core/widget/state/loading_widget.dart';
 import 'package:moms_care/features/courses/domain/entities/Course.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_bloc.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_event.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_state.dart';
@@ -29,7 +29,7 @@ import 'package:moms_care/injection_container.dart' as di;
 class AddUpdateBroadcastLiveJoinsPage extends StatefulWidget{
 
 const AddUpdateBroadcastLiveJoinsPage({super.key, this.courseItem,required this.course});
-final CourseMedia? courseItem;
+final CourseItem? courseItem;
 final Course course;
 
   @override
@@ -51,7 +51,7 @@ class _AddUpdateBroadcastLiveJoinsPageState extends State<AddUpdateBroadcastLive
   AppBarPageWidget _buildAppBarWidget(){
     return AppBarPageWidget(pageName: widget.courseItem!=null ? "Update Course Item".tr: "Add Course Item".tr,actions: [
       BackButtonWidget(onPressed: ()=>Get.offAll(CourseItemsPage(course: widget.course ,)))
-    // ,numberScreen:AppPages.COURSES.index,))),
+    // ,numberScreen:AppPages.HOME.index,))),
     ],);
   }
   Widget _buildBodyWidget(BuildContext contex){
@@ -83,7 +83,7 @@ class _AddUpdateBroadcastLiveJoinsPageState extends State<AddUpdateBroadcastLive
   //   else if(state is AddUpdateDeleteCourseSuccessState){
   //     Get.back();
   //     SnackBarBuilder.ShowSuccess(context: context ,message:UPLOAD_IMAGE_SUCCESS_MESSAGE);
-  //      Get.offAll(HomePage(numberScreen: AppPages.COURSES.index,));
+  //      Get.offAll(HomePage(numberScreen: AppPages.HOME.index,));
   //   }
   //
   // }
@@ -106,7 +106,7 @@ class _AddUpdateBroadcastLiveJoinsPageState extends State<AddUpdateBroadcastLive
 
 
 
-  // onSubmitAddCourse(CourseMedia? courseItem) async{
+  // onSubmitAddCourse(CourseItem? courseItem) async{
   //          Get.back();
   //       // if(courseItem!=null){
   //       //    // BlocProvider.of<CourseBloc>(context).add(AddCourseItemEvent(courseItem:courseItem ));
@@ -114,7 +114,7 @@ class _AddUpdateBroadcastLiveJoinsPageState extends State<AddUpdateBroadcastLive
   //
   // }
   //
-  // onSubmitUpdateCourse(CourseMedia? course) async{
+  // onSubmitUpdateCourse(CourseItem? course) async{
   //   Get.back();
   //   // BlocProvider.of<CourseBloc>(context).add(UpdateCourseEvent(course: course));
   // }

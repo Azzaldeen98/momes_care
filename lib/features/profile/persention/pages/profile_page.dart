@@ -6,8 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/cached/cached_name.dart';
 import 'package:moms_care/core/constants/enam/app_pages.dart';
 import 'package:moms_care/core/constants/enam/gender.dart';
@@ -35,7 +35,7 @@ import 'package:moms_care/features/profile/persention/widget/profile_tab_par.dar
 import 'package:moms_care/injection_container.dart' as di;
 import 'package:retrofit/http.dart';
 
-import '../../../../core/widget/state/loading_widget.dart';
+import 'package:moms_care/core/widget/state/loading_widget.dart';
 import '../../domain/entities/baby_entity.dart';
 import '../widget/profile_user_info_widget.dart';
 import '../widget/profile_user_statistics_widget.dart';
@@ -96,17 +96,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return _buildBodyWidget(context);
     }
     else if (state is LoadedProfileState) {
-      Get.back();
       profile=state.profile;
       return _buildBodyWidget(context);
     }else{
-      return const SizedBox();
+      return const ProfileSettingsWidget();
     }
   }
   void _listenerProfilePageBlocState(BuildContext context, ProfileState state) {
 
     if (state is LoadingProfileUpdateState) {
-      MessageBox.showProgress(context, "Wait..".tr);
+      MessageBox.showProgress(context, WAIT_MESSAGE);
     }
     if (state is ErrorProfileState) {
       Get.back();
@@ -168,10 +167,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             top: _bodyTopPosition,
             left: 0,
             right: 0,
-            duration: Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 300),
             child: AnimatedContainer(
-              // height: _bodyHeight,
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               child:   ProfileTabParWidget(profile: profile,bodyHeight: _bodyHeight,),
             ),
           ),
@@ -180,14 +178,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
   Widget _buildProfileHeader(BuildContext context){
-    return Container(
-
-      child: Column(
-        children: [
-          ProfileUserInfoWidget(profile: profile,),
-          ProfileUserStatisticsWidget(profile: profile,),
-        ],
-      ),
+    return Column(
+      children: [
+        ProfileUserInfoWidget(profile: profile,),
+        ProfileUserStatisticsWidget(profile: profile,),
+      ],
     );
   }
 
@@ -200,15 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: _buildBodyWidget(context),
     );
   }
-  // AppBar _buildAppBar(BuildContext context){
-  //   return AppBar(
-  //     backgroundColor: AppColor.primaryAppBarColor,
-  //     leading:Icon(Icons.arrow_back_ios ) ,//IconButton(onPressed: () => Get.back(), icon: const Icon(LineAwesomeIcons.angle_left_solid)),
-  //     title: Text("Profile", style: Theme.of(context).textTheme.titleLarge?.copyWith(
-  //         color:AppColor.PrimaryTextLightColor )),
-  //     actions: [IconButton(onPressed: () {isDark=!isDark;}, icon: Icon(!isDark ? Icons.sunny : Icons.shield_moon))],
-  //   );
-  // }
+
 
 }
 

@@ -2,7 +2,7 @@
 import 'package:floor/floor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:moms_care/config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 
 class BackButtonWidget extends StatelessWidget {
 

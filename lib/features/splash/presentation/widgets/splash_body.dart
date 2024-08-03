@@ -10,7 +10,7 @@ import 'package:moms_care/features/broadcast_live/persention/pages/broadcast_liv
 import 'package:moms_care/features/home/persention/pages/home_page.dart';
 import 'package:moms_care/features/profile/persention/pages/baby/baby_details.dart';
 
-import '../../../../config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/cached/cached_name.dart';
 import 'package:moms_care/core/constants/enam/user_roles.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
@@ -98,7 +98,7 @@ class SplashViewBodyState extends State<SplashViewBody>
 
       }
       else {
-        Get.offAll(() => const OnBoardingScreen());
+        Get.offAll(() => const HomePage());
       }
 
     });

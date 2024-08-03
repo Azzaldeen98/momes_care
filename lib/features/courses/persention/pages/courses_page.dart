@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:moms_care/core/constants/enam/app_pages.dart';
 import 'package:moms_care/core/constants/enam/course_types.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
@@ -9,6 +10,7 @@ import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 import 'package:moms_care/core/utils/dailog/message/message_snack_bar.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
 import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
+import 'package:moms_care/core/widget/button/button_navigation_widget.dart';
 import 'package:moms_care/core/widget/button/floating_action_button.dart';
 import 'package:moms_care/core/widget/empty_widget.dart';
 import 'package:moms_care/core/widget/state/error_page_widget.dart';
@@ -39,6 +41,7 @@ class _CoursesPageState extends State<CoursesPage>   {
 
   @override
   void initState() {
+
     super.initState();
   }
 
@@ -63,7 +66,7 @@ class _CoursesPageState extends State<CoursesPage>   {
       return const  LoadingVehicleWidget();
     }
     if(state is ErrorCourseState){
-      return const ErrorPageWidget();//Center(child: Text(state.message,style: AppTextStyles.getErrorStyle(),),);
+      return const ErrorPageWidget();
     }
     else if(state is LoadedCoursesState){
       Get.back();
@@ -88,7 +91,7 @@ class _CoursesPageState extends State<CoursesPage>   {
         courses=state.courses;
       });
       // SnackBarBuilder.ShowSuccess(context: context ,message:UPLOAD_IMAGE_SUCCESS_MESSAGE);
-      // Get.offAll(HomePage(numberScreen: AppPages.COURSES.index,));
+      // Get.offAll(HomePage(numberScreen: AppPages.HOME.index,));
     }
   }
   Widget _buildBodyWidget(BuildContext context) {
@@ -121,7 +124,7 @@ class _CoursesPageState extends State<CoursesPage>   {
       await Future.delayed(Duration(seconds: 2));
   }
   void onSelectedCourse(Course course) async{
-    Get.off(CourseDetails(course: course,));
+    Get.off(CourseDetails(course: course,enableButtonBack: true,));
     await Future.delayed(const Duration(seconds: 2));
     // MessageBox.showDialog(context, textBody: course.title!);
   }

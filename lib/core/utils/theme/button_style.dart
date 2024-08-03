@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/color_app.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/color_app.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'color_app.dart';
 import 'font_manager.dart';
 

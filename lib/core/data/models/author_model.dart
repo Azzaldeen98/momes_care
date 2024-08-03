@@ -1,11 +1,8 @@
-import 'dart:convert';
-
-import 'package:json_annotation/json_annotation.dart';
 
 import '../entities/author.dart';
 
 
-@JsonSerializable()
+
 class AuthorModel extends Author{
 
   AuthorModel({

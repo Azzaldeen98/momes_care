@@ -11,6 +11,7 @@ const String AppFirebaseStorageBaseURL='https://firebasestorage.googleapis.com/v
 //////////////////
 final List<String> Roles = ['User', 'Doctor','Admin'];
 final List<String> GenderTypes = ['Male'.tr, 'Female'.tr];
+final List<String>  CareScheduleTypes = ["Age Groups","Care Types","Daily Care Times"];
 final List<String> CourseTypes = ['Course 1'.tr,];
 final List<String> InputModelSheetTypes = ['New Post'.tr, 'Edit Post'.tr,'New Comment'.tr,'Edit Comment'.tr];
 final List<String> userRoles = ['User'.tr, 'Doctor'.tr];//,'Admin'.tr];

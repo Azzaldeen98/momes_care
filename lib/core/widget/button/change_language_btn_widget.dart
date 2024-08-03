@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 
 import 'package:moms_care/core/helpers/cache_helper.dart';
 import '../../constants/cached/cached_name.dart';

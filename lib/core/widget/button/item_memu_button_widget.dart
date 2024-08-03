@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:moms_care/config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/features/profile/data/models/profile_model.dart';
 
 import '../../utils/theme/images.dart';
@@ -13,14 +13,16 @@ class ItemMenuButtonWidget extends StatelessWidget {
   const ItemMenuButtonWidget({
     Key? key,
     required this.title,
-    required this.icon,
+     this.icon,
     required this.onPress,
     this.endIcon = true,
     this.textColor,
+    this.childWidget,
   }) : super(key: key);
 
   final String title;
-  final IconData icon;
+  final IconData? icon;
+  final Widget? childWidget;
   final VoidCallback onPress;
   final bool endIcon;
   final Color? textColor;
@@ -37,14 +39,14 @@ class ItemMenuButtonWidget extends StatelessWidget {
       padding: EdgeInsets.all(5),
       child: ListTile(
         onTap: onPress,
-        leading: Container(
+        leading: icon==null?const SizedBox() : Container(
           width: 40,
           height: 40,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
             color: iconColor.withOpacity(0.1),
           ),
-          child: Icon(icon, color: iconColor),
+          child: childWidget ?? Icon(icon, color: iconColor),
         ),
         title: Text(title, style: Theme.of(context).textTheme.bodyMedium?.apply(color: textColor)),
         trailing: endIcon? Container(

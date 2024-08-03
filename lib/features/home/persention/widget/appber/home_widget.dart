@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
 import 'package:moms_care/core/utils/draw/triangle_clipper.dart';
 import 'package:moms_care/core/utils/theme/theme_app.dart';
+import 'package:moms_care/core/widget/button/change_language_button_widget.dart';
 import 'package:moms_care/core/widget/text_field/text_field_shearsh_widget.dart';
 import '../../bloc/moms_care/moms_care_bloc.dart';
 
@@ -36,7 +37,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               padding: const EdgeInsets.only(top: 10),
               child: Column(children: [
                 TextFieldSearchWidget(
-                  lable: "Part ID".tr,
+                  lable: "ID".tr,
                   keyboardType: TextInputType.text,
                   searchController: searchController,
                   onChange: () {
@@ -55,7 +56,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                     width: double.infinity,
                     height: 5,
                     decoration:
-                        const BoxDecoration(color: Colors.white, boxShadow: [
+                      const BoxDecoration(color: Colors.white, boxShadow: [
                       BoxShadow(
                           offset: Offset(0, -1),
                           blurRadius: 1,
@@ -80,28 +81,9 @@ class _HomeWidgetState extends State<HomeWidget> {
         centerTitle: true,
         title: Image.asset(TypeImage.LOGO_COLORS, height: 36),
         leadingWidth: 65,
-        actions: [
-          InkWell(
-            onTap: () async {
-              if (localeController.languageCode == "en") {
-                Get.changeTheme(Themes.themeArabic);
-                localeController.chingeLanguage(languageCode: "ar");
-                setState(() {});
-              } else {
-                Get.changeTheme(Themes.themeEnglish);
-                localeController.chingeLanguage(languageCode: "en");
-                setState(() {});
-              }
-            },
-            child: SizedBox(
-              height: 25,
-              width: 25,
-              child: Image.asset(AppImage.LANGUAGE,
-                  color: AppColors.secondaryOneColor, height: 30),
-            ),
-          ),
-          const SizedBox(width: 15),
-          const SizedBox(width: 20),
+        actions: const [
+          LanguageButtonWidget(),
+          SizedBox(width: 35),
         ],
       ),
     );

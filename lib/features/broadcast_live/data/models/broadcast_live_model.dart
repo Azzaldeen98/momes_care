@@ -53,7 +53,7 @@ class BroadcastLiveModel extends BroadcastLive{
       link: entity.link,
       status: entity.status,
       startDateTime: entity.startDateTime,
-      createdAt: entity.createdAt,
+      createdAt: entity.createdAt ,
     );
   }
 

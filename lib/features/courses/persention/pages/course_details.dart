@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/core/constants/enam/app_pages.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
@@ -26,8 +26,12 @@ import 'package:moms_care/features/home/persention/pages/home_page.dart';
 import 'package:moms_care/injection_container.dart' as di;
 class CourseDetails extends StatelessWidget{
 
-  const CourseDetails({super.key, required this.course});
+  const CourseDetails({super.key,
+    required this.course,
+  this.enableButtonBack=false});
+
   final Course course;
+  final bool enableButtonBack;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +39,8 @@ class CourseDetails extends StatelessWidget{
     return BlocProvider(create:(context)=> di.sl<CourseBloc>(),
      child:  Scaffold(
           appBar: AppBarPageWidget(pageName: "Course Details".tr,actions: [
-            BackButtonWidget(
-                onPressed:()=> Get.offAll(HomePage(numberScreen:AppPages.COURSES.index,))),
+            if(enableButtonBack)
+                BackButtonWidget(onPressed:()=> Get.offAll(HomePage(numberScreen:AppPages.HOME.index,))),
           ],),
           body:BlocConsumer<CourseBloc,CourseState>(
           builder:_builderBodyBlocWidget,
@@ -45,6 +49,7 @@ class CourseDetails extends StatelessWidget{
     );
   }
   Widget _builderBodyBlocWidget(BuildContext context, CourseState state) {
+
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(16.0),
@@ -128,7 +133,7 @@ void _listenerBodyBlocWidget(BuildContext context, CourseState state) async{
     else if(state is AddUpdateDeleteCourseSuccessState){
       // MessageBox.showError(context, state.message);
       SnackBarBuilder.ShowSuccess(context: context ,message:state.message);
-       Get.offAll(HomePage(numberScreen: AppPages.COURSES.index,));
+       Get.offAll(HomePage(numberScreen: AppPages.HOME.index,));
       // Get.back();
        await Future.delayed(const Duration(seconds: 5));
     }

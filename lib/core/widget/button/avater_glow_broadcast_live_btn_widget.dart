@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
 import 'package:moms_care/core/widget/image/image_widget.dart';
 
@@ -41,16 +41,19 @@ class AvatarGlowBroadcastLivePageWidget extends StatelessWidget implements Prefe
             ),
              if(counts!=null && counts!>0)
                 Positioned(
-                  bottom: -5,
-                  left: 10,
-                  child: Card(
-                    shape:const CircleBorder(),
-                    color: Colors.red,
-                    child:Padding(
-                      padding:const EdgeInsets.only(top: 4.0,right: 4.0,left: 4.0),
-                      child:Text("${counts!}",style: AppTextStyles.getLabelStyle(color: Colors.white,fontSize: 16),
-                        textAlign: TextAlign.center,),
-                    ),),
+                  bottom: -6,
+                  left: 15,
+                  child: Container(
+                    // height: 20,
+                   decoration: const BoxDecoration(
+                     shape: BoxShape.circle,
+                     color:Colors.red ,
+                   ),
+                    padding:const EdgeInsets.only(top: 10.0,right: 10,left: 10,bottom: 5),
+                    child: Text("${counts!}",
+                      style: AppTextStyles.getLabelStyle(color: Colors.white,fontSize: 16),
+                      textAlign: TextAlign.center,),
+                  ),
               ),
           ],
         ),

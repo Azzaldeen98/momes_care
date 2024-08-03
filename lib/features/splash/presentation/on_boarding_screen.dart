@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/font_manager.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/font_manager.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/features/auth/persention/page/auth_view.dart';
 import 'package:moms_care/features/splash/presentation/intro_screens/first_page_view.dart';
 import 'package:moms_care/features/splash/presentation/intro_screens/second_page_view.dart';
 import 'package:moms_care/features/splash/presentation/intro_screens/third_page_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../core/utils/theme/images.dart';
+import 'package:moms_care/core/utils/theme/images.dart';
 
 
 

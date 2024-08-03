@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/constants.dart';
 import 'package:moms_care/core/constants/enam/app_pages.dart';
 import 'package:moms_care/core/constants/enam/gender.dart';
@@ -24,16 +24,17 @@ import 'package:moms_care/features/profile/persention/bloc/baby/baby_event.dart'
 import 'package:moms_care/features/profile/persention/bloc/baby/baby_state.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_bloc.dart';
 import 'package:moms_care/features/profile/persention/pages/baby/add_update_baby_page.dart';
+import 'package:moms_care/features/profile/persention/pages/baby/baby_daily_care_tims_schedule.dart';
 import 'package:moms_care/features/profile/persention/widget/baby/baby_helper_methods.dart';
 import 'package:moms_care/features/profile/persention/widget/back_button_widget.dart';
 import 'package:moms_care/injection_container.dart' as di;
-import '../../../../../core/constants/messages.dart';
-import '../../../../../core/utils/dailog/message/message_box.dart';
+import 'package:moms_care/core/constants/messages.dart';
+import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 
 
 class BabyDetailsPage extends StatelessWidget{
 
-  BabyDetailsPage({ required this.baby});
+  BabyDetailsPage({super.key,  required this.baby});
   Baby? baby;
 
   @override
@@ -60,7 +61,7 @@ class BabyDetailsPage extends StatelessWidget{
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                buildBackButtonWidget(onPressed: ()=> Get.offAll(const HomePage(numberScreen: 3,))),
+                buildBackButtonWidget(onPressed: ()=> Get.offAll( HomePage(numberScreen: AppPages.PROFILE.index,))),
                 const SizedBox(height: 40,),
                 ImageWidget(urlImage:imgUrl,width: 150,height: 150,),
                 const SizedBox(height: 30),
@@ -93,14 +94,30 @@ class BabyDetailsPage extends StatelessWidget{
     }
   }
   Widget _buildDetailsFooter(BuildContext context){
-    return     Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Column(
       children: [
-        CustomButton(widthPercent: 40,labelText: "Edit".tr,
-            icon:Icon(Icons.edit,color: AppColor.primaryIconColor), onPressed:_onEditBabyInfo),
-        CustomButton(widthPercent: 40,labelText: "Delete".tr,
-            bgColor: AppColor.errorColor,
-            icon:Icon(Icons.delete,color: AppColor.primaryIconColor,), onPressed:()=>_onDeleteBaby(context)),
+        CustomButton(widthPercent: 90,labelText: "Daily Care Times".tr,
+            textStyle: AppTextStyles.getButtonTextStyle(color: AppColor.primaryTextColor),
+            border: Border.all(),
+            icon:const Icon(Icons.table_chart,color: AppColor.primaryLightIconColor), onPressed:(){
+          if(baby!=null) {
+            Get.to(BabyDailyCareTimesSchedulePage(baby: baby!,));
+          }
+            }),
+        const SizedBox(height: 50,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            CustomButton(widthPercent: 40,labelText: "Edit".tr,
+                border: Border.all(),
+                textStyle: AppTextStyles.getButtonTextStyle(color: AppColor.primaryTextColor),
+                icon:const Icon(Icons.edit,color: AppColor.primaryLightIconColor),
+                onPressed:_onEditBabyInfo),
+            CustomButton(widthPercent: 40,labelText: "Delete".tr,
+                bgColor: AppColor.errorColor,
+                icon:const Icon(Icons.delete,color: AppColor.primaryIconColor,), onPressed:()=>_onDeleteBaby(context)),
+          ],
+        ),
       ],
     );
   }

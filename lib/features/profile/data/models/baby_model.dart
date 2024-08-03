@@ -56,6 +56,7 @@ class BabyModel extends Baby {
       'Weight': weight,
       'NumberOfResponsibleDoctor': numberOfResponsibleDoctor,
       'Gender': gender!.index,
+      'urlImage': urlImage??"",
       'BirthDay': birthDay!.toIso8601String(),// "${DateTimeViewModel(dateTime:this.birthDay!).date}"??"",
     };
   }

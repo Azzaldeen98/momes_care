@@ -3,9 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/theme/app_color.dart';
-import '../../../config/theme/color_app.dart';
-import '../../../config/theme/text_style.dart';
+import '../../utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/color_app.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import '../../utils/style/border_text_filed.dart';
 import '../label/text_widget.dart';
 
@@ -50,12 +50,13 @@ class TextFieldWidget extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         maxLines: multiLines ? 6 : 1,
-        minLines: multiLines ? 6 : 1,
+        minLines: multiLines ? 3 : 1,
         obscureText: password,
         keyboardType: textInputType,
         validator: validator,
         readOnly: readOnly,
         style: AppTextStyles.getRegularStyle(),
+
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 15, vertical: 20),

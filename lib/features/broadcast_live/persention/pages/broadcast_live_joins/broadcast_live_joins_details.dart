@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/core/constants/enam/app_pages.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
@@ -16,7 +16,7 @@ import 'package:moms_care/core/widget/button/back_button_widget.dart';
 import 'package:moms_care/core/widget/button/custom_button.dart';
 import 'package:moms_care/core/widget/button/update_delete_button_widget.dart';
 import 'package:moms_care/features/courses/domain/entities/Course.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_bloc.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_event.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_state.dart';
@@ -31,7 +31,7 @@ import 'package:moms_care/injection_container.dart' as di;
 class BroadcastLiveJoinsDetails extends StatelessWidget{
 
   const BroadcastLiveJoinsDetails({super.key, required this.courseItem, required this.course});
-  final CourseMedia courseItem;
+  final CourseItem courseItem;
   final Course course;
 
   @override

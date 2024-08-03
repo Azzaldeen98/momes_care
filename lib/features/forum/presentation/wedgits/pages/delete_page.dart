@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/widget/button/button_widget.dart';
 
-import '../../../../../config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 import 'package:moms_care/core/utils/dailog/message/message_snack_bar.dart';
@@ -79,9 +79,9 @@ final Function(BuildContext context) onDeleted;
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 50,),
+              const SizedBox(height: 50,),
             Icon(Icons.info_outline,size: 100,color: Colors.red,),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
             Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -91,7 +91,7 @@ final Function(BuildContext context) onDeleted;
                 child: Text(DELETE_CONSENT_MESSAGE,
                   style: AppTextStyles.getErrorStyle(),)
             ),
-            SizedBox(height: 50,),
+            const SizedBox(height: 50,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -99,7 +99,7 @@ final Function(BuildContext context) onDeleted;
                       widthPercent: 30,
                       raduis: 10,
                       labelText: "Delete".tr,
-                      icon: Icon(Icons.delete,color: AppColor.whiteColor,) ,
+                      icon: const Icon(Icons.delete,color: AppColor.whiteColor,) ,
                       bgColor: AppColor.errorColor,
                       onPressed:() async{
                         onAccepted(context);
@@ -109,7 +109,7 @@ final Function(BuildContext context) onDeleted;
                       raduis: 10,
                       labelText: "Cancel".tr,
                       textStyle: AppTextStyles.getBasicStyle(color: AppColor.primaryTextColor),
-                      icon: Icon(Icons.cancel_outlined,color: AppColor.primaryLightIconColor,) ,
+                      icon: const Icon(Icons.cancel_outlined,color: AppColor.primaryLightIconColor,) ,
                       bgColor: AppColor.opacitybgCololr,
                       onPressed:() async{
                       Get.back();

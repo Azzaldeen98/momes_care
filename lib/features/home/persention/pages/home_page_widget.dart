@@ -16,8 +16,8 @@ class _HomePageWidgetState extends State<HomePageWidget>   {
           reverse: true,
           child: Column(
             children: [
-              SizedBox(height: 100,),
-              Center(
+              const SizedBox(height: 100,),
+              const Center(
                 child: SizedBox(
                   width: 250,
                   child: Row(

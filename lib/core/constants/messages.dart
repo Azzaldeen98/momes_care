@@ -15,7 +15,7 @@ final String UPDATE_SUCCESS_MESSAGE = 'Modified successfully'.tr;
 
 final  String DELETE_SUCCESS_MESSAGE= 'Deleted successfully'.tr;
 // const String DELETE_SUCCESS_MESSAGE_AR = 'تم الحذف بنجاح';
-// const String DELETE_SUCCESS_MESSAGE_EN = 'Deleted successfully';
+final String NOT_ALLOW_OPENING_BROADCAST_LIVE_MESSAGE = "NOT_ALLOW_OPENING_BROADCAST_LIVE_MESSAGE".tr;
 
 
 final String WAIT_MESSAGE = "Wait..".tr;

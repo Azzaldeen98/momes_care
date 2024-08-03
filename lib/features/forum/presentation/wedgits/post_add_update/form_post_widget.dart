@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import '../../../../../config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/core/widget/button/custom_button.dart';
 import 'package:moms_care/core/widget/text_field/text_field_widget.dart';
 import '../../../domain/entities/Post.dart';

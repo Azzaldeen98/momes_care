@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:moms_care/config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/core/constants/enam/app_pages.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
@@ -16,7 +16,7 @@ import 'package:moms_care/core/widget/empty_widget.dart';
 import 'package:moms_care/core/widget/state/error_page_widget.dart';
 import 'package:moms_care/core/widget/state/loading_widget.dart';
 import 'package:moms_care/features/courses/domain/entities/Course.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_bloc.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_event.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_state.dart';
@@ -31,13 +31,13 @@ import 'package:moms_care/injection_container.dart' as di;
 
 class CourseItemsPage extends StatefulWidget {
 
-  CourseItemsPage({super.key, required this.course});
+  const CourseItemsPage({super.key, required this.course});
   final Course course;
   @override
   State<CourseItemsPage> createState() =>_CourseItemsPageState();
 }
 class _CourseItemsPageState extends State<CourseItemsPage> {
-  List<CourseMedia>? courseItems;
+  List<CourseItem>? courseItems;
   @override
   Widget build(BuildContext context) {
 
@@ -90,7 +90,7 @@ class _CourseItemsPageState extends State<CourseItemsPage> {
            padding: EdgeInsets.zero,
            child: ListView.builder(
              itemBuilder: (context,index){
-               CourseMedia item= courseItems![index];
+               CourseItem item= courseItems![index];
                return  ListTile(
                  title: CourseItemWidget(courseId:widget.course.id ,
                    courseItem: item,
@@ -116,7 +116,7 @@ class _CourseItemsPageState extends State<CourseItemsPage> {
     Get.off(AddUpdateCourseItemPage(course: widget.course!,));
     await Future.delayed(const Duration(seconds: 2));
   }
-  void onSelectedCourseItem(CourseMedia item) async{
+  void onSelectedCourseItem(CourseItem item) async{
     Get.off(CourseItemDetails(courseItem: item, course:widget.course ,));
     await Future.delayed(const Duration(seconds: 2));
   }

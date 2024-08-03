@@ -9,7 +9,7 @@ class AppImage {
   static const String TIMER2 = "assets/icons/timer2.png";
   static const String LOGO1 = "assets/icons/logo1.png";
   static const String LOGO2 = "assets/icons/logo2.png";
-  static const String SPLASH3_IMG = "assets/images/img1.png";
+  static const String SPLASH3_IMG = "assets/images/img1.jpg";
 
   static const String CALENDER_DATES = "assets/icons/calendar-dates.png";
 

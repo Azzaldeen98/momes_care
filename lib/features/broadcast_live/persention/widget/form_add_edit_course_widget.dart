@@ -18,8 +18,8 @@ import 'package:moms_care/features/broadcast_live/persention/bloc/broadcast_live
 import 'package:moms_care/features/broadcast_live/persention/bloc/broadcast_live_event.dart';
 import 'package:moms_care/features/broadcast_live/persention/bloc/broadcast_live_state.dart';
 import 'package:moms_care/features/home/persention/pages/home_page.dart';
-import '../../../../config/theme/app_color.dart';
-import '../../../../config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/widget/button/custom_button.dart';
 import 'package:moms_care/core/widget/text_field/text_field_widget.dart';

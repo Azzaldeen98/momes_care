@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/features/auth/persention/page/auth_view.dart';
 
-import '../../../../config/theme/font_manager.dart';
-import '../../../../config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/font_manager.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
 import 'package:moms_care/core/widget/button/button_gr_widget.dart';
 import 'package:moms_care/core/widget/button/custom_button.dart';

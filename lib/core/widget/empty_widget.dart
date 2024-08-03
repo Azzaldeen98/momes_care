@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../config/theme/app_color.dart';
-import '../../config/theme/text_style.dart';
+import '../utils/theme/app_color.dart';
+import '../../core/utils/theme/text_style.dart';
 
 class EmptyWidget extends StatelessWidget{
 

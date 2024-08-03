@@ -3,10 +3,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/features/profile/data/models/profile_model.dart';
 
-import '../../../../config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
 
 class ProfileUserStatisticsWidget extends StatelessWidget{

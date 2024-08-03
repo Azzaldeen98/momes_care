@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:moms_care/config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
 import 'package:moms_care/core/widget/button/custom_button.dart';
 class UpdateDeleteButtonWidget extends StatelessWidget {

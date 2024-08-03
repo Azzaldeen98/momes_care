@@ -31,8 +31,8 @@ import 'package:moms_care/features/profile/persention/bloc/profile_bloc.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_event.dart';
 import 'package:moms_care/features/profile/persention/widget/image_profile_widget.dart';
 
-import '../../../../config/theme/app_color.dart';
-import '../../../../config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
 import 'package:moms_care/core/widget/button/custom_button.dart';
@@ -106,7 +106,7 @@ class _FormAddEditCourseWidgetState  extends State<FormAddEditCourseWidget>{
     else if(state is AddUpdateDeleteCourseSuccessState){
       Get.back();
       SnackBarBuilder.ShowSuccess(context: context ,message:ADD_SUCCESS_MESSAGE);
-      Get.offAll(HomePage(numberScreen: AppPages.COURSES.index,));
+      Get.offAll(HomePage(numberScreen: AppPages.HOME.index,));
       await Future.delayed(const Duration(seconds: 5));
     }
     else if(state is UploadFileSuccessfulState){
@@ -210,6 +210,7 @@ class _FormAddEditCourseWidgetState  extends State<FormAddEditCourseWidget>{
   }
   void validateFormThenUpdateOrAddPost() async{
 
+
     if(_formKey.currentState!.validate()){
 
       var course=Course(
@@ -220,13 +221,14 @@ class _FormAddEditCourseWidgetState  extends State<FormAddEditCourseWidget>{
       );
 
       if(widget.isUpdate && widget.course!=null){
+
         course=course.copyWith(id: widget.course!.id);
+        await widget.onSubmitUpdate!(course!);
         BlocProvider.of<CourseBloc>(context).add(UpdateCourseEvent(course: course));
-          // await widget.onSubmitUpdate!(course!);
+
       }else{
-        // await widget.onSubmitAdd!(course!);
+        await widget.onSubmitAdd!(course!);
         BlocProvider.of<CourseBloc>(context).add(AddCourseEvent(course: course));
-        Get.back();
       }
 
       }

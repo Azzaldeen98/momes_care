@@ -16,14 +16,14 @@ class Helper {
   static String Auth_UId = FirebaseAuth.instance.currentUser!.uid ?? "";
   static bool notification = false;
   static ButtonNavigationWidget? buttonNavigation;
-  static BottomNavigationWidget? bottomNavigation;
+  // static BottomNavigationWidget? bottomNavigation;
   static FirebaseMessageGoogleMapImp? firebaseMessage;
   static Auth?  auth;
   static bool isAdmin =  false;
 
   static bool get IsAdmin {
     bool flag= (CacheHelper.getInt(AUTH_ROLE_CACHED)==UserRoles.ADMIN.index);
-   return flag;
+   return flag ;
   }
   static bool get IsDoctor {
     bool flag= (CacheHelper.getInt(AUTH_ROLE_CACHED)==UserRoles.DOCTOR.index);

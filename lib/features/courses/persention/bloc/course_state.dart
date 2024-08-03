@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:moms_care/features/courses/domain/entities/Course.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 
 
 
@@ -55,7 +55,7 @@ class LoadedCoursesState extends CourseState{
 }
 class LoadedCourseItemsState extends CourseState{
   const LoadedCourseItemsState({required this.courseItems});
-  final List<CourseMedia> courseItems;
+  final List<CourseItem> courseItems;
   @override
   List<Object> get props => [courseItems];
 }

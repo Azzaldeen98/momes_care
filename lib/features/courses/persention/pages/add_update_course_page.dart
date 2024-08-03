@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/enam/app_pages.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
@@ -33,7 +33,7 @@ class AddUpdateCoursePage extends StatefulWidget{
 class _AddUpdateCoursePageState extends State<AddUpdateCoursePage>{
 
   late BuildContext context;
-
+  bool _isKeyboardVisible=false;
   @override
   Widget build(BuildContext context) {
     return  BlocProvider(create:(context)=> di.sl<CourseBloc>(),
@@ -41,7 +41,7 @@ class _AddUpdateCoursePageState extends State<AddUpdateCoursePage>{
       appBar: AppBarPageWidget(pageName: "Courses".tr,actions: [
 
         BackButtonWidget(onPressed:
-          ()=>Get.offAll(HomePage(numberScreen: AppPages.COURSES.index,))),
+          ()=>Get.offAll(HomePage(numberScreen: AppPages.HOME.index,))),
       ],),
         // bottomNavigationBar: Helper.buttonNavigation,
          body:  _buildBodyWidget(context),
@@ -65,7 +65,7 @@ class _AddUpdateCoursePageState extends State<AddUpdateCoursePage>{
     else if(state is AddUpdateDeleteCourseSuccessState){
       Get.back();
       SnackBarBuilder.ShowSuccess(context: context ,message:UPLOAD_IMAGE_SUCCESS_MESSAGE);
-       Get.offAll(HomePage(numberScreen: AppPages.COURSES.index,));
+       Get.offAll(HomePage(numberScreen: AppPages.HOME.index,));
     }
 
   }
@@ -91,26 +91,31 @@ class _AddUpdateCoursePageState extends State<AddUpdateCoursePage>{
       padding: EdgeInsets.all(8.0),
       child: KeyboardVisibilityBuilder(
           builder: (context, isKeyboardVisible){
+            _isKeyboardVisible=isKeyboardVisible;
             return  SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: isKeyboardVisible ? MediaQuery.of(context).viewInsets.bottom : 0,),
+                padding: EdgeInsets.only(bottom: _isKeyboardVisible ? MediaQuery.of(context).viewInsets.bottom : 0,),
                 child: FormAddEditCourseWidget(
                   isUpdate: widget.course!=null,
                   onSubmitAdd:onSubmitAddCourse,
+                  onSubmitUpdate:onSubmitUpdateCourse,
                   course:widget.course,));
           }),
     );
   }
 
   onSubmitAddCourse(Course course) async{
+    setState(() {
+      _isKeyboardVisible=false;
+    });
           Get.back();
-        if(course!=null){
-          BlocProvider.of<CourseBloc>(context).add(AddCourseEvent(course: course));
-        }
+
 
   }
 
   onSubmitUpdateCourse(Course course) async{
-
-    BlocProvider.of<CourseBloc>(context).add(UpdateCourseEvent(course: course));
+      setState(() {
+        _isKeyboardVisible=false;
+      });
+    // BlocProvider.of<CourseBloc>(context).add(UpdateCourseEvent(course: course));
   }
 }

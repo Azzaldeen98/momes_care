@@ -10,7 +10,7 @@ import 'package:moms_care/core/utils/dailog/message/message_snack_bar.dart';
 import 'package:moms_care/core/widget/empty_widget.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
-import '../../../../../config/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';

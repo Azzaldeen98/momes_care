@@ -2,12 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/core/constants/enam/app_pages.dart';
 
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
-import 'package:moms_care/core/utils/dailog/message/message_snack_bar.dart';
 import 'package:moms_care/core/utils/theme/images.dart';
 import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
 import 'package:moms_care/core/widget/button/avater_glow_broadcast_live_btn_widget.dart';
@@ -15,7 +13,6 @@ import 'package:moms_care/core/widget/button/floating_action_button.dart';
 import 'package:moms_care/core/widget/empty_widget.dart';
 import 'package:moms_care/core/widget/state/error_page_widget.dart';
 import 'package:moms_care/core/widget/state/loading_widget.dart';
-import 'package:moms_care/core/widget/video/youtube_player_widget.dart';
 import 'package:moms_care/features/broadcast_live/domain/entities/broadcast_live.dart';
 import 'package:moms_care/features/broadcast_live/persention/bloc/broadcast_live_bloc.dart';
 import 'package:moms_care/features/broadcast_live/persention/bloc/broadcast_live_event.dart';
@@ -23,8 +20,7 @@ import 'package:moms_care/features/broadcast_live/persention/bloc/broadcast_live
 import 'package:moms_care/features/broadcast_live/persention/pages/add_update_broadcast_live_page.dart';
 import 'package:moms_care/features/broadcast_live/persention/pages/broadcast_live_details.dart';
 import 'package:moms_care/features/broadcast_live/persention/widget/broadcast_live_widget.dart';
-import 'package:moms_care/features/home/persention/pages/home_paga1.dart';
-import 'package:moms_care/features/home/persention/pages/home_page.dart';
+
 import 'package:moms_care/injection_container.dart' as di;
 
 
@@ -87,9 +83,10 @@ class _BroadcastLivePageState extends State<BroadcastLivePage>   {
     if(state is ErrorBroadcastLiveState){
       Get.back();
       MessageBox.showError(context, state.message);
-      // Get.offAll(HomePage(numberScreen:AppPages.COURSES.index));
+      // Get.offAll(HomePage(numberScreen:AppPages.HOME.index));
     }
     else if(state is AddUpdateDeleteBroadcastLiveSuccessState){
+
       MessageBox.showSuccess(context, state.message);
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _refreshIndicatorKey.currentState?.show();
@@ -116,6 +113,7 @@ class _BroadcastLivePageState extends State<BroadcastLivePage>   {
     return  RefreshIndicator(
       key: _refreshIndicatorKey,
       onRefresh:()async{
+        setState(() { countCurrentUserLives=0;});
         BlocProvider.of<BroadcastLiveBloc>(context).add(const GetActivesBroadcastLivesEvent());
       } ,
       child: Stack(
@@ -169,8 +167,12 @@ class _BroadcastLivePageState extends State<BroadcastLivePage>   {
     );
   }
   void onClickAddButton() async{
+    if(countCurrentUserLives>0){
+      MessageBox.showWarning(context, NOT_ALLOW_OPENING_BROADCAST_LIVE_MESSAGE);
+    }else {
       Get.off(AddUpdateBroadcastLivePage());
       await Future.delayed(const Duration(seconds: 2));
+    }
   }
   void onSelectedBroadcastLive(BroadcastLive broadcastLive) async{
     Get.off(BroadcastLiveDetails(broadcastLive: broadcastLive,));

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:moms_care/core/helpers/cache_helper.dart';
-import '../../../config/theme/app_color.dart';
-import '../../../config/theme/text_style.dart';
+import '../../utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 
 
 

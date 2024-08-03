@@ -4,7 +4,7 @@
 import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:moms_care/features/courses/domain/entities/Course.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 
 abstract class CourseEvent extends Equatable {
   const CourseEvent();
@@ -43,12 +43,12 @@ class AddCourseEvent extends CourseEvent{
   const AddCourseEvent({required this.course});
 }
 class AddCourseItemEvent extends CourseEvent{
-  final CourseMedia courseItem;
+  final CourseItem courseItem;
   const AddCourseItemEvent({required this.courseItem});
 }
 
 class UpdateCourseItemEvent extends CourseEvent{
-  final CourseMedia courseItem;
+  final CourseItem courseItem;
   const UpdateCourseItemEvent({required this.courseItem});
 }
 class DeleteCourseItemEvent extends CourseEvent{

@@ -3,16 +3,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:moms_care/core/constants/enam/course_types.dart';
 import 'package:moms_care/core/constants/enam/media_type.dart';
-import 'package:moms_care/features/courses/data/models/course_media_model.dart';
+import 'package:moms_care/features/courses/data/models/course_item_model.dart';
 import 'package:moms_care/features/courses/domain/entities/Course.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 
 
 
 
 class CourseModel extends Course{
 
-  final List<CourseMediaModel>? courseMedias;
+  final List<CourseItemModel>? CourseItems;
 
  const CourseModel({
    super.id,
@@ -20,7 +20,7 @@ class CourseModel extends Course{
     super.descript,
     super.type,
     super.urlImage,
-   this.courseMedias,
+   this.CourseItems,
    super.createdAt});
 
 
@@ -36,8 +36,8 @@ class CourseModel extends Course{
       CourseType.fromString(json['type']!) : CourseType.firstValue() ,
       urlImage: json['urlImage'] as String,
       createdAt: json['createdAt']!=null ? DateTime.parse(json['createdAt']):DateTime.now(),
-      courseMedias: json['courseMedias'] ==null ? []
-          :(json['courseMedias'] as List).map((mediaJson) => CourseMediaModel.fromJson(mediaJson)).toList(),
+      CourseItems: json['CourseItems'] ==null ? []
+          :(json['CourseItems'] as List).map((mediaJson) => CourseItemModel.fromJson(mediaJson)).toList(),
     );
   }
 
@@ -50,7 +50,7 @@ class CourseModel extends Course{
       'type': CourseType.isValid(type!.text) ? type!.text! : CourseType.firstValue()!.text ,
       'urlImage': urlImage,
       // 'createdAt': createdAt!.toIso8601String(),
-      // 'courseMedias': courseMedias!.map((media) => media.toJson()).toList(),
+      // 'CourseItems': CourseItems!.map((media) => media.toJson()).toList(),
     };
   }
   Map<String, dynamic> toCreateJson() {
@@ -70,8 +70,8 @@ class CourseModel extends Course{
       type: entity.type,
       urlImage: entity.urlImage,
       createdAt: entity.createdAt,
-      courseMedias:entity.courseMedias==null ? []
-          : entity.courseMedias!.map((e) => CourseMediaModel.fromEntity(e)).toList(),
+      CourseItems:entity.CourseItems==null ? []
+          : entity.CourseItems!.map((e) => CourseItemModel.fromEntity(e)).toList(),
     );
   }
 
@@ -83,7 +83,7 @@ class CourseModel extends Course{
       type: type,
       urlImage: urlImage,
       createdAt: createdAt,
-      courseMedias:(courseMedias==null)? [] : courseMedias!.map((mediaModel) => mediaModel.toEntity()).toList(),
+      CourseItems:(CourseItems==null)? [] : CourseItems!.map((mediaModel) => mediaModel.toEntity()).toList(),
     );
   }
 

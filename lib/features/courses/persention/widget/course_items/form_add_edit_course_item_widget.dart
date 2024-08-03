@@ -1,14 +1,15 @@
 
 
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/config/theme/app_color.dart';
-import 'package:moms_care/config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/app_color.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/enam/media_type.dart';
 import 'package:moms_care/core/error/extination_valid.dart';
 import 'package:moms_care/core/helpers/helpers.dart';
@@ -18,8 +19,10 @@ import 'package:moms_care/core/utils/dailog/message/message_snack_bar.dart';
 import 'package:moms_care/core/utils/validator/validator.dart';
 import 'package:moms_care/core/widget/picker/file_picker_demo.dart';
 import 'package:moms_care/core/widget/app_view_media_widget.dart';
+import 'package:moms_care/features/courses/data/models/course_item_model.dart';
+import 'package:moms_care/features/courses/data/models/course_model.dart';
 import 'package:moms_care/features/courses/domain/entities/Course.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_bloc.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_event.dart';
 import 'package:moms_care/features/courses/persention/bloc/course_state.dart';
@@ -31,10 +34,10 @@ import 'package:moms_care/features/courses/persention/pages/course_items/course_
 
 class FormAddEditCourseItemWidget extends StatefulWidget{
 
-  final CourseMedia? courseItem;
+  final CourseItem? courseItem;
   final int? courseId;
   final bool isUpdate;
-  final Function(CourseMedia?)? onSubmitAdd,onSubmitUpdate;
+  final Function(CourseItem?)? onSubmitAdd,onSubmitUpdate;
 
 
   const FormAddEditCourseItemWidget({super.key,
@@ -73,18 +76,15 @@ class _FormAddEditCourseItemWidgetState  extends State<FormAddEditCourseItemWidg
     }
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CourseBloc,CourseState>(
       builder:_builderBodyBlocWidget,
       listener:_listenerBodyBlocWidget ,);
   }
-
   Widget _builderBodyBlocWidget(BuildContext context, CourseState state) {
     return  _buildBodyPageWidget();
   }
-
   void _listenerBodyBlocWidget(BuildContext context, CourseState state) async{
     if(state is LoadingUploadFileState || state is LoadingCourseState ){
       MessageBox.showProgress(context, WAIT_MESSAGE);
@@ -110,7 +110,6 @@ class _FormAddEditCourseItemWidgetState  extends State<FormAddEditCourseItemWidg
     }
 
   }
-
   Widget _buildBodyPageWidget() {
 
       return Padding(
@@ -184,7 +183,6 @@ class _FormAddEditCourseItemWidgetState  extends State<FormAddEditCourseItemWidg
         ),
       );
   }
-
   Widget _buildUrlLinkWidget(){
     return Visibility(
       visible: !isViewUploadFile,
@@ -224,11 +222,6 @@ class _FormAddEditCourseItemWidgetState  extends State<FormAddEditCourseItemWidg
         print("isValidAllowedFile:${oldUrl} \n ${path}");
         var file=File(path!);
         BlocProvider.of<CourseBloc>(context).add(UploadCourseFileEvent(file:file,oldUrl: oldUrl));
-
-        // await  FirebaseStorageActions.uploadFileAsync(
-        //       file:File(path) ,
-        //       folder:STORAGE_COURSES_ID ,
-        //        onUploadCompleted:onUploadFileIsCompleted,);
     }
   }
   void onUploadFileIsCompleted(String downloadURL) async{
@@ -240,21 +233,21 @@ class _FormAddEditCourseItemWidgetState  extends State<FormAddEditCourseItemWidg
 
     if(_formKey.currentState!.validate()){
       _urlFile=("".validatorURL()!(urlController.text)==null)?urlController.text:_urlFile;
-      var courseMedia=CourseMedia(
+      var courseItem= CourseItem(
         title: titleController.text,
         descript: descriptController.text,
         url: _urlFile,
         mediaType: Helpers.detectFileType(_urlFile),
         course: Course(id: widget.courseId!)
       );
-
+      print("jsonEncode:${jsonEncode(CourseItemModel.fromEntity(courseItem).toCreateJson())}");
       if(widget.isUpdate && widget.courseItem!=null){
-        courseMedia=courseMedia.copyWith(id: widget.courseItem!.id);
-        BlocProvider.of<CourseBloc>(context).add(UpdateCourseItemEvent(courseItem: courseMedia));
+        courseItem=courseItem.copyWith(id: widget.courseItem!.id);
+        BlocProvider.of<CourseBloc>(context).add(UpdateCourseItemEvent(courseItem: courseItem));
           // await widget.onSubmitUpdate!(courseItem!);
       }else{
         // await widget.onSubmitAdd!(courseItem!);
-        BlocProvider.of<CourseBloc>(context).add(AddCourseItemEvent(courseItem: courseMedia));
+        BlocProvider.of<CourseBloc>(context).add(AddCourseItemEvent(courseItem: courseItem));
         Get.back();
       }
 

@@ -7,22 +7,22 @@ import 'package:moms_care/core/error/exception.dart';
 import 'package:moms_care/core/remote/api_service.dart';
 import 'package:moms_care/core/remote/firebase/firebase_storage_actions.dart';
 import 'package:moms_care/core/server/header_server.dart';
-import 'package:moms_care/features/courses/data/models/course_media_model.dart';
+import 'package:moms_care/features/courses/data/models/course_item_model.dart';
 import 'package:moms_care/features/courses/data/models/course_model.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 
-import '../../../../../core/data/models/base_response.dart';
+import 'package:moms_care/core/data/models/base_response.dart';
 
 abstract class CourseRemoteDataSource {
   Future<List<CourseModel>> getAllCourses();
-  Future<List<CourseMediaModel>> getCourseMedias(int courseId);
+  Future<List<CourseItemModel>> getCourseItems(int courseId);
   Future<String> uploadFile(File file);
   Future<Unit> addCourse(CourseModel course);
   Future<Unit>  updateCourse(CourseModel course);
   Future<Unit>  deleteCourse(int id);
 
-  Future<Unit> addCourseItem(CourseMediaModel courseMedia);
-  Future<Unit> updateCourseItem(CourseMediaModel courseMedia);
+  Future<Unit> addCourseItem(CourseItemModel CourseItem);
+  Future<Unit> updateCourseItem(CourseItemModel CourseItem);
   Future<Unit> deleteCourseItem(int id);
 
 }
@@ -90,19 +90,20 @@ class CourseRemoteDataSourceImpl extends CourseRemoteDataSource {
     // print("UpdateResponse: ${response.result}");
     if(response !=null && response.isSuccess){
       return unit;
-    } else
+    } else {
       throw ServerExecption();
+    }
   }
 
   @override
-  Future<List<CourseMediaModel>> getCourseMedias(int courseId) async{
+  Future<List<CourseItemModel>> getCourseItems(int courseId) async{
 
 
-    final json = await remoteDioService?.executeWithToken((dio) => dio.get('${baseUrl}/getCourseMedias?courseId=${courseId}'),);
+    final json = await remoteDioService?.executeWithToken((dio) => dio.get('${baseUrl}/getCourseItems?courseId=${courseId}'),);
     var response = BaseResponse.fromJson(json!);
     if(response !=null && response.isSuccess){
       print("jsonMap: ${response.result.toString()}");
-      List<CourseMediaModel> courses = (response.result as List).map((item) => CourseMediaModel.fromJson(item)).toList();
+      List<CourseItemModel> courses = (response.result as List).map((item) => CourseItemModel.fromJson(item)).toList();
       return courses;
     }
     else
@@ -110,27 +111,28 @@ class CourseRemoteDataSourceImpl extends CourseRemoteDataSource {
   }
 
   @override
-  Future<Unit> addCourseItem(CourseMediaModel courseMedia) async{
+  Future<Unit> addCourseItem(CourseItemModel courseItem) async{
 
-    print(jsonEncode(courseMedia.toCreateJson()));
+    print("addCourseItem: ${jsonEncode(courseItem.toCreateJson())}");
+
     final json = await remoteDioService?.executeWithToken((dio) =>
-        dio.post('${baseUrl}/createCourseMedia',
-            data: jsonEncode(courseMedia.toCreateJson())));
+        dio.post('${baseUrl}/createCourseItem',
+            data: jsonEncode(courseItem.toCreateJson())));
     return _getUnitResponseMessage(json);
   }
 
   @override
   Future<Unit> deleteCourseItem(int id) async{
     final json = await remoteDioService?.executeWithToken((dio) =>
-        dio.delete('${baseUrl}/deleteCourseMedia?id=${id}',));
+        dio.delete('${baseUrl}/deleteCourseItem?id=${id}',));
     return _getUnitResponseMessage(json);
   }
 
   @override
-  Future<Unit> updateCourseItem(CourseMediaModel courseMedia) async{
+  Future<Unit> updateCourseItem(CourseItemModel CourseItem) async{
     final json = await remoteDioService?.executeWithToken((dio) =>
-        dio.put('${baseUrl}/updateCourseMedia',
-            data: jsonEncode(courseMedia.toJson())));
+        dio.put('${baseUrl}/updateCourseItem',
+            data: jsonEncode(CourseItem.toJson())));
     return _getUnitResponseMessage(json);
   }
 }

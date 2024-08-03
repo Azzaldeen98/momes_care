@@ -6,7 +6,8 @@ import '../text_field/text_field_widget.dart';
 
 class DatePickerDemoWidget extends StatefulWidget {
 
-  const DatePickerDemoWidget({required this.dateControlle,this.hintText,this.name,this.initialDate});
+  const DatePickerDemoWidget({required this.dateControlle,
+    this.hintText,this.name,this.initialDate});
 
   final TextEditingController dateControlle;
   final String? hintText;
@@ -33,7 +34,7 @@ class _DatePickerDemoWidgetState extends State<DatePickerDemoWidget> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: widget.initialDate ?? DateTime.now(), // التاريخ الافتراضي
-      firstDate: DateTime(2015), // أول تاريخ يمكن اختياره
+      firstDate: DateTime(2020), // أول تاريخ يمكن اختياره
       lastDate: DateTime.now(), // آخر تاريخ يمكن اختياره
     );
     if (picked != null && picked != DateTime.now()) {
@@ -79,3 +80,5 @@ class _DatePickerDemoWidgetState extends State<DatePickerDemoWidget> {
   }
 
 }
+
+

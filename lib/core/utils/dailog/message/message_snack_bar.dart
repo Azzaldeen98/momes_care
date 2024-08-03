@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:retrofit/http.dart';
 
-import '../../../../config/theme/text_style.dart';
+import 'package:moms_care/core/utils/theme/text_style.dart';
 
 class SnackBarBuilder{
 

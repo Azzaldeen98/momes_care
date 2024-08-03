@@ -5,10 +5,10 @@ import 'package:moms_care/core/controller/work_on_servers/remote_task.dart';
 import 'package:moms_care/core/error/exception.dart';
 import 'package:moms_care/core/error/faiture.dart';
 import 'package:moms_care/core/controller/work_on_servers/network/network_info.dart';
-import 'package:moms_care/features/courses/data/models/course_media_model.dart';
+import 'package:moms_care/features/courses/data/models/course_item_model.dart';
 import 'package:moms_care/features/courses/data/models/course_model.dart';
 import 'package:moms_care/features/courses/domain/entities/Course.dart';
-import 'package:moms_care/features/courses/domain/entities/course_media.dart';
+import 'package:moms_care/features/courses/domain/entities/course_item.dart';
 import '../../domain/repositories/courses_repository.dart';
 
 import '../data_sourse/remote/courses_datasourse.dart';
@@ -59,18 +59,18 @@ class CoursesRepositoryImpl extends CoursesRepository {
   }
 
   @override
-  Future<Either<Failure, List<CourseMedia>>> getCourseMedias(int courseId) async{
-    return await safeExecuteTaskWithNetworkCheck<List<CourseMedia>>(networkInfo,() async{
-      var response= await remoteDataSource.getCourseMedias(courseId);
+  Future<Either<Failure, List<CourseItem>>> getCourseItems(int courseId) async{
+    return await safeExecuteTaskWithNetworkCheck<List<CourseItem>>(networkInfo,() async{
+      var response= await remoteDataSource.getCourseItems(courseId);
 
       return  response.map((item)=> item.toEntity()).toList();
     });
   }
 
   @override
-  Future<Either<Failure, Unit>> addCourseItem(CourseMedia courseMedia) async{
+  Future<Either<Failure, Unit>> addCourseItem(CourseItem CourseItem) async{
     return await safeExecuteTaskWithNetworkCheck<Unit>(networkInfo,() async{
-      return await remoteDataSource.addCourseItem(CourseMediaModel.fromEntity(courseMedia));
+      return await remoteDataSource.addCourseItem(CourseItemModel.fromEntity(CourseItem));
     });
   }
 
@@ -82,9 +82,9 @@ class CoursesRepositoryImpl extends CoursesRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateCourseItem(CourseMedia courseMedia) async{
+  Future<Either<Failure, Unit>> updateCourseItem(CourseItem CourseItem) async{
     return await safeExecuteTaskWithNetworkCheck<Unit>(networkInfo,() async{
-      return await remoteDataSource.updateCourseItem(CourseMediaModel.fromEntity(courseMedia));
+      return await remoteDataSource.updateCourseItem(CourseItemModel.fromEntity(CourseItem));
     });
   }
 
