@@ -1,7 +1,10 @@
 enum NotificationType
 {
-  General,
-  BroadcastLive ,
-  CareBaby ,
-  Admin
+  General("General"),
+  BroadcastLive("BroadcastLive") ,
+  CareBaby("CareBaby") ,
+  Admin("Admin");
+
+  const NotificationType(this.text);
+  final String text;
 }

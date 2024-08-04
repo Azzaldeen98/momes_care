@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:moms_care/core/helpers/helpers.dart';
 import 'package:moms_care/core/utils/theme/app_color.dart';
 import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/constants.dart';
@@ -14,6 +15,7 @@ import 'package:moms_care/core/data/view_models/date_time_view_model.dart';
 import 'package:moms_care/core/utils/dailog/message/dssd.dart';
 import 'package:moms_care/core/utils/dailog/message/message_snack_bar.dart';
 import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
+import 'package:moms_care/core/widget/button/back_button_widget.dart';
 import 'package:moms_care/core/widget/button/custom_button.dart';
 import 'package:moms_care/core/widget/image/image_widget.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/pages/delete_page.dart';
@@ -35,7 +37,7 @@ import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 class BabyDetailsPage extends StatelessWidget{
 
   BabyDetailsPage({super.key,  required this.baby});
-  Baby? baby;
+  Baby baby;
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +57,17 @@ class BabyDetailsPage extends StatelessWidget{
 
     return   Scaffold(
       // bottomNavigationBar: Helper.buttonNavigation,
-      appBar: AppBarPageWidget(pageName:"Baby details".tr,),
+      appBar: AppBarPageWidget(pageName:"Baby details".tr,actions: [
+        BackButtonWidget(
+          onPressed: ()=> Get.offAll( HomePage(numberScreen: AppPages.PROFILE.index,)),),
+
+      ],),
       body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                buildBackButtonWidget(onPressed: ()=> Get.offAll( HomePage(numberScreen: AppPages.PROFILE.index,))),
+                // buildBackButtonWidget(onPressed: ()=> Get.offAll( HomePage(numberScreen: AppPages.PROFILE.index,))),
                 const SizedBox(height: 40,),
                 ImageWidget(urlImage:imgUrl,width: 150,height: 150,),
                 const SizedBox(height: 30),
@@ -122,8 +128,9 @@ class BabyDetailsPage extends StatelessWidget{
     );
   }
   Widget _buildDetailsTable(){
+    int age= Helpers.calculateAgeInMonths(DateTime.parse(baby.birthDay!.toIso8601String()), DateTime.now());
     return Container(
-      padding: EdgeInsets.all(0.0),
+      padding: const EdgeInsets.all(0.0),
       decoration: BoxDecoration(
         border: Border.all(color: AppColor.opacitybgCololr,width: 0.6),
         borderRadius: BorderRadius.circular(15),
@@ -131,8 +138,8 @@ class BabyDetailsPage extends StatelessWidget{
       child: Table(
         children: [
           _buildTableRowItem(label:"Name".tr ,value: "${baby?.name}"),
-          _buildTableRowItem(label:"Age".tr ,value: "${baby?.age}"),
-          _buildTableRowItem(label:"Gender".tr ,value: "${GenderTypes[baby!.gender!.index]}"),
+          _buildTableRowItem(label:"Age".tr ,value: "$age ${"Months".tr}"),
+          _buildTableRowItem(label:"Gender".tr ,value: GenderTypes[baby!.gender!.index]),
           _buildTableRowItem(label:"Date of Birth".tr ,value: "${DateTimeViewModel(dateTime:baby!.birthDay!).date}"),
           _buildTableRowItem(label:"Height".tr ,value:"${baby?.height} cm"),
           _buildTableRowItem(label:"Weight".tr ,value: "${baby?.weight}  kg"),

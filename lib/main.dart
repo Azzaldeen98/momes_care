@@ -1,20 +1,12 @@
-import 'dart:convert';
 
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:moms_care/core/constants/enam/app_pages.dart';
-import 'package:moms_care/core/constants/enam/NotificationType.dart';
 import 'package:moms_care/core/firebase/firebase_notification.dart';
-import 'package:moms_care/features/auth/persention/bloc/auth_bloc/auth_bloc.dart';
 import 'package:moms_care/features/broadcast_live/persention/bloc/broadcast_live_bloc.dart';
-import 'package:moms_care/features/home/persention/pages/home_page.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_bloc.dart';
 import 'package:moms_care/features/speech/persention/bloc/gemini/gemini_bloc.dart';
 import 'package:moms_care/features/splash/presentation/splash_view.dart';
@@ -36,12 +28,13 @@ import 'package:moms_care/core/helpers/public_infromation.dart';
 void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await CacheHelper.init();
-  Helper.isAuth = CacheHelper.getString(AUTH_TOKEN_CACHED) != null;
+  Helper.isAuth =  CacheHelper.getString(AUTH_TOKEN_CACHED) != null;
   await di.init();
   Bloc.observer = MyBlocObserver();
   Helper.init();
-  await Firebase.initializeApp();
+
   await FirebaseNotifyFCM().initializeFCM();
   // FirebaseAuth.instance.setLanguageCode("en");
   runApp(const MyApp());

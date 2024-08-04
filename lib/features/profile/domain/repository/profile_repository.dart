@@ -16,6 +16,7 @@ abstract class ProfileRepository{
 
   Future<Either<Failure,Profile>> refreshProfileInfo();
   Future<Either<Failure,Profile>> getProfileInfo();
+  Future<Either<Failure,Profile>> getAuthorInfo(String userId);
   Future<Either<Failure,List<Post>>> getMyPosts();
   Future<Either<Failure,Unit>> updateName(String name);
   Future<Either<Failure,Unit>> updateEmail(String pass,String email);

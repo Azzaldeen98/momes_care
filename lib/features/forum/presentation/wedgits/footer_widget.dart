@@ -53,7 +53,7 @@ class _FooterWidgetState  extends  State<FooterWidget> {
 
 
     return  Container(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       child:Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -66,9 +66,11 @@ class _FooterWidgetState  extends  State<FooterWidget> {
             });
           }, icon: Icon( _userLiked? Icons.favorite_sharp:Icons.favorite_outline_sharp,
               color: AppColor.primaryLightIconColor),),
-          (!widget.isPost!)? SizedBox(): TextButton.icon( label:Text(widget.comments.toString()),onPressed: widget.onComments,
-            icon:   Icon(Icons.comment_sharp,color: AppColor.primaryLightIconColor,) ?? Icon(Icons.favorite_sharp),),
-          IconButton(onPressed: widget.onReply, icon:   Icon(Icons.reply)),
+          if(!widget.isPost!)
+            TextButton.icon( label:Text(widget.comments.toString()),onPressed: widget.onComments,
+              icon:   const Icon(Icons.comment_sharp,color: AppColor.primaryLightIconColor,) ?? const Icon(Icons.favorite_sharp),),
+          IconButton(onPressed: widget.onReply, icon:   const Icon(Icons.reply)),
+
         ],
       ),);
   }

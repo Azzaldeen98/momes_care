@@ -7,4 +7,5 @@ enum ProfilePage{
   EDIT_USER_EMAIL,
   EDIT_USER_PASSWORD,
   MY_POSTS,
+  PROFILE_VIEW
 }

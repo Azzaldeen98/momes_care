@@ -22,7 +22,9 @@ import 'package:moms_care/core/widget/image/image_widget.dart';
 
 // ignore: must_be_immutable
 class ImageProfileWidget extends StatelessWidget {
-  ImageProfileWidget({super.key, required this.urlImage,
+  ImageProfileWidget({super.key,
+    required this.urlImage,
+     this.isEnableControl=false,
     required this.onUploadingFile,
     this.uploadButtonIcon=AppImage.IMAGE_EDIT,
     this.imageWidth=110,
@@ -37,6 +39,7 @@ class ImageProfileWidget extends StatelessWidget {
 
     });
   final String urlImage;
+  final bool isEnableControl;
   final double imageWidth,btnWidth,containerWidth;
   final double positionBottom;
   final double imageHeight,btnHeight,containerHeight;
@@ -87,7 +90,8 @@ class ImageProfileWidget extends StatelessWidget {
           ),
         ),
         // const SizedBox(height: 135),
-        Positioned(
+        if(isEnableControl)
+            Positioned(
           bottom: positionBottom,
           child: InkWell(
             onTap: () => _showDialugeImagePaicker(context),

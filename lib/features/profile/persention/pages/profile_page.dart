@@ -1,19 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:moms_care/core/utils/theme/app_color.dart';
-import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/cached/cached_name.dart';
 import 'package:moms_care/core/constants/enam/app_pages.dart';
-import 'package:moms_care/core/constants/enam/gender.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/helpers/cache_helper.dart';
-import 'package:moms_care/core/utils/theme/images.dart';
 import 'package:moms_care/core/widget/empty_widget.dart';
 import 'package:moms_care/core/widget/state/error_page_widget.dart';
 import 'package:moms_care/features/home/persention/pages/home_page.dart';
@@ -22,8 +15,6 @@ import 'package:moms_care/features/profile/data/models/profile_model.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_bloc.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_event.dart';
 import 'package:moms_care/features/profile/persention/bloc/profile_state.dart';
-import 'package:moms_care/features/profile/persention/pages/baby/baby_details.dart';
-import 'package:moms_care/features/profile/persention/pages/pages_view/babies_widget.dart';
 import 'package:moms_care/features/profile/persention/pages/pages_view/profile_settings_widget.dart';
 
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
@@ -33,10 +24,8 @@ import 'package:moms_care/core/helpers/public_infromation.dart';
 import 'package:moms_care/features/profile/persention/widget/profile_tab_par.dart';
 
 import 'package:moms_care/injection_container.dart' as di;
-import 'package:retrofit/http.dart';
 
 import 'package:moms_care/core/widget/state/loading_widget.dart';
-import '../../domain/entities/baby_entity.dart';
 import '../widget/profile_user_info_widget.dart';
 import '../widget/profile_user_statistics_widget.dart';
 
@@ -99,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       profile=state.profile;
       return _buildBodyWidget(context);
     }else{
-      return const ProfileSettingsWidget();
+      return const SizedBox();
     }
   }
   void _listenerProfilePageBlocState(BuildContext context, ProfileState state) {
@@ -180,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildProfileHeader(BuildContext context){
     return Column(
       children: [
-        ProfileUserInfoWidget(profile: profile,),
+        ProfileUserInfoWidget(profile: profile,isEnableControl: true,),
         ProfileUserStatisticsWidget(profile: profile,),
       ],
     );

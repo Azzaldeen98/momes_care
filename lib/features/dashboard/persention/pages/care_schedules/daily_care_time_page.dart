@@ -118,7 +118,7 @@ class _DailyCareTimePageState extends State<DailyCareTimePage> {
                 } ,
                 icon:Icons.add ,
                 bottom:10 ,
-                left: 10,),
+                right: 10,),
               
                 ],
               ),

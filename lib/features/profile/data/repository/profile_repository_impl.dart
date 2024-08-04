@@ -49,6 +49,13 @@ class ProfileRepositoryImpl  implements   ProfileRepository{
   }
 
   @override
+  Future<Either<Failure, Profile>> getAuthorInfo(String userId) async{
+    return await safeExecuteTaskWithNetworkCheck<Profile>(networkInfo,() async{
+      return  await  remoteDataSource.getAuthorInfo(userId);
+    });
+
+  }
+  @override
   Future<Either<Failure, Profile>> getProfileInfo() async{
     return await safeExecuteTaskWithNetworkCheck<Profile>(networkInfo,() async{
       try {
@@ -100,17 +107,6 @@ class ProfileRepositoryImpl  implements   ProfileRepository{
             throw AuthenticationException();
       }
 
-
-      // var user = FirebaseAuth.instance.currentUser;
-      // if(user!=null){
-      //
-      //   removeAuth();
-      //   Get.offAll(const AuthView());
-      //   exit(1);
-      // }
-      //
-      // await user?.updateEmail(email);
-
     } on FirebaseException catch (e){
       throw FirebaseException(plugin: e.plugin);
     } on ServerException catch(e){
@@ -161,6 +157,8 @@ class ProfileRepositoryImpl  implements   ProfileRepository{
       return "";
     });
   }
+
+
 
 
 

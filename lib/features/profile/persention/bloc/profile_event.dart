@@ -16,6 +16,11 @@ abstract class ProfileEvent extends Equatable {
 class GetProfileInfoEvent extends ProfileEvent{
    const GetProfileInfoEvent();
  }
+class GetAuthorInfoEvent extends ProfileEvent{
+  const GetAuthorInfoEvent({required this.userId});
+  final String userId;
+}
+
  class RefreshProfileInfoEvent extends ProfileEvent{
    const RefreshProfileInfoEvent();
  }

@@ -14,12 +14,10 @@ abstract class SpeechRemoteDataSource {
 class SpeechRemoteDataSourceImpl extends SpeechRemoteDataSource {
 
   SpeechRemoteDataSourceImpl({required this.geminiApiClient});
-
   final GeminiApiClient? geminiApiClient ;
 
   @override
   Future<String> askAi(String text) async{
-    print(text);
     return await geminiApiClient!.generateText(text);
   }
 

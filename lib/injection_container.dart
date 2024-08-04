@@ -80,6 +80,7 @@ import 'package:moms_care/features/profile/domain/usecases/baby/delete_baby_use_
 import 'package:moms_care/features/profile/domain/usecases/baby/get_baby_daily_care_times_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/baby/update_baby_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/get_my_posts_use_case.dart';
+import 'package:moms_care/features/profile/domain/usecases/get_author_info_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/get_profile_info_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/refresh_profile_info_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/update_user_email_use_case.dart';
@@ -244,6 +245,7 @@ Future<void> init() async {
   //Profile
   sl.registerFactory(() => ProfileBloc(
     getProfileInfoUseCase: sl(),
+    getAuthorInfoUseCase: sl(),
     refreshProfileInfoUseCase: sl(),
     updateUserEmailUseCase: sl(),
     updateUserNameUseCase: sl(),
@@ -337,6 +339,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetMyPostsUseCase(sl()));
   sl.registerLazySingleton(() => RefreshProfileInfoUseCase(sl()));
   sl.registerLazySingleton(() => GetProfileInfoUseCase(sl()));
+  sl.registerLazySingleton(() => GetAuthorInfoUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserNameUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserEmailUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserPasswordUseCase(sl()));

@@ -30,15 +30,10 @@ class FirebaseAuthApiServiceImp implements FirebaseAuthApiService {
 
   final FirebaseAuth _firebaseAuth;
   FirebaseAuthApiServiceImp({FirebaseAuth? firebaseAuth}) :_firebaseAuth=firebaseAuth ?? FirebaseAuth.instance;
-
-  // @override
-  // Stream<User?> get user =>_firebaseAuth.authStateChanges().map((firebaseUser)=>firebaseUser);
-
   @override
   Future<Auth> signIn(Map<String, dynamic> model) async{
     try{
       UserCredential user_credit=await _firebaseAuth.signInWithEmailAndPassword(email: model['email'], password: model['password']);
-
       final user=Auth(userInfo:local.UserInfo(
           uId: user_credit.user?.uid,
           name: user_credit.user?.displayName,
@@ -49,11 +44,9 @@ class FirebaseAuthApiServiceImp implements FirebaseAuthApiService {
       rethrow;
     }
   }
-
   @override
   Future<Auth> signUp(Map<String, dynamic> model) async {
     try{
-
       UserCredential user_credit= await _firebaseAuth.createUserWithEmailAndPassword(
           email:model['email']! ,
           password:model['password']!);
@@ -76,58 +69,5 @@ class FirebaseAuthApiServiceImp implements FirebaseAuthApiService {
       throw CustomerExistisExecption();
     }
   }
-
-
-
-
-
-
-
 }
-// class FirebaseAuthApiService implements AuthApiService {
-//
-//   final FirebaseAuth _firebaseAuth;
-//   FirebaseAuthApiService({required FirebaseAuth? firebaseAuth}) :_firebaseAuth=firebaseAuth ?? FirebaseAuth.instance;
-//
-//   @override
-//   Stream<User?> get user =>_firebaseAuth.authStateChanges().map((firebaseUser)=>firebaseUser);
-//
-//   @override
-//   Future<HttpResponse<local.UserInfo>?> signIn(Map<String, dynamic> model) async{
-//     try{
-//       UserCredential user_credit=await _firebaseAuth.signInWithEmailAndPassword(email: model['email'], password: model['password']);
-//       final _value=local.UserInfo(
-//           uId: user_credit.user?.uid,
-//           name: user_credit.user?.displayName,
-//           email:user_credit.user?.email);
-//       final _result= Response<local.UserInfo>(data: _value,requestOptions: RequestOptions());
-//       return HttpResponse(_value,_result);
-//
-//     } on FirebaseException{
-//       rethrow;
-//     }
-//   }
-//
-//   @override
-//   Future<HttpResponse<local.UserInfo>?> signUp(SignUpModel model) async {
-//
-//     try{
-//       UserCredential user_credit= await _firebaseAuth.createUserWithEmailAndPassword(email:model.email! , password:model.password!);
-//       final _value=local.UserInfo(
-//           uId: user_credit.user?.uid,
-//           name: user_credit.user?.displayName,
-//           email:user_credit.user?.email);
-//
-//       final _result= Response<local.UserInfo>(data: _value,requestOptions: RequestOptions());
-//       return HttpResponse(_value,_result);
-//
-//     } on FirebaseException{
-//       rethrow;
-//     }
-//
-//
-//   }
-//
-//
-//
-// }
+

@@ -6,9 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:moms_care/core/remote/firebase/firebase_message_actions.dart';
 import 'package:moms_care/features/auth/persention/bloc/auth_bloc/auth_bloc.dart';
-import 'package:moms_care/features/broadcast_live/persention/pages/broadcast_live_page.dart';
+import 'package:moms_care/features/auth/persention/page/auth_view.dart';
 import 'package:moms_care/features/home/persention/pages/home_page.dart';
-import 'package:moms_care/features/profile/persention/pages/baby/baby_details.dart';
 
 import 'package:moms_care/core/utils/theme/text_style.dart';
 import 'package:moms_care/core/constants/cached/cached_name.dart';
@@ -17,13 +16,11 @@ import 'package:moms_care/core/utils/theme/images.dart';
 import 'package:moms_care/core/helpers/cache_helper.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
 import '../../../auth/domain/entities/auth.dart';
-import '../../../profile/persention/pages/profile_page.dart';
-import '../on_boarding_screen.dart';
 
 
 
 class SplashViewBody extends StatefulWidget {
-  const SplashViewBody({Key? key}) : super(key: key);
+  const SplashViewBody({super.key});
 
   @override
   SplashViewBodyState createState() => SplashViewBodyState();
@@ -98,7 +95,7 @@ class SplashViewBodyState extends State<SplashViewBody>
 
       }
       else {
-        Get.offAll(() => const HomePage());
+        Get.offAll(() => const AuthView());
       }
 
     });

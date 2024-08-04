@@ -54,7 +54,7 @@ class _CourseItemsPageState extends State<CourseItemsPage> {
   AppBarPageWidget _buildAppBarWidget(){
     return  AppBarPageWidget(pageName: "Course Items".tr,actions: [
       BackButtonWidget(
-          onPressed:()=> Get.offAll(CourseDetails(course:widget.course))),
+          onPressed:()=> Get.offAll(CourseDetails(course:widget.course,enableButtonBack:true,))),
     ],);
   }
   Widget _builderBodyBlocWidget(BuildContext context, CourseState state) {

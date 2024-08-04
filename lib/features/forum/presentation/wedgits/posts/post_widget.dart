@@ -6,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:moms_care/core/constants/cached/cached_name.dart';
 import 'package:moms_care/core/data/entities/author.dart';
+import 'package:moms_care/core/helpers/cache_helper.dart';
 import 'package:moms_care/core/utils/dailog/message/dssd.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
@@ -51,12 +53,12 @@ class PostWidget  extends StatelessWidget {
                         HeaderWidget(
                           author:post!.author!,
                             onClickMoreOptions:()=>onMoreOptions(context)),
-                        Divider(height: 20,thickness: 0.5),
+                        const Divider(height: 20,thickness: 0.5),
                         BodyWidget(title:post?.title ??"" ,content: post?.body??""),
-                        SizedBox(height: 10,),
-                        Divider(height: 10,thickness: 0.3,),
+                        const SizedBox(height: 10,),
+                        const Divider(height: 10,thickness: 0.3,),
                         DateTimeWidget(dateTime: post!.publishedAt?? DateTime.now(),),
-                        Divider(height: 10,),
+                        const Divider(height: 10,),
                         FooterWidget(
                             onLiked:()=>onPressLiked(context),
                             onComments:()=>onPressComments(context),
@@ -84,23 +86,30 @@ class PostWidget  extends StatelessWidget {
         ));
   }
   void onPressLiked(BuildContext context) async{
-    if(post!=null)
+    if(post!=null) {
+      CacheHelper.removeAt(PROFILE_INFO_CACHED);
       BlocProvider.of<PostBloc>(context).add((LikeUnLikePostEvent(postId:post!.id??0)));
+    }
   }
   void onPressComments(BuildContext context) async{
-    if(post!=null)
-       BlocProvider.of<PostBloc>(context).add(DetailsPostEvent(post: post!));
+    if(post!=null) {
+      CacheHelper.removeAt(PROFILE_INFO_CACHED);
+      BlocProvider.of<PostBloc>(context).add(DetailsPostEvent(post: post!));
+    }
   }
   void onPressReply(BuildContext context) async{}
   void onPressEdit(BuildContext context)async {
-    if(post!=null)
-        Get.to(AddUpdatePostPage(post: post ?? Post(), isUpdatePost: true,));
+    if(post!=null) {
+      Get.to(AddUpdatePostPage(post: post ?? Post(), isUpdatePost: true,));
+    }
   }
   void onPressDelete(BuildContext context) {
     ShowAwesomeDialogBox(context:context ,message: DELETE_CONSENT_MESSAGE,onAccept:() async{
       Get.back();
-      if(post!=null)
+      if(post!=null) {
+        // CacheHelper.removeAt(PROFILE_INFO_CACHED);
         BlocProvider.of<AddDeleteUpdatePostBloc>(context).add(DeletePostEvent(postId:post!.id??0));
+      }
     } );
 
   }

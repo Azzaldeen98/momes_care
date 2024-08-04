@@ -9,6 +9,7 @@ import 'package:moms_care/core/constants/enam/app_pages.dart';
 import 'package:moms_care/core/constants/enam/app_refresh_data.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/helpers/cache_helper.dart';
+import 'package:moms_care/core/helpers/helpers.dart';
 import 'package:moms_care/core/utils/dailog/message/message_box.dart';
 import 'package:moms_care/core/utils/dailog/message/message_snack_bar.dart';
 import 'package:moms_care/core/widget/app_bar/app_bar_page_view_widget.dart';
@@ -64,10 +65,11 @@ class AddUpdateBabyPage extends StatelessWidget{
         padding: EdgeInsets.only(bottom: isKeyboardVisible ? MediaQuery.of(context).viewInsets.bottom : 0,),
         child: Column(
           children: [
-            buildBackButtonWidget(onPressed: ()=> Get.offAll(HomePage(numberScreen: 3,))),
-            SizedBox(height: 40,),
+            buildBackButtonWidget(onPressed: ()=> Get.offAll(HomePage(numberScreen: AppPages.PROFILE.index,))),
+            const SizedBox(height: 40,),
             Text(title,style: AppTextStyles.getTitleStyle(),),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
+
             FormAddUpdateBabyWidget(isUpdate:isUpdate!,baby:baby),
           ],
         ));

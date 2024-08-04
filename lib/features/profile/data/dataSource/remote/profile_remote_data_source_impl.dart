@@ -34,13 +34,23 @@
 
   }
 
+   @override
+   Future<ProfileModel> getAuthorInfo(String userId) async{
+     final json = await remoteDioService?.executeWithToken((dio) => dio.get('$baseUrl/getAuthorInfo?userId=$userId'));
+     var response = BaseResponse.fromJson(json!);
+     if(response !=null && response.isSuccess){
+       return ProfileModel.fromJson(response.result) ;
+     }
+     else {
+       throw ServerExecption();
+     }
+   }
   @override
   Future<List<PostModel>> getMyPosts() async{
 
     final _json = await remoteDioService?.executeWithToken((dio) => dio.get('${baseUrl}/getMyPosts'));
     var response = BaseResponse.fromJson(_json!);
     if(response !=null && response.isSuccess){
-      print("jsonMap: ${response.result.toString()}");
       List<PostModel> posts = (response.result as List).map((item) => PostModel.fromJson(item)).toList();
       return posts;
     }
@@ -99,14 +109,6 @@
     }
 
 
-      // Reference ref;
-      // String dynamicImage = DateTime.now().toIso8601String();
-      // String userId = FirebaseAuth.instance.currentUser?.uid ?? "";// Helper.auth?.userInfo?.email ?? "";
-      // var imageName = '$ID_IMAGE_PROFILE${userId}_$dynamicImage';
-      // ref = FirebaseStorage.instance.ref("images").child(imageName);
-      // await ref.putFile(image);
-      // var urlImage = await ref.getDownloadURL();
-      // return urlImage;
   }
 
   @override
@@ -124,7 +126,6 @@
 
    Unit _getUpdateResponseMessage(dynamic json){
 
-     print("UpdateResponse: $json");
      var response = BaseResponse.fromJson(json!);
      // print("UpdateResponse: ${response.result}");
      if(response !=null && response.isSuccess){
@@ -132,5 +133,7 @@
      } else
         throw ServerExecption();
    }
+
+
 
 }

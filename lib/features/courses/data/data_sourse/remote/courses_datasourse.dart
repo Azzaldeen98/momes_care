@@ -40,7 +40,6 @@ class CourseRemoteDataSourceImpl extends CourseRemoteDataSource {
     final json = await remoteDioService?.executeWithToken((dio) => dio.get('${baseUrl}/getAll'),);
     var response = BaseResponse.fromJson(json!);
     if(response !=null && response.isSuccess){
-      print("jsonMap: ${response.result.toString()}");
       List<CourseModel> courses = (response.result as List).map((item) => CourseModel.fromJson(item)).toList();
       return courses;
     }
@@ -76,7 +75,6 @@ class CourseRemoteDataSourceImpl extends CourseRemoteDataSource {
   @override
   Future<Unit> updateCourse(CourseModel course)async{
 
-    print("updateCourse::: ${jsonEncode(course.toJson())}");
     final json = await remoteDioService?.executeWithToken((dio) =>
         dio.put('${baseUrl}/update',
         data: jsonEncode(course.toJson())));
@@ -85,7 +83,6 @@ class CourseRemoteDataSourceImpl extends CourseRemoteDataSource {
 
   Unit _getUnitResponseMessage(dynamic json){
 
-    print("UpdateResponse: $json");
     var response = BaseResponse.fromJson(json!);
     // print("UpdateResponse: ${response.result}");
     if(response !=null && response.isSuccess){
@@ -102,7 +99,6 @@ class CourseRemoteDataSourceImpl extends CourseRemoteDataSource {
     final json = await remoteDioService?.executeWithToken((dio) => dio.get('${baseUrl}/getCourseItems?courseId=${courseId}'),);
     var response = BaseResponse.fromJson(json!);
     if(response !=null && response.isSuccess){
-      print("jsonMap: ${response.result.toString()}");
       List<CourseItemModel> courses = (response.result as List).map((item) => CourseItemModel.fromJson(item)).toList();
       return courses;
     }
@@ -112,8 +108,6 @@ class CourseRemoteDataSourceImpl extends CourseRemoteDataSource {
 
   @override
   Future<Unit> addCourseItem(CourseItemModel courseItem) async{
-
-    print("addCourseItem: ${jsonEncode(courseItem.toCreateJson())}");
 
     final json = await remoteDioService?.executeWithToken((dio) =>
         dio.post('${baseUrl}/createCourseItem',

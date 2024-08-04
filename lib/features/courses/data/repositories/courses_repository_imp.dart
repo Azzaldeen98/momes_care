@@ -62,7 +62,6 @@ class CoursesRepositoryImpl extends CoursesRepository {
   Future<Either<Failure, List<CourseItem>>> getCourseItems(int courseId) async{
     return await safeExecuteTaskWithNetworkCheck<List<CourseItem>>(networkInfo,() async{
       var response= await remoteDataSource.getCourseItems(courseId);
-
       return  response.map((item)=> item.toEntity()).toList();
     });
   }

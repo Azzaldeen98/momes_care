@@ -21,19 +21,12 @@ class HeaderWidget  extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // print("authorUU: ${author!.id}");
-    // print("authorYY: ${Helper.Auth_UId}");
-    // final dateTimeVM = DateTimeViewModel(dateTime: createdAt!);
+
     return  Container(
-      // color: Colors.white,
-      // height: 60,
-      padding: EdgeInsets.all(10),
+      padding:const EdgeInsets.all(10),
       margin: const EdgeInsets.only(left: 2,right: 2, top: 5),
       decoration: BoxDecoration(
-        color:Colors.white,// CupertinoColors.opaqueSeparator,
-          // border: Border(bottom: BorderSide(
-          //     color: const Color.fromARGB(227, 225, 224, 224), width: 0.7)
-          // ),
+        color:Colors.white,
           borderRadius: BorderRadius.circular(0)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,8 +37,8 @@ class HeaderWidget  extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           (FirebaseAuth.instance!.currentUser !=null && FirebaseAuth.instance.currentUser!.uid== author!.id!)?
-              IconButton(onPressed: onClickMoreOptions, icon: Icon(Icons.more_vert_sharp))
-              :SizedBox(),
+              IconButton(onPressed: onClickMoreOptions, icon: const Icon(Icons.more_vert_sharp))
+              :const SizedBox(),
 
         ],
 

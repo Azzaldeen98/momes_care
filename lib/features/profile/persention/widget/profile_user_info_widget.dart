@@ -18,9 +18,13 @@ import '../pages/profile_view.dart';
 
 class ProfileUserInfoWidget extends StatelessWidget{
 
- const ProfileUserInfoWidget({required this.profile});
+ const ProfileUserInfoWidget({super.key,
+   required this.profile,
+   this.isEnableControl=false,
+ });
 
   final Profile profile;
+  final bool isEnableControl;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class ProfileUserInfoWidget extends StatelessWidget{
                 child: _buildUserInfoWidget(context)),
             Expanded(
               flex: 1,
-              child: ImageProfileWidget(urlImage: profile!.image ?? "",onUploadingFile: (img,urlImage) async{
+              child: ImageProfileWidget(isEnableControl: isEnableControl,urlImage: profile!.image ?? TypeImage.PROFILE,onUploadingFile: (img,urlImage) async{
                  BlocProvider.of<ProfileBloc>(context).add(UploadProfileImageEvent(image: img,oldUrl: urlImage));
               }),
             ),
@@ -52,14 +56,15 @@ class ProfileUserInfoWidget extends StatelessWidget{
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
+        if(isEnableControl)
+            Container(
           padding: EdgeInsets.zero,
-          margin: EdgeInsets.symmetric(horizontal: 20),
+          margin: const EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(border: Border.all(),borderRadius: BorderRadius.circular(12)),
           child: IconButton(
             onPressed:()=> _updateUserInfo(context),
             // label: Text("Edit".tr),
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
           ),
         ),
         Column(

@@ -30,6 +30,9 @@ abstract class ProfileRemoteDataSource{
   @GET('/getInfo')
   Future<ProfileModel> getInfo();
 
+  @GET('/getAuthorInfo')
+  Future<ProfileModel> getAuthorInfo(@Query("userId") String userId);
+
   @GET('/getMyPosts')
   Future<List<PostModel>> getMyPosts();
 

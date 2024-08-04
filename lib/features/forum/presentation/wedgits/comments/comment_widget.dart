@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:moms_care/core/constants/cached/cached_name.dart';
+import 'package:moms_care/core/helpers/cache_helper.dart';
 import 'package:moms_care/features/forum/presentation/bloc/add_delete_update_post/add_delete_update_post_bloc.dart';
 import 'package:moms_care/features/forum/presentation/bloc/posts/post_event.dart';
 import 'package:moms_care/features/forum/presentation/wedgits/body_widget.dart';
@@ -76,11 +78,11 @@ class _CommentWidgetState  extends  State<CommentWidget> {
               HeaderWidget(
                   author:comment!.author! ,
                   onClickMoreOptions:()=>onMoreOptions(context)),
-              Divider(height: 0,thickness: 0.5,),
+              const Divider(height: 0,thickness: 0.5,),
               BodyWidget(content: contant??""),
-              Divider(height: 10,thickness: 0.5,),
+              const Divider(height: 10,thickness: 0.5,),
               DateTimeWidget(dateTime: comment!.createdAt,),
-              Divider(height: 0,thickness: 0.5,),
+              const Divider(height: 0,thickness: 0.5,),
               FooterWidget(
                   onLiked:()=>onPressLike(context),
                   onComments:()=>onPressComments(context),
@@ -125,6 +127,7 @@ class _CommentWidgetState  extends  State<CommentWidget> {
      },));
   }
   void onPressLike(BuildContext context) async{
+    CacheHelper.removeAt(PROFILE_INFO_CACHED);
     BlocProvider.of<PostBloc>(context).add((LikeUnLikeCommentEvent(commentId:comment.id!)));
   }
   void onPressComments(BuildContext context){

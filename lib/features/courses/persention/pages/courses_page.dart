@@ -121,7 +121,7 @@ class _CoursesPageState extends State<CoursesPage>   {
   }
   void onClickAddButton() async{
       Get.off(AddUpdateCoursePage());
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
   }
   void onSelectedCourse(Course course) async{
     Get.off(CourseDetails(course: course,enableButtonBack: true,));
@@ -130,7 +130,7 @@ class _CoursesPageState extends State<CoursesPage>   {
   }
   void onEditCourse(Course course) async{
     Get.off(CourseDetails(course: course,));
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     // MessageBox.showDialog(context, textBody: course.title!);
   }
 

@@ -10,6 +10,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:moms_care/core/constants/api_servers.dart';
 import 'package:moms_care/core/constants/messages.dart';
 import 'package:moms_care/core/helpers/public_infromation.dart';
+import 'package:moms_care/features/profile/domain/usecases/get_author_info_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/get_profile_info_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/refresh_profile_info_use_case.dart';
 import 'package:moms_care/features/profile/domain/usecases/update_user_name_use_case.dart';
@@ -29,6 +30,7 @@ class ProfileBloc extends Bloc<ProfileEvent,ProfileState>{
 
   final UploadProfileImageUseCase uploadProfileImageUseCase;
   final GetProfileInfoUseCase getProfileInfoUseCase;
+  final GetAuthorInfoUseCase getAuthorInfoUseCase;
   final RefreshProfileInfoUseCase refreshProfileInfoUseCase;
   final UpdateUserNameUseCase updateUserNameUseCase;
   final UpdateUserEmailUseCase updateUserEmailUseCase;
@@ -37,6 +39,7 @@ class ProfileBloc extends Bloc<ProfileEvent,ProfileState>{
 
   ProfileBloc({
     required this.getProfileInfoUseCase,
+    required this.getAuthorInfoUseCase,
     required this.refreshProfileInfoUseCase,
     required this.updateUserNameUseCase,
     required this.updateUserEmailUseCase,
@@ -46,6 +49,7 @@ class ProfileBloc extends Bloc<ProfileEvent,ProfileState>{
 
     on<RefreshProfileInfoEvent>(_refreshProfileInfo);
     on<GetProfileInfoEvent>(_getProfileInfo);
+    on<GetAuthorInfoEvent>(_getAuthorInfo);
     on<UpdateUserNameEvent>(_updateUserName);
     on<UpdateUserEmailEvent>(_updateEmailName);
     on<UpdateUserPasswordEvent>(_updatePasswordName);
@@ -77,6 +81,14 @@ class ProfileBloc extends Bloc<ProfileEvent,ProfileState>{
         (info){
               emit(LoadedProfileState(profile: info));
             });
+  }
+  FutureOr<void> _getAuthorInfo(GetAuthorInfoEvent event, Emitter<ProfileState> emit) async{
+    emit(const LoadingProfileState());
+    final failureOrProfileInfo=await getAuthorInfoUseCase(event.userId);
+    failureOrProfileInfo.fold(
+            (failure)=>emit(ErrorProfileState(message: mapFailureToMessage(failure))),
+            (info)=>emit(LoadedProfileState(profile: info))
+        );
   }
   FutureOr<void> _updateUserName(UpdateUserNameEvent event, Emitter<ProfileState> emit) async {
     emit(const LoadingProfileUpdateState());
@@ -166,6 +178,8 @@ class ProfileBloc extends Bloc<ProfileEvent,ProfileState>{
     emit(LoadingProfileState());
     emit(GoToProfilePageState(page:event.page));
   }
+
+
 
 
 
